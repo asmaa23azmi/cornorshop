@@ -112,9 +112,9 @@ class _MainPageState extends State<MainPage> with NavigatorHelper{
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              if (selectedIndex == 0)
-                Image.asset('assets/images/shopLogo.png',width: 115.w,height: 27.h,),
-              SizedBox(height: 3.h,),
+              // if (selectedIndex == 0)
+              //   Image.asset('assets/images/shopLogo.png',width: 115.w,height: 27.h,),
+              //   SizedBox(height: 3.h,),
               MyTextField(controller: searchController,
               hintText: AppLocalizations.of(context)!.searchBar,
                 prefixIcon: IconButton(

@@ -53,7 +53,8 @@
        "deliveryDescription": "The application follows the policy of delivering orders to customers by contracting with local delivery companies",
        "payment": "Payment",
        "paymentDescription": "Product prices will be collected by following the payment policy on delivery to ensure trust between traders",
-       "showAll" : "Show All"
+       "showAll" : "Show All",
+       "yourFavProduct": "Your Favorite Product"
 
 
 }
