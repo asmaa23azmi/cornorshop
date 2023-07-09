@@ -1,9 +1,13 @@
 class CategoryModel{
-  late String img;
-  late String title;
+  late int categoryId;
+  late String categoryImg;
+  late String categoryTitle;
 
   CategoryModel({
-    required this.img,
-    required this.title,
+   required this.categoryId,
+    required this.categoryImg,
+    required this.categoryTitle,
   });
+
+
 }

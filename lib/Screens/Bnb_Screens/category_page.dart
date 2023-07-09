@@ -23,24 +23,28 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper{
    late AppLocalizations appLocale = AppLocalizations.of(context)!;
     List<CategoryModel> categoryItems =[
     CategoryModel(
-        img: 'clothIcon',
-        //title: AppLocalizations.of(context)!.cloth,
-       title: 'ملابس',
+      categoryId: 1,
+        categoryImg: 'clothIcon',
+      //categoryTitle: appLocale.cloth,
+       categoryTitle: 'ملابس',
     ),
     CategoryModel(
-        img: 'naturalProductIcon',
-        //title: AppLocalizations.of(context)!.naturalProduct,
-      title: 'منتجات طبيعية',
+        categoryId: 2,
+        categoryImg: 'naturalProductIcon',
+        //categoryTitle: AppLocalizations.of(context)!.naturalProduct,
+      categoryTitle: 'منتجات طبيعية',
     ),
     CategoryModel(
-        img: 'homeFoodIcon',
-       // title: AppLocalizations.of(context)!.homeFood,
-      title: 'طعام وحلويات منزلية',
+      categoryId: 3,
+        categoryImg: 'homeFoodIcon',
+       // categoryTitle: AppLocalizations.of(context)!.homeFood,
+      categoryTitle: 'طعام وحلويات منزلية',
     ),
     CategoryModel(
-        img: 'handicraftsIcon',
-       // title: AppLocalizations.of(context)!.handicrafts,
-      title: 'مشغولات يدوية',
+        categoryId: 4,
+        categoryImg: 'handicraftsIcon',
+       // categoryTitle: AppLocalizations.of(context)!.handicrafts,
+      categoryTitle: 'مشغولات يدوية',
     ),
   ];
   @override
@@ -64,6 +68,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper{
               SizedBox(height: 25.h,),
              Expanded(
                child: ListView.separated(
+                 physics: const BouncingScrollPhysics(),
                  shrinkWrap: true,
                  padding: EdgeInsetsDirectional.zero,
                  itemCount: categoryItems.length,
@@ -85,10 +90,10 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper{
                                  width: 1.w,
                                ),
                              ),
-                             child: SvgPicture.asset('assets/images/${categoryItems[index].img}.svg',fit: BoxFit.cover),
+                             child: SvgPicture.asset('assets/images/${categoryItems[index].categoryImg}.svg',fit: BoxFit.cover),
                            ),
                            SizedBox(width: 9.w,),
-                           Text(categoryItems[index].title, style:textStyle ,),
+                           Text(categoryItems[index].categoryTitle, style:textStyle ,),
                            const Spacer(//to position the widget in the end of the row
                            ),
                            Icon(Icons.arrow_back_ios_new,

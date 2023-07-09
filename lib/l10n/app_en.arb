@@ -58,7 +58,8 @@
        "cloth": "Cloth",
        "naturalProduct": "Natural Products",
        "homeFood": "Home Dining & Desserts",
-       "handicrafts": "Hand Crafts"
+       "handicrafts": "Hand Crafts",
+       "addToCart": "Add To Carts"
 
 
 }
