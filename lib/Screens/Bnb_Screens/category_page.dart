@@ -76,7 +76,8 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper{
                      return InkWell(
                        splashColor: Colors.transparent,
                        highlightColor: Colors.transparent,
-                       onTap: (){},
+                       onTap: (){
+                       },
                        child: Row(
                          children: [
                            Container(

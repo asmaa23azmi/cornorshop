@@ -7,6 +7,7 @@ class ProductModel{
   late String productCategoryType;
   late List<String> productImg;
   late String vendorName;
+
   ProductModel({
    required this.productId,
    required this.productName,

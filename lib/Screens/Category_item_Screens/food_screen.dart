@@ -54,86 +54,93 @@ class _FoodScreenState extends State<FoodScreen> {
         title: Text(AppLocalizations.of(context)!.homeFood, style: textAppBarStyle,),
       ),
       body: SafeArea(
-        child: Expanded(
-          child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsetsDirectional.zero,
-            shrinkWrap: true,
-            itemCount: 2,
-            itemBuilder: (context, index) {
-              return Container(
-                width: double.infinity,
-                // height: 90.h,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadiusDirectional.circular(4.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF000000).withOpacity(0.15),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 105.w,
-                      // height: 90.h,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(4.r),
-                          bottomStart: Radius.circular(4.r),),
-                        color: grayColor,
+        child: Padding(
+          padding:  EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: Expanded(
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsetsDirectional.zero,
+              shrinkWrap: true,
+              itemCount:  product.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: double.infinity,
+                  // height: 90.h,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadiusDirectional.circular(4.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF000000).withOpacity(0.15),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 105.w,
+                        // height: 90.h,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.only(
+                            topStart: Radius.circular(4.r),
+                            bottomStart: Radius.circular(4.r),),
+                          color: grayColor,
+                        ),
+                        child: Image.asset('assets/images/${product[index].productImg[0]}.png',
+                          fit: BoxFit.cover,),
                       ),
-                      child: Image.asset('assets/images/${product[index].productImg[0]}.png',
-                        fit: BoxFit.cover,),
-                    ),
-                    SizedBox(width: 23.w,),
-                    Padding(
-                      padding: EdgeInsetsDirectional.symmetric(vertical: 10.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(product[index].productName, style: TextStyle(
-                            fontSize: 8.sp,
-                            fontWeight: FontWeight.normal,
-                            color: darkBlue,
-                          ),),
-                          SizedBox(height: 6.h,),
-                          Row(
-                            children: [
-                              Text(product[index].vendorName, style: TextStyle(
-                                fontSize: 6.sp,
-                                fontWeight: FontWeight.normal,
-                                color: darkBlue,
-                              ),),
-                              SizedBox(width: 5.w,),
-                              Text('${product[index].productPrice}', style: TextStyle(
-                                fontSize: 8.sp,
-                                fontWeight: FontWeight.bold,
-                                color: darkBlue,
-                              ),),
-                            ],
-                          ),
-                          SizedBox(height: 14.h,),
-                          Row(
-                            children: [
-                              MyButton(text: AppLocalizations.of(context)!.addToCart,myFontSize: 6.sp,
-                                myHeight: 20.h, myWidth: 93.w, buttonColor: orangeColor, borderBouttonColor: Colors.transparent,
-                                onTap: (){},),
-                              SizedBox(width: 16.w,),
-                              InkWell(child: Icon(Icons.favorite_border_outlined, color: darkBlue, size: 11.w,),onTap: (){},),
-                            ],),
-                        ],
+                      SizedBox(width: 23.w,),
+                      Padding(
+                        padding: EdgeInsetsDirectional.symmetric(vertical: 10.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(product[index].productName, style: TextStyle(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.normal,
+                              color: darkBlue,
+                            ),),
+                            SizedBox(height: 6.h,),
+                            Row(
+                              children: [
+                                Text(product[index].vendorName, style: TextStyle(
+                                  fontSize: 6.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: darkBlue,
+                                ),),
+                                SizedBox(width: 5.w,),
+                                Text('${product[index].productPrice}', style: TextStyle(
+                                  fontSize: 8.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: darkBlue,
+                                ),),
+                              ],
+                            ),
+                            SizedBox(height: 14.h,),
+                            Row(
+                              children: [
+                                MyButton(text: AppLocalizations.of(context)!.addToCart,myFontSize: 6.sp,
+                                  myHeight: 20.h, myWidth: 93.w, buttonColor: orangeColor, borderBouttonColor: Colors.transparent,
+                                  onTap: (){},),
+                                SizedBox(width: 16.w,),
+                                InkWell(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  child: Icon(Icons.favorite_border_outlined, color: darkBlue, size: 11.w,),
+                                  onTap: (){},),
+                              ],),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => SizedBox(height: 15.h,),
-          ),),
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => SizedBox(height: 15.h,),
+            ),),
+        ),
       ),
     );
   }
