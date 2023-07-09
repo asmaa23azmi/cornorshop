@@ -7,7 +7,7 @@
      "homeBar": "Home",
      "categoryBar": "Category",
      "cartBar" : "Shopping Cart",
-     "favBar":"Favorite",
+     "favBar":"Favorites",
      "profileBar" : "profile",
      "searchBar" : "  Search for what you want ",
      "fullName" : "Full Name",
@@ -40,7 +40,7 @@
       "male": "Male",
       "female": "Female",
       "cancel": "Cancel",
-      "notification":"Notifications",
+      "notifications":"Notifications",
        "msg": "Messages",
        "appSettings": "App Settings",
        "appInfo": "Information About The App",
@@ -54,7 +54,11 @@
        "payment": "Payment",
        "paymentDescription": "Product prices will be collected by following the payment policy on delivery to ensure trust between traders",
        "showAll" : "Show All",
-       "yourFavProduct": "Your Favorite Product"
+       "yourFavProduct": "Your Favorite Product",
+       "cloth": "Cloth",
+       "naturalProduct": "Natural Products",
+       "homeFood": "Home Dining & Desserts",
+       "handicrafts": "Hand Crafts"
 
 
 }

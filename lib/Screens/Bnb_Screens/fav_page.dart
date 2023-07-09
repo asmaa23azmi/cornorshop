@@ -19,8 +19,9 @@ class _FavoritePageState extends State<FavoritePage> {
           padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w , vertical: 20.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-          Text(AppLocalizations.of(context)!.yourFavProduct, style: bnbTitlestyle,)
+            children: [
+          Text(AppLocalizations.of(context)!.yourFavProduct, style: bnbTitlestyle,),
+
       ],
     ),
         ));

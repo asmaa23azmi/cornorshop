@@ -24,7 +24,8 @@ class _MenuItemsState extends State<MenuItems> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(widget.text,
+          Text(
+            widget.text,
             style: TextStyle(
               fontSize: 14.0.sp,
               fontWeight: FontWeight.normal,

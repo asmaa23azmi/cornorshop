@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> with NavigatorHelper{
                   child: Column(
                     children: [
                       ///Notification
-                      MenuItems(text: AppLocalizations.of(context)!.notification,onTap: (){
+                      MenuItems(text: AppLocalizations.of(context)!.notifications,onTap: (){
                         jump(context, to: const NotificationScreen());
                       },),
                       SizedBox(height:10.h,),
@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage> with NavigatorHelper{
                       SizedBox(height:18.h,),
                       ///App Settings
                       MenuItems(text: AppLocalizations.of(context)!.appSettings,onTap: (){
-                        jump(context, to: AppSettingScreen());
+                        jump(context, to: const AppSettingScreen());
                       },),
                       SizedBox(height:10.h,),
                       Divider(color: grayColor, height: 0.3.h,),

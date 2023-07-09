@@ -33,7 +33,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             color: darkBlue,
             size: 24.0.h,),),
         centerTitle: true,
-        title: Text(AppLocalizations.of(context)!.notification, style: textAppBarStyle,),
+        title: Text(AppLocalizations.of(context)!.notifications, style: textAppBarStyle,),
       ),
       body: SafeArea(
         child: Padding(
@@ -44,7 +44,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 children: [
                   Icon(Icons.notifications, color: orangeColor,size: 24.w),
                   SizedBox(width: 12.w,),
-                  Text(AppLocalizations.of(context)!.notification, style: TextStyle(
+                  Text(AppLocalizations.of(context)!.notifications, style: TextStyle(
                       fontSize: 14.sp, color: orangeColor),),
                 ],
               )
