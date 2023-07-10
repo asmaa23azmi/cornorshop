@@ -31,7 +31,7 @@ class _MenuItemsState extends State<MenuItems> {
               fontWeight: FontWeight.normal,
               color: darkBlue,
             ),),
-          Icon(Icons.arrow_back_ios_new,
+          Icon(Icons.arrow_forward_ios,
             color: darkBlue,
             size: 15.w,),
         ],

@@ -57,14 +57,28 @@ class _MainPageState extends State<MainPage> with NavigatorHelper{
               context: context,
               isScrollControlled: true,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.only(topStart: Radius.circular(20.r) , topEnd: Radius.circular(20.r))),
+                  borderRadius: BorderRadiusDirectional.only(
+                      topStart: Radius.circular(20.r) ,
+                      topEnd: Radius.circular(20.r))),
               builder: (context) {
               return Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 26.w , vertical:80.h ),
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 26.w , vertical:10.h ),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.5,
                   child: Column(
                     children: [
+                      ///Black Divider
+                     Container(
+                       height: 4,
+                       margin: EdgeInsetsDirectional.symmetric(
+                           horizontal: MediaQuery.of(context).size.width * 0.4,
+                           vertical: MediaQuery.of(context).size.height * 0.015),
+                       decoration: BoxDecoration(
+                         color: Colors.grey,
+                         borderRadius: BorderRadiusDirectional.circular(2.r),
+                       ),
+                     ),
+                      SizedBox(height:20.h,),
                       ///Notification
                       MenuItems(text: AppLocalizations.of(context)!.notifications,onTap: (){
                         jump(context, to: const NotificationScreen());

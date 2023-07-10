@@ -59,6 +59,21 @@
     "naturalProduct": "منتجات طبيعية",
     "homeFood": "طعام وحلويات منزلية",
     "handicrafts": "مشغولات يدوية",
-    "addToCart": "أضف إلى عربة الشراء"
+    "addToCart": "أضف إلى عربة الشراء",
+    "billDetails": "تفاصيل الفاتورة",
+    "addDetailsToBuy": "إضافة البيانات لإتمام عملية الشراء",
+    "addressInDetails": "العنوان بالتفصيل",
+    "theGovernorate": "المحافظة",
+    "enterGovernorate": "ادخل محافظتك",
+    "orderNotes": "ملاحظات الطلب (اختياري)",
+    "enterOrderNotes": "ملاحظات حول الطلب, مثال: ملحوظة خاصة بتسليم الطلب",
+    "noteOne": "ملاحظة: السعر الإجمالي غير شامل عملية التوصيل",
+    "noteTwo": "سعر التوصيل ثابت 5 شيكل",
+    "noteThree": "الدفع نقدا عند الإستلام",
+    "confirmOrder": "تأكيد الطلب",
+    "sendOrderSuccessfully": "تم إرسال الطلب بنجاح",
+    "orderCompleted": "تم إتمام الطلب",
+    "paragraph": "نتمنى أن تكون قد حظيت بتجربة جيدة ونشكرك على استخدام تطبيق Corner Shop ,سيصلك طلبك خلال مدة قصيرة "
+
 
 }

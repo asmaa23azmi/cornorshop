@@ -59,7 +59,21 @@
        "naturalProduct": "Natural Products",
        "homeFood": "Home Dining & Desserts",
        "handicrafts": "Hand Crafts",
-       "addToCart": "Add To Carts"
+       "addToCart": "Add To Carts",
+       "billDetails": "Bill Details",
+       "addDetailsToBuy": "Add data to complete the purchase",
+       "addressInDetails": "Address In Details",
+       "theGovernorate": "The Governorate",
+       "enterGovernorate": "Enter your governorate",
+       "orderNotes": "Order Notes (Optional)",
+       "enterOrderNotes": "Notes on order, Example: Note on order delivery",
+       "noteOne": "Note: Total price not including delivery",
+       "noteTwo": "Delivery Price Fixed 5 Shekel",
+       "noteThree": "Payment in cash upon receipt",
+       "confirmOrder": "Confirm Order",
+       "sendOrderSuccessfully": "Send Order Successfully!",
+       "orderCompleted": "Order Completed",
+       "paragraph": "We wish you had a good experience and thank you for using the Corner Shop app, your order will arrive within a short time"
 
 
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../Helper/navigator_helper.dart';
+import '../../Screens/Ordered_Screens/bill_details.dart';
 
 import '../../Const/texts.dart';
+import '../../Widgets/my_button.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({super.key});
@@ -12,7 +14,7 @@ class ShoppingCartPage extends StatefulWidget {
   State<ShoppingCartPage> createState() => _ShoppingCartPageState();
 }
 
-class _ShoppingCartPageState extends State<ShoppingCartPage> {
+class _ShoppingCartPageState extends State<ShoppingCartPage> with NavigatorHelper{
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             children: [
               Text(AppLocalizations.of(context)!.cartBar, style: bnbTitlestyle,),
               SizedBox(height: 18.h,),
+              MyButton( text: AppLocalizations.of(context)!.addToCart,
+                onTap:(){
+                  jump( context ,to: BillDetailScreen());
+                },),
             ],
           ),
         ));

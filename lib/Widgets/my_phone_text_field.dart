@@ -15,11 +15,15 @@ class MyPhoneTextField extends StatefulWidget {
   final Color textFieldColor;
   final CountryModel country;
   final SelectedCountryCallBak selectedCountryCallBak;
+  final Color hintSyleColor;
+  final Color textFieldBorderColor;
   const MyPhoneTextField({
     required this.controller,
     required this.hintText,
     this.textFieldColor = whiteColor,
+    this.textFieldBorderColor = Colors.transparent,
     required this.country,
+    this.hintSyleColor = grayColor,
     required this.selectedCountryCallBak,
     super.key});
 
@@ -86,24 +90,29 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
           fillColor: widget.textFieldColor, /// text field background color
           filled: true,
           hintText: widget.hintText,
-          hintStyle: hintTextButtonStyle,
+          hintStyle: TextStyle(
+            fontFamily: 'NotoKufiArabic',
+            fontSize: 14.0.sp,
+            fontWeight: FontWeight.normal,
+            color: widget.hintSyleColor,
+          ),
           contentPadding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
             borderSide:  BorderSide(
-              color: widget.textFieldColor,),),
+              color: widget.textFieldBorderColor,),),
           disabledBorder:OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
             borderSide: BorderSide(
-              color: widget.textFieldColor,),) ,
+              color:widget.textFieldBorderColor,),) ,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
             borderSide:  BorderSide(
-              color: widget.textFieldColor,),),
+              color: widget.textFieldBorderColor,),),
           errorBorder:OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
             borderSide:  BorderSide(
-              color: widget.textFieldColor,),),
+              color:widget.textFieldBorderColor,),),
         ),
       ),
     );
@@ -125,7 +134,8 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
               padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w , vertical: 26.h),
               child: Column(
                 children: [
-                  MyTextField(controller: searchController, hintText: AppLocalizations.of(context)!.selectCountry,
+                  MyTextField(
+                      controller: searchController, hintText: AppLocalizations.of(context)!.selectCountry,
                       textFieldColor: Colors.transparent, textFieldBorderColor:Colors.grey,
                       onChange: (searchValue) {
                         setState(() {
