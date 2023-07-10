@@ -73,7 +73,9 @@
        "confirmOrder": "Confirm Order",
        "sendOrderSuccessfully": "Send Order Successfully!",
        "orderCompleted": "Order Completed",
-       "paragraph": "We wish you had a good experience and thank you for using the Corner Shop app, your order will arrive within a short time"
+       "paragraph": "We wish you had a good experience and thank you for using the Corner Shop app, your order will arrive within a short time",
+       "appLanguage": "App Language"
+
 
 
 }
