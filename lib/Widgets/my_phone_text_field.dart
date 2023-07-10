@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../Const/colors.dart';
-import '../Const/texts.dart';
 import 'my_text_field.dart';
 
 ///To Build CallBack Fun
@@ -55,8 +54,8 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 44.0,
-      width: double.infinity,
+      height: 44.h,
+      width: double.infinity.w,
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
         controller: widget.controller,
@@ -105,7 +104,6 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
           filled: true,
           hintText: widget.hintText,
           hintStyle: TextStyle(
-            fontFamily: 'NotoKufiArabic',
             fontSize: 14.0.sp,
             fontWeight: FontWeight.normal,
             color: widget.hintSyleColor,

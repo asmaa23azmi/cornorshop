@@ -21,7 +21,6 @@ class BillDetailScreen extends StatefulWidget {
 
 class _BillDetailScreenState extends State<BillDetailScreen>
     with NavigatorHelper, SnackBarHelper {
-  late AppLocalizations appLocale = AppLocalizations.of(context)!;
   CountryModel selectedCountry =
       appCountries.firstWhere((element) => element.dialCode == '970');
 
@@ -77,7 +76,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
         ),
         centerTitle: true,
         title: Text(
-          appLocale.billDetails,
+          AppLocalizations.of(context)!.billDetails,
           style: textAppBarStyle,
         ),
       ),
@@ -101,7 +100,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                     width: 7.w,
                   ),
                   Text(
-                    appLocale.addDetailsToBuy,
+                    AppLocalizations.of(context)!.addDetailsToBuy,
                     style: textStyle,
                   )
                 ],
@@ -111,26 +110,26 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               ),
 
               /// Full Name
-              _richText(appLocale.fullName),
+              _richText(AppLocalizations.of(context)!.fullName),
               SizedBox(
                 height: 3.0.h,
               ),
               MyTextField(
                   controller: nameController,
-                  hintText: appLocale.enterFullName,
+                  hintText: AppLocalizations.of(context)!.enterFullName,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
                   textFieldColor: Colors.transparent),
               SizedBox(height: 12.h),
 
               /// Phone Num
-              _richText(appLocale.phoneNum),
+              _richText(AppLocalizations.of(context)!.phoneNum),
               SizedBox(
                 height: 3.0.h,
               ),
               MyPhoneTextField(
                 controller: phoneNumController,
-                hintText: appLocale.enterPhoneNum,
+                hintText: AppLocalizations.of(context)!.enterPhoneNum,
                 textFieldBorderColor: blackObacityColor,
                 hintSyleColor: blackObacityColor,
                 textFieldColor: Colors.transparent,
@@ -142,26 +141,26 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               SizedBox(height: 12.h),
 
               ///the Governorate
-              _richText(appLocale.theGovernorate),
+              _richText(AppLocalizations.of(context)!.theGovernorate),
               SizedBox(
                 height: 3.0.h,
               ),
               MyTextField(
                   controller: governorateController,
-                  hintText: appLocale.enterGovernorate,
+                  hintText: AppLocalizations.of(context)!.enterGovernorate,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
                   textFieldColor: Colors.transparent),
               SizedBox(height: 12.h),
 
               /// Address
-              _richText(appLocale.addressInDetails),
+              _richText(AppLocalizations.of(context)!.addressInDetails),
               SizedBox(
                 height: 3.0.h,
               ),
               MyTextField(
                   controller: addressController,
-                  hintText: appLocale.enterAddress,
+                  hintText: AppLocalizations.of(context)!.enterAddress,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
                   textFieldColor: Colors.transparent),
@@ -171,7 +170,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               Padding(
                 padding: EdgeInsetsDirectional.only(start: 15.w),
                 child: Text(
-                  appLocale.orderNotes,
+                  AppLocalizations.of(context)!.orderNotes,
                   style: textStyle,
                 ),
               ),
@@ -180,7 +179,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               ),
               MyTextField(
                 controller: orderNotesController,
-                hintText: appLocale.enterOrderNotes,
+                hintText: AppLocalizations.of(context)!.enterOrderNotes,
                 textFieldBorderColor: blackObacityColor,
                 hintSyleColor: blackObacityColor,
                 textFieldColor: Colors.transparent,
@@ -192,7 +191,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               Padding(
                 padding: EdgeInsetsDirectional.only(start: 15.w),
                 child: Text(
-                  appLocale.noteOne,
+                  AppLocalizations.of(context)!.noteOne,
                   style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.normal,
@@ -202,7 +201,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               Padding(
                 padding: EdgeInsetsDirectional.only(start: 52.w),
                 child: Text(
-                  appLocale.noteTwo,
+                  AppLocalizations.of(context)!.noteTwo,
                   style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.normal,
@@ -212,7 +211,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               Padding(
                 padding: EdgeInsetsDirectional.only(start: 52.w),
                 child: Text(
-                  appLocale.noteThree,
+                  AppLocalizations.of(context)!.noteThree,
                   style: TextStyle(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.normal,
@@ -231,7 +230,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                       onTap: () {
                         _performConfirmOrder();
                       },
-                      text: appLocale.confirmOrder,
+                      text: AppLocalizations.of(context)!.confirmOrder,
                       myWidth: 135.w,
                       borderBouttonColor: Colors.transparent,
                       buttonColor: orangeColor),
@@ -239,7 +238,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      text: appLocale.cancel,
+                      text: AppLocalizations.of(context)!.cancel,
                       myWidth: 135.w,
                       borderBouttonColor: orangeColor,
                       buttonColor: Colors.transparent,
@@ -275,23 +274,28 @@ class _BillDetailScreenState extends State<BillDetailScreen>
   }
 
   void _confirmOrder() {
-    showMySnackBar(context, text: appLocale.sendOrderSuccessfully);
+    showMySnackBar(context,
+        text: AppLocalizations.of(context)!.sendOrderSuccessfully);
     jump(context, to: const OrderedSendScreen(), replace: true);
   }
 
   bool checkData() {
     ///to check text field
     if (nameController.text.isEmpty) {
-      showMySnackBar(context, text: appLocale.enterFullName, error: true);
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterFullName, error: true);
       return false;
     } else if (phoneNumController.text.isEmpty) {
-      showMySnackBar(context, text: appLocale.enterPhoneNum, error: true);
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterPhoneNum, error: true);
       return false;
     } else if (governorateController.text.isEmpty) {
-      showMySnackBar(context, text: appLocale.enterGovernorate, error: true);
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterGovernorate, error: true);
       return false;
     } else if (addressController.text.isEmpty) {
-      showMySnackBar(context, text: appLocale.enterGovernorate, error: true);
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterGovernorate, error: true);
       return false;
     }
     return true;

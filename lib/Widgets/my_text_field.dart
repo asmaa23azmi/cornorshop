@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Const/colors.dart';
-import '../Const/texts.dart';
 
 class MyTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -14,6 +13,8 @@ class MyTextField extends StatefulWidget {
   final Color hintSyleColor;
   final Function(String value)? onChange;
   final int maxLines;
+  final double textFieldHeigth;
+  final double textFieldWidth;
 
   const MyTextField(
       {required this.controller,
@@ -26,6 +27,8 @@ class MyTextField extends StatefulWidget {
       this.onChange,
       this.hintSyleColor = grayColor,
       this.maxLines = 1,
+      this.textFieldHeigth = 44.0,
+      this.textFieldWidth = double.infinity,
       super.key});
 
   @override
@@ -38,14 +41,14 @@ class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 44.0,
-      width: double.infinity,
+      height: widget.textFieldHeigth.h,
+      width: widget.textFieldWidth.w,
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
         controller: widget.controller,
         // to control text field
         cursorColor: grayColor,
-        // autofocus: true,
+        autofocus: true,
         //to return the value that i write it in text field
         onChanged: widget.onChange,
         obscureText: widget.password ? !obscure : obscure,
@@ -59,7 +62,6 @@ class _MyTextFieldState extends State<MyTextField> {
           filled: true,
           hintText: widget.hintText,
           hintStyle: TextStyle(
-            fontFamily: 'NotoKufiArabic',
             fontSize: 14.0.sp,
             fontWeight: FontWeight.normal,
             color: widget.hintSyleColor,

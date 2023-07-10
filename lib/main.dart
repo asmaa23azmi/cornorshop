@@ -1,7 +1,9 @@
 import 'package:cornorshop/Chache/cache_controller.dart';
+import 'package:cornorshop/Providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'enums.dart';
 import 'splash_page.dart';
 
@@ -25,24 +27,45 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider<LanguageProvider>(
+              create: (context) => LanguageProvider(),
+            ),
+          ],
+          child: const MyMaterialApp(),
+        );
+      },
+    );
+  }
+}
+
+class MyMaterialApp extends StatelessWidget {
+  const MyMaterialApp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<LanguageProvider>(
+      builder: (context, lang, child) {
         return MaterialApp(
           title: 'Corner Shop',
           debugShowCheckedModeBanner: false,
 
           ///delete debug sign
           theme: ThemeData(
-            fontFamily: 'NotoKufiArabic',
+            fontFamily:lang.language == AppLanguages.ar.name? 'NotoKufiArabic': 'TitilliumWeb',
           ),
-          home: SplashPage(),
+          home:const SplashPage(),
 
           ///for translation
           localizationsDelegates: AppLocalizations.localizationsDelegates,
 
-          locale: const Locale('ar'),
+          locale: Locale(lang.language),
 
           ///to make arabic tha main language of the app
-          supportedLocales:
-              AppLanguages.values.map((e) => Locale(e.name)).toList(),
+          supportedLocales: AppLanguages.values.map((e) => Locale(e.name)).toList(),
         );
       },
     );

@@ -73,8 +73,14 @@
        "confirmOrder": "Confirm Order",
        "sendOrderSuccessfully": "Send Order Successfully!",
        "orderCompleted": "Order Completed",
-       "paragraph": "We wish you had a good experience and thank you for using the Corner Shop app, your order will arrive within a short time",
-       "appLanguage": "App Language"
+       "paragraphOrder": "We wish you had a good experience and thank you for using the Corner Shop app, your order will arrive within a short time",
+       "appLanguage": "App Language",
+       "paragraphSearch": "You can now search for what you want. Press the search signal and type what you want to look for.",
+       "priceRange": "Price Range",
+       "lowestPrice": "Lowest Price",
+       "topPrice": "Top Price",
+       "to": "to",
+       "apply": "Apply"
 
 
 

@@ -6,10 +6,8 @@ import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
 import '../../Models/category_model.dart';
-import '../../Screens/Category_item_Screens/clothes_screen.dart';
-import '../../Screens/Category_item_Screens/food_screen.dart';
-import '../../Screens/Category_item_Screens/natural_product_screen.dart';
-import '../../Screens/Category_item_Screens/hand_crafts_screen.dart';
+import '../../Screens/Category_item_Screens/item_category_screen.dart';
+
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -19,7 +17,6 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
-  late AppLocalizations appLocale = AppLocalizations.of(context)!;
   List<CategoryModel> categoryItems = [
     CategoryModel(
       categoryId: 1,
@@ -86,7 +83,9 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
                   return InkWell(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
-                    onTap: () {},
+                    onTap: () {
+                      jump(context, to:const CategoryItemScreen());
+                    },
                     child: Row(
                       children: [
                         Container(
@@ -116,7 +115,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
                             //to position the widget in the end of the row
                             ),
                         Icon(
-                          Icons.arrow_back_ios_new,
+                          Icons.arrow_forward_ios,
                           color: darkBlue,
                           size: 15.w,
                         ),
@@ -148,10 +147,3 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
     );
   }
 }
-// categoryItems[index] == 0
-// ? jump(context, to: const ClothesScreen())
-//     : categoryItems[index] == 1
-// ? jump(context, to: const NaturalProductScreen())
-//     : categoryItems [index] == 2
-// ? jump(context, to: const FoodScreen())
-//     : jump(context, to: const HandCraftsScreen());

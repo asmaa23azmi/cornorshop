@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Const/colors.dart';
-//import '../Const/texts.dart';
 
 class MyButton extends StatefulWidget {
   final String text;
@@ -40,7 +39,7 @@ class _MyButtonState extends State<MyButton> {
       onTap: widget.onTap,
       child: Container(
         height: widget.myHeight.h,
-        width: widget.myWidth,
+        width: widget.myWidth.w,
         alignment: AlignmentDirectional.center,
         decoration: BoxDecoration(
           color: widget.buttonColor,

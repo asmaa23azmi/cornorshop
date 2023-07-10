@@ -13,8 +13,6 @@ class OrderedSendScreen extends StatefulWidget {
 }
 
 class _OrderedSendScreenState extends State<OrderedSendScreen> {
-  late AppLocalizations appLocale = AppLocalizations.of(context)!;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +39,15 @@ class _OrderedSendScreenState extends State<OrderedSendScreen> {
         ),
         centerTitle: true,
         title: Text(
-          appLocale.orderCompleted,
+          AppLocalizations.of(context)!.orderCompleted,
           style: textAppBarStyle,
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w),
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsetsDirectional.symmetric(
+              horizontal: 20.w, vertical: 100.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,7 +61,7 @@ class _OrderedSendScreenState extends State<OrderedSendScreen> {
                 height: 40.h,
               ),
               Text(
-                appLocale.paragraph,
+                AppLocalizations.of(context)!.paragraphOrder,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15.sp,

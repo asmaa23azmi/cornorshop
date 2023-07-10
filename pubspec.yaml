@@ -50,6 +50,10 @@ flutter:
           - asset: assets/fonts/NotoKufi/NotoKufiArabic-Bold.ttf
           - asset: assets/fonts/NotoKufi/NotoKufiArabic-Regular.ttf
   #         style: Bold
+      - family: TitilliumWeb
+        fonts:
+          - asset: assets/fonts/TitilliumWeb/TitilliumWeb-Bold.ttf
+          - asset: assets/fonts/TitilliumWeb/TitilliumWeb-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
