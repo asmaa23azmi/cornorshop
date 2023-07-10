@@ -11,7 +11,6 @@ import '../../Helper/snack_bar_helper.dart';
 import '../../Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
 
-
 class CreateBuyerAccount extends StatefulWidget {
   const CreateBuyerAccount({super.key});
 
@@ -19,25 +18,28 @@ class CreateBuyerAccount extends StatefulWidget {
   State<CreateBuyerAccount> createState() => _CreateBuyerAccountState();
 }
 
-class _CreateBuyerAccountState extends State<CreateBuyerAccount> with SnackBarHelper, NavigatorHelper{
+class _CreateBuyerAccountState extends State<CreateBuyerAccount>
+    with SnackBarHelper, NavigatorHelper {
   late TextEditingController nameController;
   late TextEditingController phoneNumController;
   late TextEditingController emailController;
   late TextEditingController addressController;
   late TextEditingController passwordController;
   late TextEditingController returnPassController;
-  CountryModel selectedCountry = appCountries.firstWhere((element) => element.dialCode == '970');
+  CountryModel selectedCountry =
+      appCountries.firstWhere((element) => element.dialCode == '970');
 
   @override
   void initState() {
     super.initState();
-   nameController = TextEditingController();
+    nameController = TextEditingController();
     phoneNumController = TextEditingController();
     emailController = TextEditingController();
     addressController = TextEditingController();
     passwordController = TextEditingController();
     returnPassController = TextEditingController();
   }
+
   @override
   void dispose() {
     nameController.dispose();
@@ -48,6 +50,7 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount> with SnackBarHe
     returnPassController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,153 +59,229 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount> with SnackBarHe
         elevation: 0.0,
         backgroundColor: babyBlue,
         leading: InkWell(
-          onTap: (){Navigator.pop(context);},
-          child: Icon(Icons.arrow_back_ios,
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
             color: darkBlue,
             size: 24.0.h,
           ),
         ),
-
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 30.h),
+          padding:
+              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 30.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Text(AppLocalizations.of(context)!.createBuyerAccount,
-                style: textHeaderStyle,),
+                child: Text(
+                  AppLocalizations.of(context)!.createBuyerAccount,
+                  style: textHeaderStyle,
+                ),
               ),
-               SizedBox(height: 18.h,),
+              SizedBox(
+                height: 18.h,
+              ),
+
               ///Full Name
               _richText(AppLocalizations.of(context)!.fullName),
-               SizedBox(height: 3.0.h,),
-              MyTextField(controller: nameController,
-                hintText: AppLocalizations.of(context)!.enterFullName,),
-               SizedBox(height: 12.h,),
+              SizedBox(
+                height: 3.0.h,
+              ),
+              MyTextField(
+                controller: nameController,
+                hintText: AppLocalizations.of(context)!.enterFullName,
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+
               ///Phone Num
               _richText(AppLocalizations.of(context)!.phoneNum),
-              SizedBox(height: 3.0.h,),
-                MyPhoneTextField(controller: phoneNumController, hintText: AppLocalizations.of(context)!.enterPhoneNum,
-                    country: selectedCountry, selectedCountryCallBak: ({required country}) {
-                    setState(() => selectedCountry = country);
-                    },),
-              SizedBox(height: 12.h,),
+              SizedBox(
+                height: 3.0.h,
+              ),
+              MyPhoneTextField(
+                controller: phoneNumController,
+                hintText: AppLocalizations.of(context)!.enterPhoneNum,
+                country: selectedCountry,
+                selectedCountryCallBak: ({required country}) {
+                  setState(() => selectedCountry = country);
+                },
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+
               ///Email
               _richText(AppLocalizations.of(context)!.email),
-              SizedBox(height: 3.0.h,),
-              MyTextField(controller: emailController,
-                hintText: AppLocalizations.of(context)!.enterEmail,),
-              SizedBox(height: 12.h,),
+              SizedBox(
+                height: 3.0.h,
+              ),
+              MyTextField(
+                controller: emailController,
+                hintText: AppLocalizations.of(context)!.enterEmail,
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+
               ///Address
               Padding(
-                padding: const EdgeInsetsDirectional.only(start: 15,),
+                padding: const EdgeInsetsDirectional.only(
+                  start: 15,
+                ),
                 child: Text(AppLocalizations.of(context)!.address),
               ),
-              SizedBox(height: 3.0.h,),
-              MyTextField(controller: addressController,
-                hintText: AppLocalizations.of(context)!.enterAddress,),
-              SizedBox(height: 12.h,),
+              SizedBox(
+                height: 3.0.h,
+              ),
+              MyTextField(
+                controller: addressController,
+                hintText: AppLocalizations.of(context)!.enterAddress,
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+
               ///Password
               _richText(AppLocalizations.of(context)!.password),
-              SizedBox(height: 3.0.h,),
-              MyTextField(controller: passwordController,
+              SizedBox(
+                height: 3.0.h,
+              ),
+              MyTextField(
+                controller: passwordController,
                 hintText: AppLocalizations.of(context)!.enterPassword,
-              password: true,),
-              SizedBox(height: 12.h,),
+                password: true,
+              ),
+              SizedBox(
+                height: 12.h,
+              ),
+
               ///Return Pass
               _richText(AppLocalizations.of(context)!.returnPassword),
-              SizedBox(height: 3.0.h,),
-              MyTextField(controller: returnPassController,
+              SizedBox(
+                height: 3.0.h,
+              ),
+              MyTextField(
+                controller: returnPassController,
                 hintText: AppLocalizations.of(context)!.enterReturnPassword,
-              password: true,),
-              SizedBox(height: 30.0.h,),
+                password: true,
+              ),
+              SizedBox(
+                height: 30.0.h,
+              ),
+
               ///Action
-              MyButton(text:  AppLocalizations.of(context)!.createAccount,
-                onTap: (){
+              MyButton(
+                text: AppLocalizations.of(context)!.createAccount,
+                onTap: () {
                   _performCreate();
-                setState(() {});
-                },),
-               SizedBox(height: 8.h,),
+                  setState(() {});
+                },
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+
               ///Log In
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(AppLocalizations.of(context)!.haveAccount,
+                  Text(
+                    AppLocalizations.of(context)!.haveAccount,
                     style: TextStyle(
                       fontSize: 15.0.sp,
                       color: darkBlue,
-                    ),),
+                    ),
+                  ),
                   SizedBox(width: 4.5.w),
                   InkWell(
-                    onTap: (){jump(context, to: LogIn());},
-                    child: Text(AppLocalizations.of(context)!.login,
-                      style:TextStyle(
+                    onTap: () {
+                      jump(context, to: LogIn());
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.login,
+                      style: TextStyle(
                           fontSize: 15.0.sp,
                           color: orangeColor,
-                          fontWeight: FontWeight.bold
-                      ),),
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ],),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
   }
+
   ///Functions
-  Widget _richText(String textTitle){
+  Widget _richText(String textTitle) {
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 15.w),
       child: RichText(
         text: TextSpan(
-        text: textTitle,
-        style:textStyle,
-        children: [textSpain],
-      ),),
+          text: textTitle,
+          style: textStyle,
+          children: [textSpain],
+        ),
+      ),
     );
   }
-  void _performCreate(){
+
+  void _performCreate() {
     ///before create account
-    if (checkData()){
+    if (checkData()) {
       _create();
     }
   }
-  void _create(){
-showMySnackBar(context, text: AppLocalizations.of(context)!.createdSuccessfully);
+
+  void _create() {
+    showMySnackBar(context,
+        text: AppLocalizations.of(context)!.createdSuccessfully);
   }
-  bool checkData(){
+
+  bool checkData() {
     ///to check text field
-    if (nameController.text.isEmpty){
-    showMySnackBar(context, text: AppLocalizations.of(context)!.enterFullName, error: true);
+    if (nameController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterFullName, error: true);
       return false;
-    }else  if (phoneNumController.text.isEmpty){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterPhoneNum, error: true);
+    } else if (phoneNumController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterPhoneNum, error: true);
       return false;
-    } else  if (emailController.text.isEmpty){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterEmail, error: true);
+    } else if (emailController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterEmail, error: true);
       return false;
-    }else if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(emailController.text)){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterEmailFormat, error: true);
+    } else if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(emailController.text)) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterEmailFormat, error: true);
       return false;
-    }else  if (passwordController.text.isEmpty){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterPassword, error: true);
+    } else if (passwordController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterPassword, error: true);
       return false;
-    }else if(!RegExp( r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
-        .hasMatch(passwordController.text)){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterPassFormat, error: true);
+    } else if (!RegExp(
+            r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
+        .hasMatch(passwordController.text)) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterPassFormat, error: true);
       return false;
-    }else  if (returnPassController.text.isEmpty){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
+    } else if (returnPassController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
       return false;
     }
     return true;
   }
 }
-
-
-
-

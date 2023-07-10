@@ -1,4 +1,4 @@
-class ProductModel{
+class ProductModel {
   late int productId;
   late String productName;
   late String? productDescription;
@@ -9,13 +9,13 @@ class ProductModel{
   late String vendorName;
 
   ProductModel({
-   required this.productId,
-   required this.productName,
-   this.productDescription,
-   required this.productPrice,
-   this.productQuantity,
-   required this.productImg,
-   required this.productCategoryType,
+    required this.productId,
+    required this.productName,
+    this.productDescription,
+    required this.productPrice,
+    this.productQuantity,
+    required this.productImg,
+    required this.productCategoryType,
     required this.vendorName,
   });
 }

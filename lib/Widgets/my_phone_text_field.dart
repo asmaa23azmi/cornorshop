@@ -17,15 +17,16 @@ class MyPhoneTextField extends StatefulWidget {
   final SelectedCountryCallBak selectedCountryCallBak;
   final Color hintSyleColor;
   final Color textFieldBorderColor;
-  const MyPhoneTextField({
-    required this.controller,
-    required this.hintText,
-    this.textFieldColor = whiteColor,
-    this.textFieldBorderColor = Colors.transparent,
-    required this.country,
-    this.hintSyleColor = grayColor,
-    required this.selectedCountryCallBak,
-    super.key});
+
+  const MyPhoneTextField(
+      {required this.controller,
+      required this.hintText,
+      this.textFieldColor = whiteColor,
+      this.textFieldBorderColor = Colors.transparent,
+      required this.country,
+      this.hintSyleColor = grayColor,
+      required this.selectedCountryCallBak,
+      super.key});
 
   @override
   State<MyPhoneTextField> createState() => _MyPhoneTextFieldState();
@@ -33,21 +34,24 @@ class MyPhoneTextField extends StatefulWidget {
 
 class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
   late TextEditingController searchController;
-  List<CountryModel> searchedCountries =[];
+  List<CountryModel> searchedCountries = [];
+
   List<CountryModel> get _listToShow =>
-      searchController.text.isEmpty ? appCountries : searchedCountries ;
+      searchController.text.isEmpty ? appCountries : searchedCountries;
   late CountryModel selectedCountry = widget.country;
 
   @override
   void initState() {
-    searchController =TextEditingController();
+    searchController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -55,10 +59,11 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
       width: double.infinity,
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
-        controller: widget.controller, // to control text field
+        controller: widget.controller,
+        // to control text field
         cursorColor: grayColor,
         // autofocus: true,
-        onChanged: (String value){
+        onChanged: (String value) {
           //to return the value that i write it in text field
         },
         keyboardType: TextInputType.number,
@@ -67,7 +72,7 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
           prefixIcon: Padding(
             padding: EdgeInsetsDirectional.only(start: 10.w),
             child: InkWell(
-              onTap: ()=> _showCountries,
+              onTap: () => _showCountries,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -76,18 +81,27 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
                     width: 26.h,
                     clipBehavior: Clip.antiAlias,
                     decoration: const BoxDecoration(shape: BoxShape.circle),
-                    child: Image.asset('assets/flags/${selectedCountry.code.toLowerCase()}.png',
-                    fit: BoxFit.cover, package: 'intl_phone_field',),
+                    child: Image.asset(
+                      'assets/flags/${selectedCountry.code.toLowerCase()}.png',
+                      fit: BoxFit.cover,
+                      package: 'intl_phone_field',
                     ),
-                  SizedBox(width: 5.w,),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
                   Text('+${selectedCountry.dialCode}'),
-                  SizedBox(width: 5.w,),
+                  SizedBox(
+                    width: 5.w,
+                  ),
                   const Icon(Icons.arrow_drop_down_rounded),
                 ],
               ),
             ),
           ),
-          fillColor: widget.textFieldColor, /// text field background color
+          fillColor: widget.textFieldColor,
+
+          /// text field background color
           filled: true,
           hintText: widget.hintText,
           hintStyle: TextStyle(
@@ -99,91 +113,123 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
           contentPadding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
-            borderSide:  BorderSide(
-              color: widget.textFieldBorderColor,),),
-          disabledBorder:OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.textFieldBorderColor,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
             borderSide: BorderSide(
-              color:widget.textFieldBorderColor,),) ,
+              color: widget.textFieldBorderColor,
+            ),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
-            borderSide:  BorderSide(
-              color: widget.textFieldBorderColor,),),
-          errorBorder:OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.textFieldBorderColor,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
-            borderSide:  BorderSide(
-              color:widget.textFieldBorderColor,),),
+            borderSide: BorderSide(
+              color: widget.textFieldBorderColor,
+            ),
+          ),
         ),
       ),
     );
   }
-  void update(StateSetter newState) => newState((){});
-  void get _showCountries{
+
+  void update(StateSetter newState) => newState(() {});
+
+  void get _showCountries {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusDirectional.only(topEnd: Radius.circular(20.r),
-          topStart: Radius.circular(20.r),),
+        borderRadius: BorderRadiusDirectional.only(
+          topEnd: Radius.circular(20.r),
+          topStart: Radius.circular(20.r),
+        ),
       ),
-      builder:  (context) {
-        return StatefulBuilder(builder: (context, newSetState) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height - 150,
-            child: Padding(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w , vertical: 26.h),
-              child: Column(
-                children: [
-                  MyTextField(
-                      controller: searchController, hintText: AppLocalizations.of(context)!.selectCountry,
-                      textFieldColor: Colors.transparent, textFieldBorderColor:Colors.grey,
-                      onChange: (searchValue) {
-                        setState(() {
-                          searchedCountries.clear();
-                          for (var item in appCountries){
-                            if(item.name.toLowerCase().contains(searchValue.toLowerCase())){
-                              searchedCountries.add(item);}
-                          }
-                        });
-                        update(newSetState);
-                      }),
-                  Expanded(
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      padding: EdgeInsetsDirectional.symmetric( vertical: 20.h),
-                      itemCount: _listToShow.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: (){
-                            setState(() {
-                              selectedCountry = _listToShow[index];
-                            });
-                            update(newSetState);
-                            widget.selectedCountryCallBak(country: selectedCountry);
-                            Navigator.pop(context);
-                          },
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 25.h,
-                                width: 40.w,
-                                child: Image.asset('assets/flags/${_listToShow[index].code.toLowerCase()}.png',
-                                  fit: BoxFit.cover,
-                                  package: 'intl_phone_field',),
-                              ),
-                              SizedBox(width: 15.w,),
-                              Expanded(child: Text('+${_listToShow[index].dialCode}   ${_listToShow[index].name}')),
-                            ],
-                          ),
-                        );
-                      }, separatorBuilder: (context, index) => SizedBox(height: 15.h,) ,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, newSetState) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height - 150,
+              child: Padding(
+                padding: EdgeInsetsDirectional.symmetric(
+                    horizontal: 20.w, vertical: 26.h),
+                child: Column(
+                  children: [
+                    MyTextField(
+                        controller: searchController,
+                        hintText: AppLocalizations.of(context)!.selectCountry,
+                        textFieldColor: Colors.transparent,
+                        textFieldBorderColor: Colors.grey,
+                        onChange: (searchValue) {
+                          setState(() {
+                            searchedCountries.clear();
+                            for (var item in appCountries) {
+                              if (item.name
+                                  .toLowerCase()
+                                  .contains(searchValue.toLowerCase())) {
+                                searchedCountries.add(item);
+                              }
+                            }
+                          });
+                          update(newSetState);
+                        }),
+                    Expanded(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        padding:
+                            EdgeInsetsDirectional.symmetric(vertical: 20.h),
+                        itemCount: _listToShow.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedCountry = _listToShow[index];
+                              });
+                              update(newSetState);
+                              widget.selectedCountryCallBak(
+                                  country: selectedCountry);
+                              Navigator.pop(context);
+                            },
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  height: 25.h,
+                                  width: 40.w,
+                                  child: Image.asset(
+                                    'assets/flags/${_listToShow[index].code.toLowerCase()}.png',
+                                    fit: BoxFit.cover,
+                                    package: 'intl_phone_field',
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 15.w,
+                                ),
+                                Expanded(
+                                    child: Text(
+                                        '+${_listToShow[index].dialCode}   ${_listToShow[index].name}')),
+                              ],
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: 15.h,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },);
-      },);
+            );
+          },
+        );
+      },
+    );
   }
 }

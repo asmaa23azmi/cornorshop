@@ -27,103 +27,160 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
         toolbarHeight: 124.h,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.only(
-              bottomEnd:Radius.circular(20.r),
+              bottomEnd: Radius.circular(20.r),
               bottomStart: Radius.circular(20.r)),
         ),
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          onTap: (){Navigator.pop(context);},
-          child: Icon(Icons.arrow_back_ios,
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,),),
+            size: 24.0.h,
+          ),
+        ),
         centerTitle: true,
-        title: Text(AppLocalizations.of(context)!.appSettings, style: textAppBarStyle,),
+        title: Text(
+          AppLocalizations.of(context)!.appSettings,
+          style: textAppBarStyle,
+        ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w , vertical: 20.h),
-          physics:const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              MyListTile(onTap: (){
-                return showModalBottomSheet(
+          child: SingleChildScrollView(
+        padding:
+            EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            MyListTile(
+                onTap: () {
+                  return showModalBottomSheet(
                     context: context,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(20.r) ,
-                          topEnd: Radius.circular(20.r))),
+                        borderRadius: BorderRadiusDirectional.only(
+                            topStart: Radius.circular(20.r),
+                            topEnd: Radius.circular(20.r))),
                     builder: (context) {
                       return Padding(
-                        padding: EdgeInsetsDirectional.symmetric(horizontal: 26.w , vertical:10.h ),
+                        padding: EdgeInsetsDirectional.symmetric(
+                            horizontal: 26.w, vertical: 10.h),
                         child: Column(
                           children: [
                             ///Black Divider
                             Container(
                               height: 4,
                               margin: EdgeInsetsDirectional.symmetric(
-                                  horizontal: MediaQuery.of(context).size.width * 0.4,
-                                  vertical: MediaQuery.of(context).size.height * 0.015),
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.015),
                               decoration: BoxDecoration(
                                 color: Colors.grey,
-                                borderRadius: BorderRadiusDirectional.circular(2.r),
+                                borderRadius:
+                                    BorderRadiusDirectional.circular(2.r),
                               ),
                             ),
-                            SizedBox(height:20.h,),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+
                             ///Title
                             Row(
                               children: [
                                 InkWell(
-                                  onTap:(){Navigator.pop(context);},
-                                    child: Icon(Icons.close,color: darkBlue,size: 20.w,)),
-                                SizedBox(width: 15.w,),
-                                Text(appLocale.appLanguage, style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 14.0.sp, color: darkBlue,),),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      color: darkBlue,
+                                      size: 20.w,
+                                    )),
+                                SizedBox(
+                                  width: 15.w,
+                                ),
+                                Text(
+                                  appLocale.appLanguage,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.0.sp,
+                                    color: darkBlue,
+                                  ),
+                                ),
                               ],
                             ),
-                            SizedBox(height:10.h,),
-                            Divider(color: grayColor, height: 0.3.h,),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Divider(
+                              color: grayColor,
+                              height: 0.3.h,
+                            ),
+
                             ///Items
                             Row(
                               children: [
-                                Radio(value: AppLanguages.ar.name,
+                                Radio(
+                                  value: AppLanguages.ar.name,
                                   groupValue: radioValue,
                                   onChanged: (value) {
                                     setState(() {
                                       radioValue = value;
                                     });
-                                  },),
-                                SizedBox(width: 3.w,),
-                                Text('العربية',
-                                  style: TextStyle(fontSize: 14.sp, color: darkBlue,),),
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 3.w,
+                                ),
+                                Text(
+                                  'العربية',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: darkBlue,
+                                  ),
+                                ),
                               ],
                             ),
                             Row(
                               children: [
-                                Radio(value: AppLanguages.en.name,
+                                Radio(
+                                  value: AppLanguages.en.name,
                                   groupValue: radioValue,
                                   onChanged: (value) {
                                     setState(() {
                                       radioValue = value;
                                     });
-                                  },),
-                                SizedBox(width: 3.w,),
-                                Text('English',
-                                  style: TextStyle(fontSize: 14.sp, color: darkBlue,),),
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 3.w,
+                                ),
+                                Text(
+                                  'English',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: darkBlue,
+                                  ),
+                                ),
                               ],
                             ),
                           ],
                         ),
                       );
-                    },);
-              },text: appLocale.appLanguage, icon: Icons.language_rounded),
-              SizedBox(height: 12.h,),
-            ],
-          ),
-        )
-      ),
+                    },
+                  );
+                },
+                text: appLocale.appLanguage,
+                icon: Icons.language_rounded),
+            SizedBox(
+              height: 12.h,
+            ),
+          ],
+        ),
+      )),
     );
   }
 }
-
-

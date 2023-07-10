@@ -1,12 +1,16 @@
+import 'package:cornorshop/Chache/cache_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'enums.dart';
 import 'splash_page.dart';
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  ///Cache
+  await CacheController().initCache();
 
-void main() {
   ///data base
   ///firebase
   runApp(const MyApp());
@@ -19,22 +23,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize:const Size(375, 812),
+      designSize: const Size(375, 812),
       builder: (context, child) {
-     return MaterialApp(
-        title: 'Corner Shop',
-        debugShowCheckedModeBanner: false, ///delete debug sign
-        theme: ThemeData(
-          fontFamily: 'NotoKufiArabic',
-        ),
-      home: SplashPage(),
-       ///for translation
-        localizationsDelegates: AppLocalizations.localizationsDelegates,///for translation
-        locale: const Locale('ar'), ///to make arabic tha main language of the app
-        supportedLocales: AppLanguages.values.map((e) => Locale(e.name)).toList(),
-      );
-    },);
+        return MaterialApp(
+          title: 'Corner Shop',
+          debugShowCheckedModeBanner: false,
+
+          ///delete debug sign
+          theme: ThemeData(
+            fontFamily: 'NotoKufiArabic',
+          ),
+          home: SplashPage(),
+
+          ///for translation
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+
+          locale: const Locale('ar'),
+
+          ///to make arabic tha main language of the app
+          supportedLocales:
+              AppLanguages.values.map((e) => Locale(e.name)).toList(),
+        );
+      },
+    );
   }
-
 }
-

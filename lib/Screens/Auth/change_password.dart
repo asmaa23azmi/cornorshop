@@ -14,16 +14,16 @@ class ChangePassword extends StatefulWidget {
   State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper{
+class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
   late TextEditingController currentPassController;
   late TextEditingController newPassController;
   late TextEditingController confirmPassController;
 
   @override
   void initState() {
-    currentPassController =TextEditingController();
-    newPassController =TextEditingController();
-    confirmPassController =TextEditingController();
+    currentPassController = TextEditingController();
+    newPassController = TextEditingController();
+    confirmPassController = TextEditingController();
     super.initState();
   }
 
@@ -44,109 +44,160 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper{
         elevation: 0.0,
         backgroundColor: babyBlue,
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios,
-          color: darkBlue,
-          size: 24.0.h,
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: darkBlue,
+            size: 24.0.h,
           ),
         ),
-
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding:  EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///Header
               Center(
-                child: Text(AppLocalizations.of(context)!.changePassword,
-                style: textHeaderStyle,),
+                child: Text(
+                  AppLocalizations.of(context)!.changePassword,
+                  style: textHeaderStyle,
+                ),
               ),
-               SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
+
               ///Current Password
               _richText(AppLocalizations.of(context)!.currentPassword),
-               SizedBox(height: 3.h,),
-              MyTextField(controller: currentPassController,
-                  hintText: AppLocalizations.of(context)!.enterCurrentPassword, password: true,),
-              SizedBox(height: 20.h,),
+              SizedBox(
+                height: 3.h,
+              ),
+              MyTextField(
+                controller: currentPassController,
+                hintText: AppLocalizations.of(context)!.enterCurrentPassword,
+                password: true,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+
               ///New Password
               _richText(AppLocalizations.of(context)!.newPassword),
-              SizedBox(height: 3.h,),
-              MyTextField(controller: newPassController,
-                  hintText: AppLocalizations.of(context)!.enterNewPassword, password: true,),
-               SizedBox(height: 20.h,),
+              SizedBox(
+                height: 3.h,
+              ),
+              MyTextField(
+                controller: newPassController,
+                hintText: AppLocalizations.of(context)!.enterNewPassword,
+                password: true,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+
               ///Confirm New Password
               _richText(AppLocalizations.of(context)!.confirmNewPassword),
-              SizedBox(height: 3.h,),
-              MyTextField(controller: confirmPassController,
-                  hintText: AppLocalizations.of(context)!.enterReturnPassword, password: true,),
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 3.h,
+              ),
+              MyTextField(
+                controller: confirmPassController,
+                hintText: AppLocalizations.of(context)!.enterReturnPassword,
+                password: true,
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+
               ///Confirm Action
-              MyButton(text: AppLocalizations.of(context)!.changePassword ,
-                onTap: (){
+              MyButton(
+                text: AppLocalizations.of(context)!.changePassword,
+                onTap: () {
                   _performChangePass();
-                },),
-               SizedBox(height: 20.h,),
+                },
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+
               ///Cancel Action
-              MyButton(text: AppLocalizations.of(context)!.cancel , onTap: (){},
-                buttonColor: Colors.transparent, textButtonColor: darkBlue),
-               SizedBox(height: 12.h,),
+              MyButton(
+                  text: AppLocalizations.of(context)!.cancel,
+                  onTap: () {},
+                  buttonColor: Colors.transparent,
+                  textButtonColor: darkBlue),
+              SizedBox(
+                height: 12.h,
+              ),
+
               ///Are You Forget Password
-            InkWell(
+              InkWell(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onTap: (){},
+                onTap: () {},
                 child: Padding(
-                  padding:  EdgeInsetsDirectional.only(start: 15.w,),
-                  child: Text(AppLocalizations.of(context)!.forgetPassQuestion,
-                  style:  TextStyle(
+                  padding: EdgeInsetsDirectional.only(
+                    start: 15.w,
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.forgetPassQuestion,
+                    style: TextStyle(
                       fontSize: 13.0.sp,
-                    color: orangeColor,
-                  ),),
-                ),),
+                      color: orangeColor,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-  Widget _richText(String txtTitle){
+
+  Widget _richText(String txtTitle) {
     return Padding(
-      padding:  EdgeInsetsDirectional.only(start: 15.w),
+      padding: EdgeInsetsDirectional.only(start: 15.w),
       child: RichText(
           text: TextSpan(
-        text: txtTitle,
-        style: textStyle,
-        children: [textSpain]
-      )),
+              text: txtTitle, style: textStyle, children: [textSpain])),
     );
   }
-  void _performChangePass(){
+
+  void _performChangePass() {
     ///before create account
-    if (checkData()){
+    if (checkData()) {
       _changePass();
     }
   }
-  void _changePass(){
-  }
-  bool checkData(){
+
+  void _changePass() {}
+
+  bool checkData() {
     ///to check text field
-    if (currentPassController.text.isEmpty){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterCurrentPassword, error: true);
+    if (currentPassController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterCurrentPassword,
+          error: true);
       return false;
-    }else  if (newPassController.text.isEmpty){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterNewPassword, error: true);
+    } else if (newPassController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterNewPassword, error: true);
       return false;
-    }else if(!RegExp( r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
-        .hasMatch(newPassController.text)){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterPassFormat, error: true);
+    } else if (!RegExp(
+            r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
+        .hasMatch(newPassController.text)) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterPassFormat, error: true);
       return false;
-    } else  if (confirmPassController.text.isEmpty){
-      showMySnackBar(context, text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
+    } else if (confirmPassController.text.isEmpty) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
       return false;
     }
     return true;

@@ -8,14 +8,13 @@ class MyListTile extends StatelessWidget {
   late String text;
   late IconData? icon;
   late Function()? onTap;
-   MyListTile({
+
+  MyListTile({
     required this.text,
     required this.icon,
-     this.onTap,
+    this.onTap,
     super.key,
-
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +24,18 @@ class MyListTile extends StatelessWidget {
       onTap: onTap,
       child: Row(
         children: [
-          Icon(icon, color: darkBlue, size: 20.w,),
-          SizedBox(width: 25.w,),
-          Text(text, style: textStyle,),
+          Icon(
+            icon,
+            color: darkBlue,
+            size: 20.w,
+          ),
+          SizedBox(
+            width: 25.w,
+          ),
+          Text(
+            text,
+            style: textStyle,
+          ),
         ],
       ),
     );

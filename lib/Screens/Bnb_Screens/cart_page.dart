@@ -14,24 +14,32 @@ class ShoppingCartPage extends StatefulWidget {
   State<ShoppingCartPage> createState() => _ShoppingCartPageState();
 }
 
-class _ShoppingCartPageState extends State<ShoppingCartPage> with NavigatorHelper{
-
+class _ShoppingCartPageState extends State<ShoppingCartPage>
+    with NavigatorHelper {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w , vertical: 20.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(AppLocalizations.of(context)!.cartBar, style: bnbTitlestyle,),
-              SizedBox(height: 18.h,),
-              MyButton( text: AppLocalizations.of(context)!.addToCart,
-                onTap:(){
-                  jump( context ,to: BillDetailScreen());
-                },),
-            ],
+      padding:
+          EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.cartBar,
+            style: bnbTitlestyle,
           ),
-        ));
+          SizedBox(
+            height: 18.h,
+          ),
+          MyButton(
+            text: AppLocalizations.of(context)!.addToCart,
+            onTap: () {
+              jump(context, to: BillDetailScreen());
+            },
+          ),
+        ],
+      ),
+    ));
   }
 }

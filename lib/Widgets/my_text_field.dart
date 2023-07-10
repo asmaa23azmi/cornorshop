@@ -13,17 +13,20 @@ class MyTextField extends StatefulWidget {
   final TextInputType inputType;
   final Color hintSyleColor;
   final Function(String value)? onChange;
-  const MyTextField({
-    required this.controller,
-    required this.hintText,
-    this.password = false,
-    this.prefixIcon,
-    this.textFieldColor = whiteColor,
-    this.textFieldBorderColor = Colors.transparent,
-    this.inputType= TextInputType.text,
-    this.onChange,
-    this.hintSyleColor = grayColor,
-    super.key});
+  final int maxLines;
+
+  const MyTextField(
+      {required this.controller,
+      required this.hintText,
+      this.password = false,
+      this.prefixIcon,
+      this.textFieldColor = whiteColor,
+      this.textFieldBorderColor = Colors.transparent,
+      this.inputType = TextInputType.text,
+      this.onChange,
+      this.hintSyleColor = grayColor,
+      this.maxLines = 1,
+      super.key});
 
   @override
   State<MyTextField> createState() => _MyTextFieldState();
@@ -31,6 +34,7 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   bool obscure = false;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -38,48 +42,61 @@ class _MyTextFieldState extends State<MyTextField> {
       width: double.infinity,
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
-        controller: widget.controller, // to control text field
+        controller: widget.controller,
+        // to control text field
         cursorColor: grayColor,
         // autofocus: true,
         //to return the value that i write it in text field
         onChanged: widget.onChange,
-        obscureText:widget.password ? !obscure : obscure,
+        obscureText: widget.password ? !obscure : obscure,
         //obscuringCharacter: "*",
         keyboardType: widget.inputType,
+        maxLines: widget.maxLines,
         decoration: InputDecoration(
-          fillColor: widget.textFieldColor, /// text field background color
+          fillColor: widget.textFieldColor,
+
+          /// text field background color
           filled: true,
           hintText: widget.hintText,
-          hintStyle:TextStyle(
-              fontFamily: 'NotoKufiArabic',
-              fontSize: 14.0.sp,
-              fontWeight: FontWeight.normal,
-              color: widget.hintSyleColor,
+          hintStyle: TextStyle(
+            fontFamily: 'NotoKufiArabic',
+            fontSize: 14.0.sp,
+            fontWeight: FontWeight.normal,
+            color: widget.hintSyleColor,
           ),
           contentPadding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
           prefixIcon: widget.prefixIcon,
           suffixIcon: widget.password
-             ?InkWell(
-             onTap: () => setState(() => obscure = !obscure),
-             child: Icon(obscure? Icons.visibility: Icons.visibility_off ),
-             )
-             :null,
+              ? InkWell(
+                  onTap: () => setState(() => obscure = !obscure),
+                  child:
+                      Icon(obscure ? Icons.visibility : Icons.visibility_off),
+                )
+              : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
-            borderSide:  BorderSide(
-              color: widget.textFieldBorderColor,),),
-          disabledBorder:OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.textFieldBorderColor,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
             borderSide: BorderSide(
-              color: widget.textFieldBorderColor,),) ,
+              color: widget.textFieldBorderColor,
+            ),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
-            borderSide:  BorderSide(
-              color: widget.textFieldBorderColor,),),
-          errorBorder:OutlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.textFieldBorderColor,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14.0.r),
-            borderSide:  BorderSide(
-              color: widget.textFieldBorderColor,),),
+            borderSide: BorderSide(
+              color: widget.textFieldBorderColor,
+            ),
+          ),
         ),
       ),
     );

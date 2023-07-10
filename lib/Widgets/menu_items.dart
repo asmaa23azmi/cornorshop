@@ -5,10 +5,8 @@ import '../Const/colors.dart';
 class MenuItems extends StatefulWidget {
   final String text;
   final Function()? onTap;
-  const MenuItems({
-    required this.text,
-    this.onTap,
-    super.key});
+
+  const MenuItems({required this.text, this.onTap, super.key});
 
   @override
   State<MenuItems> createState() => _MenuItemsState();
@@ -30,10 +28,13 @@ class _MenuItemsState extends State<MenuItems> {
               fontSize: 14.0.sp,
               fontWeight: FontWeight.normal,
               color: darkBlue,
-            ),),
-          Icon(Icons.arrow_forward_ios,
+            ),
+          ),
+          Icon(
+            Icons.arrow_forward_ios,
             color: darkBlue,
-            size: 15.w,),
+            size: 15.w,
+          ),
         ],
       ),
     );

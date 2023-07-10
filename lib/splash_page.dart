@@ -11,25 +11,27 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with NavigatorHelper{
+class _SplashPageState extends State<SplashPage> with NavigatorHelper {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3),(){
+    Future.delayed(const Duration(seconds: 3), () {
       jump(context, to: const MainPage(), replace: true);
     });
 
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Container(
-         alignment: Alignment.center,
-          child: SvgPicture.asset('assets/images/logo.svg',
-          width:180.w,
-          height: 180.w,),
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            'assets/images/logo.svg',
+            width: 180.w,
+            height: 180.w,
+          ),
         ),
       ),
     );

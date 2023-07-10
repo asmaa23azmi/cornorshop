@@ -15,7 +15,6 @@ import '../Menu_Items/message_screen.dart';
 import '../Menu_Items/notifications_screen.dart';
 import '../Menu_Items/app_information_screen.dart';
 
-
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -23,120 +22,190 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with NavigatorHelper{
+class _MainPageState extends State<MainPage> with NavigatorHelper {
   late TextEditingController searchController;
   int selectedIndex = 0;
 
   @override
   void initState() {
-    searchController =TextEditingController();
+    searchController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-   searchController.dispose();
+    searchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: babyBlue,
-        toolbarHeight:124.h,
+        toolbarHeight: 124.h,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.only(
-              bottomEnd:Radius.circular(20.r),
+              bottomEnd: Radius.circular(20.r),
               bottomStart: Radius.circular(20.r)),
         ),
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             ///Bottom Sheet
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusDirectional.only(
-                      topStart: Radius.circular(20.r) ,
+                      topStart: Radius.circular(20.r),
                       topEnd: Radius.circular(20.r))),
               builder: (context) {
-              return Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 26.w , vertical:10.h ),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: Column(
-                    children: [
-                      ///Black Divider
-                     Container(
-                       height: 4,
-                       margin: EdgeInsetsDirectional.symmetric(
-                           horizontal: MediaQuery.of(context).size.width * 0.4,
-                           vertical: MediaQuery.of(context).size.height * 0.015),
-                       decoration: BoxDecoration(
-                         color: Colors.grey,
-                         borderRadius: BorderRadiusDirectional.circular(2.r),
-                       ),
-                     ),
-                      SizedBox(height:20.h,),
-                      ///Notification
-                      MenuItems(text: AppLocalizations.of(context)!.notifications,onTap: (){
-                        jump(context, to: const NotificationScreen());
-                      },),
-                      SizedBox(height:10.h,),
-                      Divider(color: grayColor, height: 0.3.h,),
-                      SizedBox(height:18.h,),
-                      ///Message
-                      MenuItems(text: AppLocalizations.of(context)!.msg,onTap: (){
-                        jump(context, to: const MessageScreen());
-                      },),
-                      SizedBox(height:10.h,),
-                      Divider(color: grayColor, height: 0.3.h,),
-                      SizedBox(height:18.h,),
-                      ///App Settings
-                      MenuItems(text: AppLocalizations.of(context)!.appSettings,onTap: (){
-                        jump(context, to: const AppSettingScreen());
-                      },),
-                      SizedBox(height:10.h,),
-                      Divider(color: grayColor, height: 0.3.h,),
-                      SizedBox(height:18.h,),
-                      ///App Information
-                      MenuItems(text: AppLocalizations.of(context)!.appInfo,onTap: (){
-                        jump(context, to: const AppInformation(),);},),
-                      SizedBox(height:10.h,),
-                      Divider(color: grayColor, height: 0.3.h,),
-                      SizedBox(height:18.h,),
-                    ],
+                return Padding(
+                  padding: EdgeInsetsDirectional.symmetric(
+                      horizontal: 26.w, vertical: 10.h),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: Column(
+                      children: [
+                        ///Black Divider
+                        Container(
+                          height: 4,
+                          margin: EdgeInsetsDirectional.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.4,
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.015),
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadiusDirectional.circular(2.r),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+
+                        ///Notification
+                        MenuItems(
+                          text: AppLocalizations.of(context)!.notifications,
+                          onTap: () {
+                            jump(context, to: const NotificationScreen());
+                          },
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Divider(
+                          color: grayColor,
+                          height: 0.3.h,
+                        ),
+                        SizedBox(
+                          height: 18.h,
+                        ),
+
+                        ///Message
+                        MenuItems(
+                          text: AppLocalizations.of(context)!.msg,
+                          onTap: () {
+                            jump(context, to: const MessageScreen());
+                          },
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Divider(
+                          color: grayColor,
+                          height: 0.3.h,
+                        ),
+                        SizedBox(
+                          height: 18.h,
+                        ),
+
+                        ///App Settings
+                        MenuItems(
+                          text: AppLocalizations.of(context)!.appSettings,
+                          onTap: () {
+                            jump(context, to: const AppSettingScreen());
+                          },
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Divider(
+                          color: grayColor,
+                          height: 0.3.h,
+                        ),
+                        SizedBox(
+                          height: 18.h,
+                        ),
+
+                        ///App Information
+                        MenuItems(
+                          text: AppLocalizations.of(context)!.appInfo,
+                          onTap: () {
+                            jump(
+                              context,
+                              to: const AppInformation(),
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Divider(
+                          color: grayColor,
+                          height: 0.3.h,
+                        ),
+                        SizedBox(
+                          height: 18.h,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },);
-          } ,///call_back
+                );
+              },
+            );
+          },
+
+          ///call_back
           child: Padding(
-            padding: EdgeInsetsDirectional.only(start: 15.w ,top: 15.h,),
-            child: Icon(Icons.menu_rounded,
-            color: darkBlue,
-            size: 44.34.h,
+            padding: EdgeInsetsDirectional.only(
+              start: 15.w,
+              top: 15.h,
+            ),
+            child: Icon(
+              Icons.menu_rounded,
+              color: darkBlue,
+              size: 44.34.h,
             ),
           ),
         ),
-        leadingWidth: 70.w, /// default =56.
-        title:Padding(
-          padding: EdgeInsetsDirectional.only(end:15.w,top: 15.h,),
-          child:Column(
+        leadingWidth: 70.w,
+
+        /// default =56.
+        title: Padding(
+          padding: EdgeInsetsDirectional.only(
+            end: 15.w,
+            top: 15.h,
+          ),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               // if (selectedIndex == 0)
               //   Image.asset('assets/images/shopLogo.png',width: 115.w,height: 27.h,),
               //   SizedBox(height: 3.h,),
-              MyTextField(controller: searchController,
-              hintText: AppLocalizations.of(context)!.searchBar,
+              MyTextField(
+                controller: searchController,
+                hintText: AppLocalizations.of(context)!.searchBar,
                 prefixIcon: IconButton(
-                  icon:const  Icon(Icons.search,),
+                  icon: const Icon(
+                    Icons.search,
+                  ),
                   color: grayColor,
                   iconSize: 25.35.h,
                   onPressed: () {},
-                ),),
+                ),
+              ),
             ],
           ),
         ),
@@ -144,11 +213,11 @@ class _MainPageState extends State<MainPage> with NavigatorHelper{
       ),
       body: [
         ///List from pages with index to move from page to other selected one.
-       const HomePage(),
-       const CategoryPage(),
-       const ShoppingCartPage(),
-       const FavoritePage(),
-       const ProfilePage(),
+        const HomePage(),
+        const CategoryPage(),
+        const ShoppingCartPage(),
+        const FavoritePage(),
+        const ProfilePage(),
       ][selectedIndex],
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadiusDirectional.only(
@@ -158,40 +227,63 @@ class _MainPageState extends State<MainPage> with NavigatorHelper{
         child: SizedBox(
           height: 66.h,
           child: BottomNavigationBar(
-            currentIndex: selectedIndex, /// the index for the page that where iam now.
-            onTap: (int index)=>setState(() =>selectedIndex = index),
+            currentIndex: selectedIndex,
+
+            /// the index for the page that where iam now.
+            onTap: (int index) => setState(() => selectedIndex = index),
+
             ///call_back, that return the index value that i pressed on it ==> (){}.
             ///setState() its important method ==> used to move between pages and make refresh for the page.
-            showSelectedLabels: true, /// to show the text(label) under the icon default value: true.
+            showSelectedLabels: true,
+
+            /// to show the text(label) under the icon default value: true.
             backgroundColor: babyBlue,
-            elevation: 0.0, /// to remove border
+            elevation: 0.0,
+
+            /// to remove border
             iconSize: 28.h,
             selectedItemColor: darkBlue,
             unselectedItemColor: darkBlue,
-            selectedLabelStyle:TextStyle(
+            selectedLabelStyle: TextStyle(
               fontSize: 8.0.sp,
             ),
-            unselectedLabelStyle:TextStyle(
+            unselectedLabelStyle: TextStyle(
               fontSize: 8.0.sp,
             ),
-            type: BottomNavigationBarType.fixed, /// to show all icons cause we have > 4 icons
-            items:  [
+            type: BottomNavigationBarType.fixed,
+
+            /// to show all icons cause we have > 4 icons
+            items: [
               BottomNavigationBarItem(
-                icon: selectedIndex == 0 ? const Icon(Icons.home): const Icon(Icons.home_outlined),
-                label: AppLocalizations.of(context)!.homeBar ,
+                icon: selectedIndex == 0
+                    ? const Icon(Icons.home)
+                    : const Icon(Icons.home_outlined),
+                label: AppLocalizations.of(context)!.homeBar,
               ),
               BottomNavigationBarItem(
-                  icon: selectedIndex ==1 ?const Icon(Icons.category) : const Icon(Icons.category_outlined),
-                  label: AppLocalizations.of(context)!.categoryBar,),
+                icon: selectedIndex == 1
+                    ? const Icon(Icons.category)
+                    : const Icon(Icons.category_outlined),
+                label: AppLocalizations.of(context)!.categoryBar,
+              ),
               BottomNavigationBarItem(
-                  icon:selectedIndex == 2 ?const Icon(Icons.shopping_cart): const Icon(Icons.shopping_cart_outlined),
-                  label: AppLocalizations.of(context)!.cartBar,),
+                icon: selectedIndex == 2
+                    ? const Icon(Icons.shopping_cart)
+                    : const Icon(Icons.shopping_cart_outlined),
+                label: AppLocalizations.of(context)!.cartBar,
+              ),
               BottomNavigationBarItem(
-                  icon:selectedIndex == 3 ? const Icon(Icons.favorite): const Icon(Icons.favorite_border_outlined),
-                  label: AppLocalizations.of(context)!.favBar,),
+                icon: selectedIndex == 3
+                    ? const Icon(Icons.favorite)
+                    : const Icon(Icons.favorite_border_outlined),
+                label: AppLocalizations.of(context)!.favBar,
+              ),
               BottomNavigationBarItem(
-                  icon:selectedIndex == 4 ? const Icon(Icons.person): const Icon(Icons.person_outline_outlined),
-                  label: AppLocalizations.of(context)!.profileBar,),
+                icon: selectedIndex == 4
+                    ? const Icon(Icons.person)
+                    : const Icon(Icons.person_outline_outlined),
+                label: AppLocalizations.of(context)!.profileBar,
+              ),
             ],
           ),
         ),
@@ -199,5 +291,3 @@ class _MainPageState extends State<MainPage> with NavigatorHelper{
     );
   }
 }
-
-
