@@ -9,14 +9,14 @@ import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 import '../../enums.dart';
 
-class AppSettingScreen extends StatefulWidget {
-  const AppSettingScreen({super.key});
+class AppSettingPge extends StatefulWidget {
+  const AppSettingPge({super.key});
 
   @override
-  State<AppSettingScreen> createState() => _AppSettingScreenState();
+  State<AppSettingPge> createState() => _AppSettingPgeState();
 }
 
-class _AppSettingScreenState extends State<AppSettingScreen> {
+class _AppSettingPgeState extends State<AppSettingPge> {
   String? radioValue;
 
   @override
@@ -130,11 +130,14 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
                                   Radio(
                                     value: AppLanguages.ar.name,
                                     groupValue: radioValue,
-                                    onChanged: (value) async{
-                                      setState(() async{
+                                    onChanged: (value) async {
+                                      setState(() {
                                         radioValue = value;
-                                        await language.changeLanguage(AppLanguages.ar);
                                       });
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.pop(context);
+                                      await language
+                                          .changeLanguage(AppLanguages.ar);
                                     },
                                   ),
                                   SizedBox(
@@ -143,6 +146,7 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
                                   Text(
                                     'العربية',
                                     style: TextStyle(
+                                      fontFamily: 'NotoKufiArabic',
                                       fontSize: 14.sp,
                                       color: darkBlue,
                                     ),
@@ -154,12 +158,14 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
                                   Radio(
                                     value: AppLanguages.en.name,
                                     groupValue: radioValue,
-                                    onChanged: (value) async{
-                                      setState(() async{
+                                    onChanged: (value) async {
+                                      setState(() {
                                         radioValue = value;
-                                        await language.changeLanguage(AppLanguages.en);
-
                                       });
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.pop(context);
+                                      await language
+                                          .changeLanguage(AppLanguages.en);
                                     },
                                   ),
                                   SizedBox(
@@ -168,6 +174,7 @@ class _AppSettingScreenState extends State<AppSettingScreen> {
                                   Text(
                                     'English',
                                     style: TextStyle(
+                                      fontFamily: 'TitilliumWeb',
                                       fontSize: 14.sp,
                                       color: darkBlue,
                                     ),

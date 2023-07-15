@@ -3,7 +3,6 @@ import '../Const/colors.dart';
 import 'package:flutter/material.dart';
 
 var textHeaderStyle = TextStyle(
-
   fontWeight: FontWeight.bold,
   fontSize: 25.03.sp,
   color: darkBlue,
@@ -19,13 +18,6 @@ var hintTextButtonStyle = TextStyle(
     color: grayColor
 );
 
-var textSpain = TextSpan(
-    text: '*',
-    style: TextStyle(
-        fontSize: 14.0.sp,
-        color: Colors.red
-    )
-);
 
 var textStyle = TextStyle(
   fontWeight: FontWeight.normal,

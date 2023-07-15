@@ -80,7 +80,29 @@
        "lowestPrice": "Lowest Price",
        "topPrice": "Top Price",
        "to": "to",
-       "apply": "Apply"
+       "apply": "Apply",
+       "requestDeleteAccount": "Request Delete Account",
+       "logout": "Logout",
+       "deleteAccountParagraphOne": "You're about to remove your own account from the Corner Shop app. Are you sure?",
+       "deleteAccount": "Delete Account",
+       "deleteAccountParagraphTwo": "Your account has been cancelled as per your request. You can recover the account up to a maximum of 14 days by contacting customer service. After this period, all your information will be deleted from the app and you will not be able to recover the account",
+       "ok": "OK",
+       "logoutParagraph": "Do you want to sign out of your account?",
+       "editProfile": "Edite Profile",
+       "addProduct": "Add Product",
+       "shareProfile": "Share Profile",
+       "productImage": "Add Product Image/s",
+       "productName": "Enter Product Name",
+       "productPrice": "Enter Product Price",
+       "productDescription": "Enter Product Description",
+       "productCategory": "Determine Product Category",
+       "publishProduct": "Publish Product",
+       "userName" : "User Name",
+       "enterUserName": "Enter User Name",
+       "bio": "Bio",
+       "enterBio": "Enter Your Bio",
+       "save": "Save",
+       "editVendorImg": "Edit Image"
 
 
 

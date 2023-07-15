@@ -5,14 +5,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+class NotificationPage extends StatefulWidget {
+  const NotificationPage({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<NotificationPage> createState() => _NotificationPageState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

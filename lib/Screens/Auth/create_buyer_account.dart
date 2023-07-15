@@ -8,6 +8,7 @@ import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 import '../../Widgets/my_button.dart';
 import '../../Helper/snack_bar_helper.dart';
+import '../../Widgets/my_rich_text.dart';
 import '../../Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
 
@@ -88,7 +89,7 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
               ),
 
               ///Full Name
-              _richText(AppLocalizations.of(context)!.fullName),
+              MyRichText(text: AppLocalizations.of(context)!.fullName),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -101,7 +102,7 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
               ),
 
               ///Phone Num
-              _richText(AppLocalizations.of(context)!.phoneNum),
+              MyRichText(text: AppLocalizations.of(context)!.phoneNum),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -118,7 +119,7 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
               ),
 
               ///Email
-              _richText(AppLocalizations.of(context)!.email),
+              MyRichText(text: AppLocalizations.of(context)!.email),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -135,7 +136,10 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
                 padding: const EdgeInsetsDirectional.only(
                   start: 15,
                 ),
-                child: Text(AppLocalizations.of(context)!.address),
+                child: Text(
+                  AppLocalizations.of(context)!.address,
+                  style: textStyle,
+                ),
               ),
               SizedBox(
                 height: 3.0.h,
@@ -149,7 +153,7 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
               ),
 
               ///Password
-              _richText(AppLocalizations.of(context)!.password),
+              MyRichText(text: AppLocalizations.of(context)!.password),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -163,7 +167,7 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
               ),
 
               ///Return Pass
-              _richText(AppLocalizations.of(context)!.returnPassword),
+              MyRichText(text: AppLocalizations.of(context)!.returnPassword),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -222,18 +226,6 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
   }
 
   ///Functions
-  Widget _richText(String textTitle) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 15.w),
-      child: RichText(
-        text: TextSpan(
-          text: textTitle,
-          style: textStyle,
-          children: [textSpain],
-        ),
-      ),
-    );
-  }
 
   void _performCreate() {
     ///before create account

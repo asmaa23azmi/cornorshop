@@ -76,7 +76,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
             itemBuilder: (context, index) {
               return Container(
                 width: double.infinity.w,
-                // height: 90.h,
+                 //height: 100.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadiusDirectional.circular(4.r),
@@ -90,15 +90,14 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                 ),
                 child: Row(
                   children: [
+                    ///Product Img
                     Container(
+                      margin: EdgeInsetsDirectional.symmetric(horizontal: 10.w, vertical: 10.h),
                       width: 105.w,
-                      // height: 90.h,
+                       height: 100.h,
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(4.r),
-                          bottomStart: Radius.circular(4.r),
-                        ),
+                        borderRadius: BorderRadiusDirectional.circular(4.r),
                         color: grayColor,
                       ),
                       child: Image.asset(
@@ -107,8 +106,9 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: 23.w,
+                      width: 12.w,
                     ),
+                    ///Product Details
                     Padding(
                       padding:
                           EdgeInsetsDirectional.symmetric(vertical: 10.h),
@@ -118,8 +118,8 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                           Text(
                             product[index].productName,
                             style: TextStyle(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.normal,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w600,
                               color: darkBlue,
                             ),
                           ),
@@ -131,7 +131,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                               Text(
                                 product[index].vendorName,
                                 style: TextStyle(
-                                  fontSize: 6.sp,
+                                  fontSize: 8.sp,
                                   fontWeight: FontWeight.normal,
                                   color: darkBlue,
                                 ),
@@ -140,9 +140,9 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                                 width: 5.w,
                               ),
                               Text(
-                                '${product[index].productPrice}',
+                                '₪ ${product[index].productPrice}',
                                 style: TextStyle(
-                                  fontSize: 8.sp,
+                                  fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                   color: darkBlue,
                                 ),
@@ -156,8 +156,8 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                             children: [
                               MyButton(
                                 text: AppLocalizations.of(context)!.addToCart,
-                                myFontSize: 6.sp,
-                                myHeight: 20.h,
+                                myFontSize: 7.sp,
+                                myHeight: 25.h,
                                 myWidth: 93.w,
                                 buttonColor: orangeColor,
                                 borderBouttonColor: Colors.transparent,
@@ -172,7 +172,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                                 child: Icon(
                                   Icons.favorite_border_outlined,
                                   color: darkBlue,
-                                  size: 11.w,
+                                  size: 24.w,
                                 ),
                                 onTap: () {},
                               ),

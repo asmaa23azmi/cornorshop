@@ -1,53 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
 
-import '../../Const/colors.dart';
-import '../../Const/texts.dart';
+import '../../../Const/colors.dart';
+import '../../../Const/texts.dart';
+import '../../../Widgets/my_button.dart';
+import '../../../Helper/snack_bar_helper.dart';
+import '../../../Widgets/my_rich_text.dart';
+import '../../../Widgets/my_text_field.dart';
 import '../../Widgets/my_phone_text_field.dart';
-import '../../Widgets/my_rich_text.dart';
-import '../../Widgets/my_text_field.dart';
-import '../../Helper/navigator_helper.dart';
-import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/my_button.dart';
-import '../../Screens/Ordered_Screens/order_send_done.dart';
 
-class BillDetailScreen extends StatefulWidget {
-  const BillDetailScreen({super.key});
+class EditVendorProfile extends StatefulWidget {
+  const EditVendorProfile({super.key});
 
   @override
-  State<BillDetailScreen> createState() => _BillDetailScreenState();
+  State<EditVendorProfile> createState() => _EditVendorProfileState();
 }
 
-class _BillDetailScreenState extends State<BillDetailScreen>
-    with NavigatorHelper, SnackBarHelper {
+class _EditVendorProfileState extends State<EditVendorProfile>
+    with SnackBarHelper {
   CountryModel selectedCountry =
       appCountries.firstWhere((element) => element.dialCode == '970');
-
-  late TextEditingController nameController;
+  late TextEditingController userNameController;
   late TextEditingController phoneNumController;
+  late TextEditingController bioController;
+  late TextEditingController profileImageController;
+  late TextEditingController emailController;
   late TextEditingController addressController;
-  late TextEditingController governorateController;
-  late TextEditingController orderNotesController;
 
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController();
+    userNameController = TextEditingController();
     phoneNumController = TextEditingController();
+    bioController = TextEditingController();
+    profileImageController = TextEditingController();
+    emailController = TextEditingController();
     addressController = TextEditingController();
-    governorateController = TextEditingController();
-    orderNotesController = TextEditingController();
   }
 
   @override
   void dispose() {
-    nameController.dispose();
+    userNameController.dispose();
     phoneNumController.dispose();
+    bioController.dispose();
+    profileImageController.dispose();
+    emailController.dispose();
     addressController.dispose();
-    governorateController.dispose();
-    orderNotesController.dispose();
     super.dispose();
   }
 
@@ -77,54 +77,70 @@ class _BillDetailScreenState extends State<BillDetailScreen>
         ),
         centerTitle: true,
         title: Text(
-          AppLocalizations.of(context)!.billDetails,
+          AppLocalizations.of(context)!.editProfile,
           style: textAppBarStyle,
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           padding:
               EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
-          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ///title
-              Row(
-                children: [
-                  Icon(
-                    Icons.arrow_back_ios,
-                    color: darkBlue,
-                    size: 8.w,
-                  ),
-                  SizedBox(
-                    width: 7.w,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.addDetailsToBuy,
-                    style: textStyle,
-                  )
-                ],
+              ///Profile Image
+              Center(
+                child: Column(
+                  children: [
+                    Container(
+                      clipBehavior: Clip.antiAlias,
+                      width: 100.w,
+                      height: 100.h,
+                      decoration: const BoxDecoration(
+                        color: grayColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Image.asset(
+                        'assets/images/profile.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {},
+                      child: Text(
+                        AppLocalizations.of(context)!.editVendorImg,
+                        style: TextStyle(
+                            fontSize: 12.sp,
+                            color: darkBlue,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
-                height: 6.0.h,
+                height: 12.h,
               ),
 
-              /// Full Name
-              MyRichText(text: AppLocalizations.of(context)!.fullName),
-
+              ///User Name
+              MyRichText(text: AppLocalizations.of(context)!.userName),
               SizedBox(
-                height: 3.0.h,
+                height: 3.h,
               ),
               MyTextField(
-                  controller: nameController,
-                  hintText: AppLocalizations.of(context)!.enterFullName,
+                  controller: userNameController,
+                  hintText: AppLocalizations.of(context)!.enterUserName,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
                   textFieldColor: Colors.transparent),
-              SizedBox(height: 12.h),
+              SizedBox(
+                height: 12.h,
+              ),
 
-              /// Phone Num
+              ///Phone Number
               MyRichText(text: AppLocalizations.of(context)!.phoneNum),
 
               SizedBox(
@@ -141,25 +157,34 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                   setState(() => selectedCountry = country);
                 },
               ),
-              SizedBox(height: 12.h),
-
-              ///the Governorate
-              MyRichText(text: AppLocalizations.of(context)!.theGovernorate),
-
               SizedBox(
-                height: 3.0.h,
+                height: 12.h,
+              ),
+
+              ///Email
+              MyRichText(text: AppLocalizations.of(context)!.email),
+              SizedBox(
+                height: 3.h,
               ),
               MyTextField(
-                  controller: governorateController,
-                  hintText: AppLocalizations.of(context)!.enterGovernorate,
+                  controller: emailController,
+                  hintText: AppLocalizations.of(context)!.enterEmail,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
                   textFieldColor: Colors.transparent),
-              SizedBox(height: 12.h),
+              SizedBox(
+                height: 12.h,
+              ),
 
               /// Address
-              MyRichText(text: AppLocalizations.of(context)!.addressInDetails),
 
+              Padding(
+                padding: EdgeInsetsDirectional.only(start: 15.w),
+                child: Text(
+                  AppLocalizations.of(context)!.address,
+                  style: textStyle,
+                ),
+              ),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -171,61 +196,28 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                   textFieldColor: Colors.transparent),
               SizedBox(height: 12.h),
 
-              ///Notes
+              ///Bio
               Padding(
                 padding: EdgeInsetsDirectional.only(start: 15.w),
                 child: Text(
-                  AppLocalizations.of(context)!.orderNotes,
+                  AppLocalizations.of(context)!.bio,
                   style: textStyle,
                 ),
               ),
               SizedBox(
-                height: 3.0.h,
+                height: 3.h,
               ),
               MyTextField(
-                controller: orderNotesController,
-                hintText: AppLocalizations.of(context)!.enterOrderNotes,
+                controller: bioController,
+                hintText: AppLocalizations.of(context)!.enterBio,
                 textFieldBorderColor: blackObacityColor,
                 hintSyleColor: blackObacityColor,
                 textFieldColor: Colors.transparent,
                 maxLines: 6,
                 textFieldHeigth: 100.h,
               ),
-              SizedBox(height: 12.h),
-
-              ///Details
-              Padding(
-                padding: EdgeInsetsDirectional.only(start: 15.w),
-                child: Text(
-                  AppLocalizations.of(context)!.noteOne,
-                  style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.normal,
-                      color: darkBlue),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.only(start: 52.w),
-                child: Text(
-                  AppLocalizations.of(context)!.noteTwo,
-                  style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.normal,
-                      color: darkBlue),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.only(start: 52.w),
-                child: Text(
-                  AppLocalizations.of(context)!.noteThree,
-                  style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.normal,
-                      color: darkBlue),
-                ),
-              ),
               SizedBox(
-                height: 40.h,
+                height: 34.h,
               ),
 
               ///Actions
@@ -234,9 +226,9 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                 children: [
                   MyButton(
                       onTap: () {
-                        _performConfirmOrder();
+                        _performConfirm();
                       },
-                      text: AppLocalizations.of(context)!.confirmOrder,
+                      text: AppLocalizations.of(context)!.save,
                       myWidth: 135.w,
                       myHeight: 38.h,
                       borderBouttonColor: Colors.transparent,
@@ -262,36 +254,34 @@ class _BillDetailScreenState extends State<BillDetailScreen>
 
   ///Functions
 
-  void _performConfirmOrder() {
+  void _performConfirm() {
     ///before create account
     if (checkData()) {
-      _confirmOrder();
+      _confirm();
     }
   }
 
-  void _confirmOrder() {
-    showMySnackBar(context,
-        text: AppLocalizations.of(context)!.sendOrderSuccessfully);
-    jump(context, to: const OrderedSendScreen(), replace: true);
-  }
+  void _confirm() {}
 
   bool checkData() {
     ///to check text field
-    if (nameController.text.isEmpty) {
+    if (userNameController.text.isEmpty) {
       showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterFullName, error: true);
+          text: AppLocalizations.of(context)!.enterUserName, error: true);
       return false;
     } else if (phoneNumController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterPhoneNum, error: true);
       return false;
-    } else if (governorateController.text.isEmpty) {
+    } else if (emailController.text.isEmpty) {
       showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterGovernorate, error: true);
+          text: AppLocalizations.of(context)!.enterEmail, error: true);
       return false;
-    } else if (addressController.text.isEmpty) {
+    }else if (!RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(emailController.text)) {
       showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterGovernorate, error: true);
+          text: AppLocalizations.of(context)!.enterEmailFormat, error: true);
       return false;
     }
     return true;

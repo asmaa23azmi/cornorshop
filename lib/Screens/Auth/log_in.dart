@@ -9,6 +9,7 @@ import '../../Const/texts.dart';
 import '../../Widgets/my_button.dart';
 import '../../Helper/snack_bar_helper.dart';
 import '../../Widgets/my_phone_text_field.dart';
+import '../../Widgets/my_rich_text.dart';
 import '../../Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
 
@@ -78,7 +79,8 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
               ),
 
               ///Phone Num
-              _richText(AppLocalizations.of(context)!.phoneNum),
+              MyRichText(text: AppLocalizations.of(context)!.phoneNum),
+
               SizedBox(
                 height: 3.0.h,
               ),
@@ -95,7 +97,8 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
               SizedBox(
                 height: 16.0.h,
               ),
-              _richText(AppLocalizations.of(context)!.password),
+              MyRichText(text: AppLocalizations.of(context)!.password),
+
               SizedBox(
                 height: 3.0.h,
               ),
@@ -113,7 +116,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () {
-                  jump(context, to: ResetPassword());
+                  jump(context, to:const ResetPassword());
                 },
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(start: 15.w),
@@ -157,7 +160,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
                   ),
                   InkWell(
                     onTap: () {
-                      jump(context, to: CreateNewAccount());
+                      jump(context, to: const CreateNewAccount());
                     },
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
@@ -179,18 +182,6 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
   }
 
   ///Functions
-  Widget _richText(String textTitle) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 15.sp),
-      child: RichText(
-        text: TextSpan(
-          text: textTitle,
-          style: textStyle,
-          children: [textSpain],
-        ),
-      ),
-    );
-  }
 
   void _performLogIn() {
     ///before create account

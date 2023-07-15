@@ -5,14 +5,14 @@ import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 import '../../Widgets/my_text_field.dart';
 
-class MessageScreen extends StatefulWidget {
-  const MessageScreen({super.key});
+class MessagePage extends StatefulWidget {
+  const MessagePage({super.key});
 
   @override
-  State<MessageScreen> createState() => _MessageScreenState();
+  State<MessagePage> createState() => _MessagePageState();
 }
 
-class _MessageScreenState extends State<MessageScreen> {
+class _MessagePageState extends State<MessagePage> {
   late TextEditingController searchBarController;
 
   @override

@@ -68,6 +68,7 @@ class _SearchPageState extends State<SearchPage> {
           child: MyTextField(
             controller: searchController,
             hintText: AppLocalizations.of(context)!.searchBar,
+            outoFouce: true,
             prefixIcon: IconButton(
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
@@ -80,11 +81,13 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
         ),
+        ///Filter Page
         actions: [
           InkWell(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () {
+              ///Bottom Sheet
               showModalBottomSheet(
                 context: context,
                 shape: RoundedRectangleBorder(
@@ -138,6 +141,7 @@ class _SearchPageState extends State<SearchPage> {
                               hintSyleColor: blackObacityColor,
                               textFieldBorderColor: blackObacityColor,
                               textFieldWidth: 115.w,
+                              textFieldHeigth:  38.h,
                             ),
                             SizedBox(
                               width: 20.w,
@@ -156,6 +160,7 @@ class _SearchPageState extends State<SearchPage> {
                               hintSyleColor: blackObacityColor,
                               textFieldBorderColor: blackObacityColor,
                               textFieldWidth: 115.w,
+                              textFieldHeigth:  38.h,
                             ),
                           ],
                         ),
@@ -191,6 +196,7 @@ class _SearchPageState extends State<SearchPage> {
                                 onTap: () {},
                                 text: AppLocalizations.of(context)!.apply,
                                 myWidth: 135.w,
+                                myHeight: 38.h,
                                 borderBouttonColor: Colors.transparent,
                                 buttonColor: orangeColor),
                             MyButton(
@@ -199,6 +205,7 @@ class _SearchPageState extends State<SearchPage> {
                                 },
                                 text: AppLocalizations.of(context)!.cancel,
                                 myWidth: 135.w,
+                                myHeight: 38.h,
                                 borderBouttonColor: orangeColor,
                                 buttonColor: Colors.transparent,
                                 textButtonColor: orangeColor),
@@ -213,9 +220,9 @@ class _SearchPageState extends State<SearchPage> {
             child: Container(
               // padding: EdgeInsetsDirectional.only(end: 20.w),
               margin: EdgeInsetsDirectional.only(
-                  end: 20.w, top: 50.h, bottom: 40.h),
-              height: 44.h,
-              width: 36.w,
+                  end: 18.w, top: 48.h, bottom: 32.h),
+             // height: 44.h,
+              width: 40.w,
               decoration: BoxDecoration(
                 color: darkBlue,
                 borderRadius: BorderRadiusDirectional.circular(12.r),
@@ -223,7 +230,7 @@ class _SearchPageState extends State<SearchPage> {
               child: Icon(
                 Icons.filter_alt_rounded,
                 color: whiteColor,
-                size: 25.h,
+                size: 28.h,
               ),
             ),
           ),

@@ -80,7 +80,29 @@
     "lowestPrice": "أقل سعر",
     "topPrice": "أعلى سعر",
     "to": "إلى",
-    "apply": "تطبيق"
+    "apply": "تطبيق",
+    "requestDeleteAccount": "طلب حذف الحساب",
+    "logout": "تسجيل خروج",
+    "deleteAccountParagraphOne": "أنت على وشك إزالة حسابك الخاص من تطبيق Corner Shop هل أنت متأكد ؟",
+    "deleteAccount": "إزالة الحساب",
+    "deleteAccountParagraphTwo": "تم إلغاء حسابك بحسب طلبك. بإمكانك استرجاع الحساب حتى مدة أقصاها 14 يوم من خلال الاتصال بخدمة الزبائن. بعد هذه المدة، سيتم حذف جميع معلوماتك من التطبيق ولن تتمكن من استرجاع الحساب",
+    "ok": "موافق",
+    "logoutParagraph": "هل تريد تسجيل الخروج من حسابك؟",
+    "editProfile": "تعديل البيانات الشخصية",
+    "addProduct": "إضافة منتج",
+    "shareProfile": "مشاركة البرفايل",
+    "productImage": "ارفق صور/ة حول  المنتج",
+    "productName": "ادخل اسم المنتج",
+    "productPrice": "ادخل سعر المنتج",
+    "productDescription": "ادخل وصف حول المنتج",
+    "productCategory": "حدد نوع المنتج",
+    "publishProduct": "نشر المنتج",
+    "userName": "اسم المستخدم",
+    "enterUserName": "ادخل اسم المستخدم",
+    "bio": "السيرة الذاتية",
+    "enterBio": "ادخل السيرة الذاتية",
+    "save": "حفظ",
+    "editVendorImg": "تعديل الصورة"
 
 
 

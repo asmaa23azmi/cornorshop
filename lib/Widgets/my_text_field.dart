@@ -15,6 +15,7 @@ class MyTextField extends StatefulWidget {
   final int maxLines;
   final double textFieldHeigth;
   final double textFieldWidth;
+  final bool outoFouce;
 
   const MyTextField(
       {required this.controller,
@@ -29,6 +30,7 @@ class MyTextField extends StatefulWidget {
       this.maxLines = 1,
       this.textFieldHeigth = 44.0,
       this.textFieldWidth = double.infinity,
+      this.outoFouce = false,
       super.key});
 
   @override
@@ -48,7 +50,7 @@ class _MyTextFieldState extends State<MyTextField> {
         controller: widget.controller,
         // to control text field
         cursorColor: grayColor,
-        autofocus: true,
+        autofocus: widget.outoFouce,
         //to return the value that i write it in text field
         onChanged: widget.onChange,
         obscureText: widget.password ? !obscure : obscure,
@@ -71,8 +73,11 @@ class _MyTextFieldState extends State<MyTextField> {
           suffixIcon: widget.password
               ? InkWell(
                   onTap: () => setState(() => obscure = !obscure),
-                  child:
-                      Icon(obscure ? Icons.visibility : Icons.visibility_off),
+                  child: Icon(
+                    obscure ? Icons.visibility : Icons.visibility_off,
+                    color: grayColor,
+                    size: 20.w,
+                  ),
                 )
               : null,
           enabledBorder: OutlineInputBorder(

@@ -5,6 +5,7 @@ import 'package:intl_phone_field/countries.dart';
 import '../../Helper/snack_bar_helper.dart';
 import '../../Widgets/my_button.dart';
 import '../../Widgets/my_phone_text_field.dart';
+import '../../Widgets/my_rich_text.dart';
 import '../../Widgets/my_text_field.dart';
 import '../../Const/texts.dart';
 import '../../Const/colors.dart';
@@ -90,7 +91,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
               ),
 
               ///Full Name
-              _richText(AppLocalizations.of(context)!.fullName),
+              MyRichText(text: AppLocalizations.of(context)!.fullName),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -103,7 +104,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
               ),
 
               ///Phone Num
-              _richText(AppLocalizations.of(context)!.phoneNum),
+              MyRichText(text: AppLocalizations.of(context)!.phoneNum),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -120,7 +121,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
               ),
 
               ///Email
-              _richText(AppLocalizations.of(context)!.email),
+              MyRichText(text: AppLocalizations.of(context)!.email),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -155,7 +156,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
               ),
 
               ///Password
-              _richText(AppLocalizations.of(context)!.password),
+              MyRichText(text: AppLocalizations.of(context)!.password),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -169,7 +170,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
               ),
 
               ///Return Pass
-              _richText(AppLocalizations.of(context)!.returnPassword),
+              MyRichText(text: AppLocalizations.of(context)!.returnPassword),
               SizedBox(
                 height: 3.0.h,
               ),
@@ -282,18 +283,6 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
   }
 
   ///Functions
-  Widget _richText(String textTitle) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 15.w),
-      child: RichText(
-        text: TextSpan(
-          text: textTitle,
-          style: textStyle,
-          children: [textSpain],
-        ),
-      ),
-    );
-  }
 
   void _performCreate() {
     ///before create account

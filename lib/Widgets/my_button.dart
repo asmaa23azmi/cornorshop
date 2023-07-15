@@ -19,7 +19,7 @@ class MyButton extends StatefulWidget {
       this.onTap,
       this.loading = false,
       this.buttonColor = darkBlue,
-      this.borderBouttonColor = darkBlue,
+      this.borderBouttonColor = Colors.transparent,
       this.textButtonColor = whiteColor,
       this.myHeight = 50,
       this.myWidth = double.infinity,
@@ -53,7 +53,6 @@ class _MyButtonState extends State<MyButton> {
             ? Text(
                 widget.text,
                 style: TextStyle(
-                  fontFamily: 'NotoKufiArabic',
                   fontSize: widget.myFontSize.sp,
                   fontWeight: FontWeight.normal,
                   color: widget.textButtonColor,

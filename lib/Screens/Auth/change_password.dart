@@ -1,11 +1,14 @@
+import 'package:cornorshop/Screens/Auth/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Widgets/my_button.dart';
 import '../../Const/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Helper/snack_bar_helper.dart';
+import '../../Widgets/my_rich_text.dart';
 import '../../Widgets/my_text_field.dart';
 import '../../Const/texts.dart';
+import '../../Helper/navigator_helper.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -14,7 +17,8 @@ class ChangePassword extends StatefulWidget {
   State<ChangePassword> createState() => _ChangePasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
+class _ChangePasswordState extends State<ChangePassword>
+    with SnackBarHelper, NavigatorHelper {
   late TextEditingController currentPassController;
   late TextEditingController newPassController;
   late TextEditingController confirmPassController;
@@ -56,7 +60,7 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 50.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +77,7 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
               ),
 
               ///Current Password
-              _richText(AppLocalizations.of(context)!.currentPassword),
+              MyRichText(text: AppLocalizations.of(context)!.currentPassword),
               SizedBox(
                 height: 3.h,
               ),
@@ -87,7 +91,7 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
               ),
 
               ///New Password
-              _richText(AppLocalizations.of(context)!.newPassword),
+              MyRichText(text: AppLocalizations.of(context)!.newPassword),
               SizedBox(
                 height: 3.h,
               ),
@@ -101,7 +105,9 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
               ),
 
               ///Confirm New Password
-              _richText(AppLocalizations.of(context)!.confirmNewPassword),
+              MyRichText(
+                  text: AppLocalizations.of(context)!.confirmNewPassword),
+
               SizedBox(
                 height: 3.h,
               ),
@@ -128,9 +134,10 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
               ///Cancel Action
               MyButton(
                   text: AppLocalizations.of(context)!.cancel,
-                  onTap: () {},
+                  onTap: () {Navigator.pop(context);},
                   buttonColor: Colors.transparent,
-                  textButtonColor: darkBlue),
+                  textButtonColor: darkBlue,
+                  borderBouttonColor: darkBlue),
               SizedBox(
                 height: 12.h,
               ),
@@ -139,7 +146,9 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
               InkWell(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onTap: () {},
+                onTap: () {
+                  jump(context, to: const ResetPassword());
+                },
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(
                     start: 15.w,
@@ -157,15 +166,6 @@ class _ChangePasswordState extends State<ChangePassword> with SnackBarHelper {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _richText(String txtTitle) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 15.w),
-      child: RichText(
-          text: TextSpan(
-              text: txtTitle, style: textStyle, children: [textSpain])),
     );
   }
 

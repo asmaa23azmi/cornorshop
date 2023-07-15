@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Const/colors.dart';
+import '../Const/texts.dart';
 
-class MenuItems extends StatefulWidget {
+class MyListItem extends StatefulWidget {
   final String text;
+  late IconData icon;
   final Function()? onTap;
+  final double size;
 
-  const MenuItems({required this.text, this.onTap, super.key});
+  MyListItem(
+      {required this.text,
+      required this.icon,
+      this.onTap,
+      this.size = 15,
+      super.key});
 
   @override
-  State<MenuItems> createState() => _MenuItemsState();
+  State<MyListItem> createState() => _MyListItemState();
 }
 
-class _MenuItemsState extends State<MenuItems> {
+class _MyListItemState extends State<MyListItem> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -24,16 +32,12 @@ class _MenuItemsState extends State<MenuItems> {
         children: [
           Text(
             widget.text,
-            style: TextStyle(
-              fontSize: 14.0.sp,
-              fontWeight: FontWeight.normal,
-              color: darkBlue,
-            ),
+            style: textStyle,
           ),
           Icon(
-            Icons.arrow_forward_ios,
+            widget.icon,
             color: darkBlue,
-            size: 15.w,
+            size: widget.size.w,
           ),
         ],
       ),

@@ -49,11 +49,16 @@ flutter:
         fonts:
           - asset: assets/fonts/NotoKufi/NotoKufiArabic-Bold.ttf
           - asset: assets/fonts/NotoKufi/NotoKufiArabic-Regular.ttf
-  #         style: Bold
+          - asset: assets/fonts/NotoKufi/NotoKufiArabic-SemiBold.ttf
+          - asset: assets/fonts/NotoKufi/NotoKufiArabic-Medium.ttf
+
+    #         style: Bold
       - family: TitilliumWeb
         fonts:
           - asset: assets/fonts/TitilliumWeb/TitilliumWeb-Bold.ttf
           - asset: assets/fonts/TitilliumWeb/TitilliumWeb-Regular.ttf
+          - asset: assets/fonts/TitilliumWeb/TitilliumWeb-SemiBold.ttf
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

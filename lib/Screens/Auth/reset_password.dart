@@ -7,6 +7,7 @@ import '../../Const/texts.dart';
 import '../../Widgets/my_button.dart';
 import '../../Helper/snack_bar_helper.dart';
 import '../../Widgets/my_phone_text_field.dart';
+import '../../Widgets/my_rich_text.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -70,7 +71,7 @@ class _ResetPasswordState extends State<ResetPassword> with SnackBarHelper {
               ),
 
               /// Phone Num
-              _richText(AppLocalizations.of(context)!.phoneNum),
+              MyRichText(text: AppLocalizations.of(context)!.phoneNum),
               SizedBox(
                 height: 3.h,
               ),
@@ -95,19 +96,6 @@ class _ResetPasswordState extends State<ResetPassword> with SnackBarHelper {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _richText(String textTitle) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 15.sp),
-      child: RichText(
-        text: TextSpan(
-          text: textTitle,
-          style: textStyle,
-          children: [textSpain],
         ),
       ),
     );

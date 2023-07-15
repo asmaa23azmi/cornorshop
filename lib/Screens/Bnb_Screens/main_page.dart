@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../Widgets/menu_items.dart';
+import '../../Widgets/my_list_item.dart';
 import '../Bnb_Screens/cart_page.dart';
 import '../Bnb_Screens/category_page.dart';
 import '../Bnb_Screens/fav_page.dart';
@@ -10,10 +10,10 @@ import '../Bnb_Screens/profile_page.dart';
 import '../../Const/colors.dart';
 import '../../Screens/Search_Screens/search_page.dart';
 import '../../Helper/navigator_helper.dart';
-import '../Menu_Items/app_settings_screen.dart';
-import '../Menu_Items/message_screen.dart';
-import '../Menu_Items/notifications_screen.dart';
-import '../Menu_Items/app_information_screen.dart';
+import '../Menu_Items_screens/app_settings_page.dart';
+import '../Menu_Items_screens/message_page.dart';
+import '../Menu_Items_screens/notifications_page.dart';
+import '../Menu_Items_screens/app_information_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -73,10 +73,11 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
                         ),
 
                         ///Notification
-                        MenuItems(
+                        MyListItem(
                           text: AppLocalizations.of(context)!.notifications,
+                          icon: Icons.arrow_forward_ios,
                           onTap: () {
-                            jump(context, to: const NotificationScreen());
+                            jump(context, to: const NotificationPage());
                           },
                         ),
                         SizedBox(
@@ -91,10 +92,11 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
                         ),
 
                         ///Message
-                        MenuItems(
+                        MyListItem(
                           text: AppLocalizations.of(context)!.msg,
+                          icon: Icons.arrow_forward_ios,
                           onTap: () {
-                            jump(context, to: const MessageScreen());
+                            jump(context, to: const MessagePage());
                           },
                         ),
                         SizedBox(
@@ -109,10 +111,11 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
                         ),
 
                         ///App Settings
-                        MenuItems(
+                        MyListItem(
                           text: AppLocalizations.of(context)!.appSettings,
+                          icon: Icons.arrow_forward_ios,
                           onTap: () {
-                            jump(context, to: const AppSettingScreen());
+                            jump(context, to: const AppSettingPge());
                           },
                         ),
                         SizedBox(
@@ -127,8 +130,9 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
                         ),
 
                         ///App Information
-                        MenuItems(
+                        MyListItem(
                           text: AppLocalizations.of(context)!.appInfo,
+                          icon: Icons.arrow_forward_ios,
                           onTap: () {
                             jump(
                               context,
@@ -203,7 +207,6 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
                       Text(
                         AppLocalizations.of(context)!.searchBar,
                         style: TextStyle(
-                          fontFamily: 'NotoKufiArabic',
                           fontSize: 14.0.sp,
                           fontWeight: FontWeight.normal,
                           color: grayColor,
