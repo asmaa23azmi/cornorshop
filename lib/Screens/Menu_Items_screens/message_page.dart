@@ -31,14 +31,9 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
+        elevation:0.4,
         backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
+        toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -48,7 +43,7 @@ class _MessagePageState extends State<MessagePage> {
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
         centerTitle: true,
@@ -65,7 +60,7 @@ class _MessagePageState extends State<MessagePage> {
             children: [
               MyTextField(
                 controller: searchBarController,
-                hintText: AppLocalizations.of(context)!.searchBar,
+                hintText: AppLocalizations.of(context)!.msgSearchBar,
                 prefixIcon: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.search),

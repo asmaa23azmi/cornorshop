@@ -54,7 +54,7 @@ class _ChangePasswordState extends State<ChangePassword>
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
       ),

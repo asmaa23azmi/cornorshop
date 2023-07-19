@@ -55,14 +55,9 @@ class _BillDetailScreenState extends State<BillDetailScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
+        elevation: 0.4,
+        backgroundColor: whiteColor,
+        toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -72,7 +67,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
         centerTitle: true,
@@ -233,24 +228,28 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MyButton(
-                      onTap: () {
-                        _performConfirmOrder();
-                      },
-                      text: AppLocalizations.of(context)!.confirmOrder,
-                      myWidth: 135.w,
-                      myHeight: 38.h,
-                      borderBouttonColor: Colors.transparent,
-                      buttonColor: orangeColor),
+                    onTap: () {
+                      _performConfirmOrder();
+                    },
+                    text: AppLocalizations.of(context)!.confirmOrder,
+                    myWidth: 135.w,
+                    myHeight: 38.h,
+                    borderBouttonColor: Colors.transparent,
+                    buttonColor: orangeColor,
+                    myFontSize: 12.sp,
+                  ),
                   MyButton(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      text: AppLocalizations.of(context)!.cancel,
-                      myWidth: 135.w,
-                      myHeight: 38.h,
-                      borderBouttonColor: orangeColor,
-                      buttonColor: Colors.transparent,
-                      textButtonColor: orangeColor),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    text: AppLocalizations.of(context)!.cancel,
+                    myWidth: 135.w,
+                    myHeight: 38.h,
+                    borderBouttonColor: orangeColor,
+                    buttonColor: Colors.transparent,
+                    textButtonColor: orangeColor,
+                    myFontSize: 12.sp,
+                  ),
                 ],
               ),
             ],
@@ -291,7 +290,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
       return false;
     } else if (addressController.text.isEmpty) {
       showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterGovernorate, error: true);
+          text: AppLocalizations.of(context)!.enterAddress, error: true);
       return false;
     }
     return true;

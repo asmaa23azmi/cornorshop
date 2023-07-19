@@ -38,14 +38,10 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
+        elevation:0.4,
+        backgroundColor: whiteColor,
+        toolbarHeight: 70.h,
+
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -55,7 +51,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
         centerTitle: true,
@@ -98,7 +94,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadiusDirectional.circular(4.r),
-                        color: grayColor,
+                        color: Colors.grey.shade200,
                       ),
                       child: Image.asset(
                         'assets/images/${product[index].productImg[0]}.png',

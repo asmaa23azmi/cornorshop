@@ -9,7 +9,10 @@
      "cartBar" : "Shopping Cart",
      "favBar":"Favorites",
      "profileBar" : "profile",
-     "searchBar" : "  Search for what you want ",
+     "searchBar" : "  Search here for a product or vendor! ",
+     "msgSearchBar": "Search inside messages",
+     "search": "Search",
+     "productFiltering": "Product Filtering",
      "fullName" : "Full Name",
      "email":"Email",
      "address": "Address",
@@ -54,7 +57,7 @@
        "payment": "Payment",
        "paymentDescription": "Product prices will be collected by following the payment policy on delivery to ensure trust between traders",
        "showAll" : "Show All",
-       "yourFavProduct": "Your Favorite Product",
+       "myFavProduct": "Myw Favorite Product",
        "cloth": "Cloth",
        "naturalProduct": "Natural Products",
        "homeFood": "Home Dining & Desserts",
@@ -88,7 +91,7 @@
        "deleteAccountParagraphTwo": "Your account has been cancelled as per your request. You can recover the account up to a maximum of 14 days by contacting customer service. After this period, all your information will be deleted from the app and you will not be able to recover the account",
        "ok": "OK",
        "logoutParagraph": "Do you want to sign out of your account?",
-       "editProfile": "Edite Profile",
+       "editProfile": "Profile",
        "addProduct": "Add Product",
        "shareProfile": "Share Profile",
        "productImage": "Add Product Image/s",
@@ -102,7 +105,10 @@
        "bio": "Bio",
        "enterBio": "Enter Your Bio",
        "save": "Save",
-       "editVendorImg": "Edit Image"
+       "editVendorImg": "Edit Image",
+       "userPage": "User Page",
+       "more": "More",
+       "chooseOne": "select an option"
 
 
 

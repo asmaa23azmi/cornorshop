@@ -16,19 +16,14 @@ class _AppInformationState extends State<AppInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
+        elevation: 0.4,
+        backgroundColor: whiteColor,
+        toolbarHeight: 70.h,
         title: Text(
           AppLocalizations.of(context)!.appInfo,
           style: textAppBarStyle,
         ),
         centerTitle: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -38,7 +33,7 @@ class _AppInformationState extends State<AppInformation> {
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
       ),
@@ -52,7 +47,11 @@ class _AppInformationState extends State<AppInformation> {
             children: [
               Text(
                 AppLocalizations.of(context)!.appServices,
-                style: TextStyle(fontSize: 14.sp, color: orangeColor),
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: orangeColor,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               SizedBox(
                 height: 14.h,
@@ -72,7 +71,7 @@ class _AppInformationState extends State<AppInformation> {
                 height: 10.h,
               ),
               Divider(
-                color: grayColor,
+                color: greyColor,
                 height: 0.3.h,
               ),
               SizedBox(
@@ -93,7 +92,7 @@ class _AppInformationState extends State<AppInformation> {
                 height: 10.h,
               ),
               Divider(
-                color: grayColor,
+                color: greyColor,
                 height: 0.3.h,
               ),
               SizedBox(
@@ -114,7 +113,7 @@ class _AppInformationState extends State<AppInformation> {
                 height: 10.h,
               ),
               Divider(
-                color: grayColor,
+                color: greyColor,
                 height: 0.3.h,
               ),
               SizedBox(
@@ -135,7 +134,7 @@ class _AppInformationState extends State<AppInformation> {
                 height: 10.h,
               ),
               Divider(
-                color: grayColor,
+                color: greyColor,
                 height: 0.3.h,
               ),
               SizedBox(

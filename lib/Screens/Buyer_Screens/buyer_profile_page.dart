@@ -33,13 +33,14 @@ class _BuyerProfilePageState extends State<BuyerProfilePage>
                   height: 60.h,
                   width: 60.h,
                   clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    color: grayColor,
+                  decoration:  BoxDecoration(
+                    color: Colors.grey.shade200,
                     shape: BoxShape.circle,
                   ),
-                  child: Image.asset(
-                    'assets/images/profile.png',
-                    fit: BoxFit.cover,
+                  child: Icon(
+                    Icons.person,
+                    size:40.h,
+                    color: Colors.grey.shade300,
                   ),
                 ),
                 SizedBox(
@@ -58,15 +59,6 @@ class _BuyerProfilePageState extends State<BuyerProfilePage>
             SizedBox(
               height: 14.h,
             ),
-
-            ///login for test
-            MyListItem(
-                onTap: () {
-                  jump(context, to: const LogIn());
-                },
-                text: AppLocalizations.of(context)!.login,
-                icon: Icons.login,
-                size: 21.w),
           ],
         ),
       ),

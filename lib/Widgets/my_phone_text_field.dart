@@ -23,7 +23,7 @@ class MyPhoneTextField extends StatefulWidget {
       this.textFieldColor = whiteColor,
       this.textFieldBorderColor = Colors.transparent,
       required this.country,
-      this.hintSyleColor = grayColor,
+      this.hintSyleColor = greyColor,
       required this.selectedCountryCallBak,
       super.key});
 
@@ -60,7 +60,7 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
         textAlignVertical: TextAlignVertical.center,
         controller: widget.controller,
         // to control text field
-        cursorColor: grayColor,
+        cursorColor: greyColor,
         // autofocus: true,
         onChanged: (String value) {
           //to return the value that i write it in text field

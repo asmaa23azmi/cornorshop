@@ -68,7 +68,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
       ),

@@ -5,11 +5,11 @@ import '../Const/colors.dart';
 import '../Const/texts.dart';
 
 class MyListTile extends StatelessWidget {
-  late String text;
-  late IconData? icon;
-  late Function()? onTap;
+  final String text;
+  final IconData? icon;
+  final Function()? onTap;
 
-  MyListTile({
+ const MyListTile({
     required this.text,
     required this.icon,
     this.onTap,

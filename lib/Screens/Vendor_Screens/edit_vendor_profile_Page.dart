@@ -55,14 +55,9 @@ class _EditVendorProfileState extends State<EditVendorProfile>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
+        elevation: 0.4,
+        backgroundColor: whiteColor,
+        toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -72,7 +67,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
         centerTitle: true,
@@ -97,13 +92,14 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                       clipBehavior: Clip.antiAlias,
                       width: 100.w,
                       height: 100.h,
-                      decoration: const BoxDecoration(
-                        color: grayColor,
+                      decoration:  BoxDecoration(
+                        color: Colors.grey.shade200,
                         shape: BoxShape.circle,
                       ),
-                      child: Image.asset(
-                        'assets/images/profile.png',
-                        fit: BoxFit.cover,
+                      child: Icon(
+                        Icons.person,
+                        size: 70.h,
+                        color: Colors.grey.shade300,
                       ),
                     ),
                     InkWell(
@@ -231,6 +227,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                       text: AppLocalizations.of(context)!.save,
                       myWidth: 135.w,
                       myHeight: 38.h,
+                      myFontSize: 12.sp,
                       borderBouttonColor: Colors.transparent,
                       buttonColor: orangeColor),
                   MyButton(
@@ -240,6 +237,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                       text: AppLocalizations.of(context)!.cancel,
                       myWidth: 135.w,
                       myHeight: 38.h,
+                      myFontSize: 12.sp,
                       borderBouttonColor: orangeColor,
                       buttonColor: Colors.transparent,
                       textButtonColor: orangeColor),

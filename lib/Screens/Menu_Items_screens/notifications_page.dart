@@ -17,14 +17,9 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
+        elevation: 0.4,
+        backgroundColor: whiteColor,
+        toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -34,7 +29,7 @@ class _NotificationPageState extends State<NotificationPage> {
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
         centerTitle: true,
@@ -57,7 +52,11 @@ class _NotificationPageState extends State<NotificationPage> {
                   ),
                   Text(
                     AppLocalizations.of(context)!.notifications,
-                    style: TextStyle(fontSize: 14.sp, color: orangeColor),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: orangeColor,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               )

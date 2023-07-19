@@ -16,6 +16,7 @@ class MyTextField extends StatefulWidget {
   final double textFieldHeigth;
   final double textFieldWidth;
   final bool outoFouce;
+  final double myFontSize;
 
   const MyTextField(
       {required this.controller,
@@ -26,11 +27,12 @@ class MyTextField extends StatefulWidget {
       this.textFieldBorderColor = Colors.transparent,
       this.inputType = TextInputType.text,
       this.onChange,
-      this.hintSyleColor = grayColor,
+      this.hintSyleColor = greyColor,
       this.maxLines = 1,
       this.textFieldHeigth = 44.0,
       this.textFieldWidth = double.infinity,
       this.outoFouce = false,
+      this.myFontSize = 14,
       super.key});
 
   @override
@@ -48,8 +50,7 @@ class _MyTextFieldState extends State<MyTextField> {
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
         controller: widget.controller,
-        // to control text field
-        cursorColor: grayColor,
+        cursorColor: greyColor,
         autofocus: widget.outoFouce,
         //to return the value that i write it in text field
         onChanged: widget.onChange,
@@ -64,7 +65,7 @@ class _MyTextFieldState extends State<MyTextField> {
           filled: true,
           hintText: widget.hintText,
           hintStyle: TextStyle(
-            fontSize: 14.0.sp,
+            fontSize: widget.myFontSize.sp,
             fontWeight: FontWeight.normal,
             color: widget.hintSyleColor,
           ),
@@ -75,7 +76,7 @@ class _MyTextFieldState extends State<MyTextField> {
                   onTap: () => setState(() => obscure = !obscure),
                   child: Icon(
                     obscure ? Icons.visibility : Icons.visibility_off,
-                    color: grayColor,
+                    color: greyColor,
                     size: 20.w,
                   ),
                 )

@@ -6,7 +6,6 @@ class MyButton extends StatefulWidget {
   final String text;
   final Function()? onTap;
   final bool loading;
-
   final Color buttonColor;
   final Color borderBouttonColor;
   final Color textButtonColor;

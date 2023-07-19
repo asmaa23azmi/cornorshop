@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
 import '../../../Widgets/my_button.dart';
 import '../../../Helper/snack_bar_helper.dart';
+import '../../../Widgets/my_dropdown_search.dart';
 import '../../../Widgets/my_rich_text.dart';
 import '../../../Widgets/my_text_field.dart';
 
@@ -24,6 +26,15 @@ class _InsertProductPageState extends State<InsertProductPage>
   late TextEditingController productImageController;
   late TextEditingController productCategoryController;
 
+  String? selectedItem;
+
+  List<String> items = [
+    'ملابس',
+    'منتجات طبيعية',
+    'طعام وحلويات منزلية',
+    'مشغولات يدوية',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +42,6 @@ class _InsertProductPageState extends State<InsertProductPage>
     productPriceController = TextEditingController();
     productDescriptionController = TextEditingController();
     productImageController = TextEditingController();
-    productCategoryController = TextEditingController();
   }
 
   @override
@@ -40,7 +50,6 @@ class _InsertProductPageState extends State<InsertProductPage>
     productPriceController.dispose();
     productDescriptionController.dispose();
     productImageController.dispose();
-    productCategoryController.dispose();
     super.dispose();
   }
 
@@ -48,14 +57,9 @@ class _InsertProductPageState extends State<InsertProductPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
+        elevation: 0.4,
+        backgroundColor: whiteColor,
+        toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -65,7 +69,7 @@ class _InsertProductPageState extends State<InsertProductPage>
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
         centerTitle: true,
@@ -102,7 +106,7 @@ class _InsertProductPageState extends State<InsertProductPage>
                   ),
                   child: Icon(
                     Icons.file_upload,
-                    color: grayColor,
+                    color: greyColor,
                     size: 40.w,
                   ),
                 ),
@@ -149,6 +153,10 @@ class _InsertProductPageState extends State<InsertProductPage>
               SizedBox(
                 height: 3.h,
               ),
+              MyDropdownSearch(
+                items: items,
+                onChange: (value) => selectedItem =value,
+              ),
               SizedBox(
                 height: 12.h,
               ),
@@ -187,7 +195,8 @@ class _InsertProductPageState extends State<InsertProductPage>
                       },
                       text: AppLocalizations.of(context)!.publishProduct,
                       myWidth: 135.w,
-                      myHeight: 38.h,
+                      myHeight: 40.h,
+                      myFontSize: 12.sp,
                       borderBouttonColor: Colors.transparent,
                       buttonColor: orangeColor),
                   MyButton(
@@ -196,7 +205,8 @@ class _InsertProductPageState extends State<InsertProductPage>
                       },
                       text: AppLocalizations.of(context)!.cancel,
                       myWidth: 135.w,
-                      myHeight: 38.h,
+                      myHeight: 40.h,
+                      myFontSize: 12.sp,
                       borderBouttonColor: orangeColor,
                       buttonColor: Colors.transparent,
                       textButtonColor: orangeColor),
@@ -234,7 +244,7 @@ class _InsertProductPageState extends State<InsertProductPage>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.productPrice, error: true);
       return false;
-    } else if (productCategoryController.text.isEmpty) {
+    } else if (selectedItem == null) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.productCategory, error: true);
       return false;

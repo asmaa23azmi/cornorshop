@@ -1,4 +1,5 @@
 import 'package:cornorshop/Chache/cache_controller.dart';
+import 'package:cornorshop/Const/colors.dart';
 import 'package:cornorshop/Providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,6 +57,7 @@ class MyMaterialApp extends StatelessWidget {
           ///delete debug sign
           theme: ThemeData(
             fontFamily:lang.language == AppLanguages.ar.name? 'NotoKufiArabic': 'TitilliumWeb',
+              scaffoldBackgroundColor: whiteColor,
           ),
           home:const SplashPage(),
 

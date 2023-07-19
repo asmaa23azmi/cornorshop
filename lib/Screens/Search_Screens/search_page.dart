@@ -1,3 +1,4 @@
+import 'package:cornorshop/Widgets/my_dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,6 +20,15 @@ class _SearchPageState extends State<SearchPage> {
   late TextEditingController lowerPriceController;
   late TextEditingController topPriceController;
 
+  String? selectedItem;
+
+  List<String> items = [
+    'ملابس',
+    'منتجات طبيعية',
+    'طعام وحلويات منزلية',
+    'مشغولات يدوية',
+  ];
+
   @override
   void initState() {
     searchController = TextEditingController();
@@ -39,14 +49,9 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: babyBlue,
-        toolbarHeight: 124.h,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-              bottomEnd: Radius.circular(20.r),
-              bottomStart: Radius.circular(20.r)),
-        ),
+        elevation: 0.4,
+        backgroundColor: whiteColor,
+        //  toolbarHeight: 94.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -56,211 +61,268 @@ class _SearchPageState extends State<SearchPage> {
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
-            size: 24.0.h,
+            size: 22.h,
           ),
         ),
-        centerTitle: true,
-        title: Padding(
-          padding: EdgeInsetsDirectional.only(
-            end: 15.w,
-            top: 15.h,
-          ),
-          child: MyTextField(
-            controller: searchController,
-            hintText: AppLocalizations.of(context)!.searchBar,
-            outoFouce: true,
-            prefixIcon: IconButton(
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              icon: const Icon(
-                Icons.search,
-              ),
-              color: grayColor,
-              iconSize: 25.35.h,
-              onPressed: () {},
-            ),
+        title: Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: Text(
+            AppLocalizations.of(context)!.search,
+            style: textAppBarStyle,
           ),
         ),
-        ///Filter Page
-        actions: [
-          InkWell(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () {
-              ///Bottom Sheet
-              showModalBottomSheet(
-                context: context,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.only(
-                        topStart: Radius.circular(20.r),
-                        topEnd: Radius.circular(20.r))),
-                builder: (context) {
-                  return Padding(
-                    padding: EdgeInsetsDirectional.symmetric(
-                        horizontal: 26.w, vertical: 10.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ///Black Divider
-                        Container(
-                          height: 4,
-                          margin: EdgeInsetsDirectional.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.4,
-                              vertical:
-                                  MediaQuery.of(context).size.height * 0.015),
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadiusDirectional.circular(2.r),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.priceRange,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            color: darkBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-
-                        ///Determine the Price Range
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            MyTextField(
-                              controller: lowerPriceController,
-                              hintText:
-                                  AppLocalizations.of(context)!.lowestPrice,
-                              textFieldColor: Colors.transparent,
-                              hintSyleColor: blackObacityColor,
-                              textFieldBorderColor: blackObacityColor,
-                              textFieldWidth: 115.w,
-                              textFieldHeigth:  38.h,
-                            ),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.to,
-                              style: textStyle,
-                            ),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            MyTextField(
-                              controller: topPriceController,
-                              hintText: AppLocalizations.of(context)!.topPrice,
-                              textFieldColor: Colors.transparent,
-                              hintSyleColor: blackObacityColor,
-                              textFieldBorderColor: blackObacityColor,
-                              textFieldWidth: 115.w,
-                              textFieldHeigth:  38.h,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        Divider(
-                          color: grayColor,
-                          height: 0.3.h,
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-
-                        ///Choose Category
-                        Text(
-                          AppLocalizations.of(context)!.categoryBar,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            color: darkBlue,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-
-                        ///Actions
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            MyButton(
-                                onTap: () {},
-                                text: AppLocalizations.of(context)!.apply,
-                                myWidth: 135.w,
-                                myHeight: 38.h,
-                                borderBouttonColor: Colors.transparent,
-                                buttonColor: orangeColor),
-                            MyButton(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                text: AppLocalizations.of(context)!.cancel,
-                                myWidth: 135.w,
-                                myHeight: 38.h,
-                                borderBouttonColor: orangeColor,
-                                buttonColor: Colors.transparent,
-                                textButtonColor: orangeColor),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-            child: Container(
-              // padding: EdgeInsetsDirectional.only(end: 20.w),
-              margin: EdgeInsetsDirectional.only(
-                  end: 18.w, top: 48.h, bottom: 32.h),
-             // height: 44.h,
-              width: 40.w,
-              decoration: BoxDecoration(
-                color: darkBlue,
-                borderRadius: BorderRadiusDirectional.circular(12.r),
-              ),
-              child: Icon(
-                Icons.filter_alt_rounded,
-                color: whiteColor,
-                size: 28.h,
-              ),
-            ),
-          ),
-        ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsetsDirectional.symmetric(
-              horizontal: 20.w, vertical: 160.h),
+        child: Padding(
+          padding:
+              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/search.png',
-                height: 160.h,
-                width: 160.h,
+              Row(
+                children: [
+                  Expanded(
+                    child: MyTextField(
+                      controller: searchController,
+                      hintText: AppLocalizations.of(context)!.searchBar,
+                      outoFouce: true,
+                      textFieldColor: Colors.transparent,
+                      hintSyleColor: blackObacityColor,
+                      textFieldBorderColor: blackObacityColor,
+                      prefixIcon: IconButton(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        icon: Icon(
+                          Icons.search,
+                          color: blackObacityColor,
+                        ),
+                        color: greyColor,
+                        iconSize: 25.35.h,
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      ///Bottom Sheet
+                      showModalBottomSheet(
+                        context: context,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.only(
+                                topStart: Radius.circular(20.r),
+                                topEnd: Radius.circular(20.r))),
+                        builder: (context) {
+                          return Padding(
+                            padding: EdgeInsetsDirectional.symmetric(
+                                horizontal: 26.w, vertical: 10.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ///Black Divider
+                                Container(
+                                  height: 4,
+                                  margin: EdgeInsetsDirectional.symmetric(
+                                      horizontal:
+                                          MediaQuery.of(context).size.width *
+                                              0.4,
+                                      vertical:
+                                          MediaQuery.of(context).size.height *
+                                              0.015),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius:
+                                        BorderRadiusDirectional.circular(2.r),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .productFiltering,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.0.sp,
+                                    color: darkBlue,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Divider(
+                                  color: greyColor,
+                                  height: 0.3.h,
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsetsDirectional.only(start: 15.w),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.priceRange,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: darkBlue,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+
+                                ///Determine the Price Range
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    MyTextField(
+                                      controller: lowerPriceController,
+                                      hintText: AppLocalizations.of(context)!
+                                          .lowestPrice,
+                                      textFieldColor: Colors.transparent,
+                                      hintSyleColor: blackObacityColor,
+                                      textFieldBorderColor: blackObacityColor,
+                                      textFieldWidth: 115.w,
+                                      textFieldHeigth: 38.h,
+                                      myFontSize: 12.sp,
+                                      inputType: TextInputType.number,
+                                    ),
+                                    SizedBox(
+                                      width: 20.w,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!.to,
+                                      style: textStyle,
+                                    ),
+                                    SizedBox(
+                                      width: 20.w,
+                                    ),
+                                    MyTextField(
+                                      controller: topPriceController,
+                                      hintText: AppLocalizations.of(context)!
+                                          .topPrice,
+                                      textFieldColor: Colors.transparent,
+                                      hintSyleColor: blackObacityColor,
+                                      textFieldBorderColor: blackObacityColor,
+                                      textFieldWidth: 115.w,
+                                      textFieldHeigth: 38.h,
+                                      myFontSize: 12.sp,
+                                      inputType: TextInputType.number,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+
+                                ///Choose Category
+                                Padding(
+                                  padding:
+                                      EdgeInsetsDirectional.only(start: 15.w),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.categoryBar,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: darkBlue,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                MyDropdownSearch(
+                                  items: items,
+                                  onChange: (value) => selectedItem = value,
+                                ),
+                                SizedBox(
+                                  height: 26.h,
+                                ),
+
+                                ///Actions
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    MyButton(
+                                        onTap: () {},
+                                        text:
+                                            AppLocalizations.of(context)!.apply,
+                                        myWidth: 130.w,
+                                        myHeight: 38.h,
+                                        myFontSize: 12.sp,
+                                        borderBouttonColor: Colors.transparent,
+                                        buttonColor: orangeColor),
+                                    MyButton(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        text: AppLocalizations.of(context)!
+                                            .cancel,
+                                        myWidth: 130.w,
+                                        myHeight: 38.h,
+                                        myFontSize: 12.sp,
+                                        borderBouttonColor: orangeColor,
+                                        buttonColor: Colors.transparent,
+                                        textButtonColor: orangeColor),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 44.h,
+                      width: 40.w,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadiusDirectional.circular(12.r),
+                        border: Border.all(color: blackObacityColor),
+                      ),
+                      child: Icon(
+                        Icons.filter_alt_rounded,
+                        color: blackObacityColor,
+                        size: 24.h,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Text(
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                AppLocalizations.of(context)!.paragraphSearch,
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 10.sp,
-                  color: darkBlue,
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsetsDirectional.symmetric(vertical: 15.h),
+                  child: Column(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/search.png',
+                        height: 160.h,
+                        width: 160.h,
+                      ),
+                      SizedBox(
+                        height: 40.h,
+                      ),
+                      Text(
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        AppLocalizations.of(context)!.paragraphSearch,
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 10.sp,
+                          color: darkBlue,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

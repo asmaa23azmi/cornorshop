@@ -8,7 +8,6 @@ import '../../Const/colors.dart';
 import '../../Models/category_model.dart';
 import '../../Screens/Category_item_Screens/item_category_screen.dart';
 
-
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
 
@@ -46,102 +45,93 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding:
-            EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.categoryBar,
-                  style: bnbTitlestyle,
-                ),
-                InkWell(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () {},
-                    child: Text(
-                      AppLocalizations.of(context)!.showAll,
-                      style: textStyle,
-                    )),
-              ],
-            ),
-            SizedBox(
-              height: 25.h,
-            ),
-            Expanded(
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                padding: EdgeInsetsDirectional.zero,
-                itemCount: categoryItems.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-                      jump(context, to:const CategoryItemScreen());
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 60.h,
-                          width: 60.h,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadiusDirectional.all(
-                                Radius.circular(4.r)),
-                            border: Border.all(
-                              color: babyBlue,
-                              width: 1.w,
+    return Scaffold(
+      appBar: AppBar(
+      elevation: 0.4,
+        backgroundColor: whiteColor,
+        //toolbarHeight: 100.h,
+        title: Padding(
+         padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w),
+          child: Text(
+            AppLocalizations.of(context)!.categoryBar,
+            style: textAppBarStyle,
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding:
+              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  padding: EdgeInsetsDirectional.zero,
+                  itemCount: categoryItems.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        jump(context, to: const CategoryItemScreen());
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 50.h,
+                            width: 50.h,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadiusDirectional.all(
+                                  Radius.circular(12.r)),
                             ),
+                            child: Image.asset(
+                                'assets/images/${categoryItems[index].categoryImg}.png',
+                                fit: BoxFit.cover),
                           ),
-                          child: SvgPicture.asset(
-                              'assets/images/${categoryItems[index].categoryImg}.svg',
-                              fit: BoxFit.cover),
+                          SizedBox(
+                            width: 9.w,
+                          ),
+                          Text(
+                            categoryItems[index].categoryTitle,
+                            style: textStyle,
+                          ),
+                          const Spacer(
+                              //to position the widget in the end of the row
+                              ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: darkBlue,
+                            size: 15.w,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Divider(
+                          color: greyColor,
+                          height: 0.3.h,
                         ),
                         SizedBox(
-                          width: 9.w,
-                        ),
-                        Text(
-                          categoryItems[index].categoryTitle,
-                          style: textStyle,
-                        ),
-                        const Spacer(
-                            //to position the widget in the end of the row
-                            ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: darkBlue,
-                          size: 15.w,
+                          height: 15.h,
                         ),
                       ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Divider(
-                        color: grayColor,
-                        height: 0.3.h,
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                    ],
-                  );
-                },
-              ),
-            )
-          ],
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

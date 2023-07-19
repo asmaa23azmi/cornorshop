@@ -25,14 +25,9 @@ class _AppSettingPgeState extends State<AppSettingPge> {
       builder: (context, language, child) {
         return Scaffold(
           appBar: AppBar(
-            elevation: 0.0,
-            backgroundColor: babyBlue,
-            toolbarHeight: 124.h,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadiusDirectional.only(
-                  bottomEnd: Radius.circular(20.r),
-                  bottomStart: Radius.circular(20.r)),
-            ),
+            elevation:0.4,
+            backgroundColor: whiteColor,
+            toolbarHeight: 70.h,
             leading: InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -42,7 +37,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
               child: Icon(
                 Icons.arrow_back_ios,
                 color: darkBlue,
-                size: 24.0.h,
+                size: 22.h,
               ),
             ),
             centerTitle: true,
@@ -120,7 +115,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                 height: 10.h,
                               ),
                               Divider(
-                                color: grayColor,
+                                color: greyColor,
                                 height: 0.3.h,
                               ),
 
@@ -128,12 +123,11 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                               Row(
                                 children: [
                                   Radio(
+                                    activeColor: darkBlue,
                                     value: AppLanguages.ar.name,
                                     groupValue: radioValue,
                                     onChanged: (value) async {
-                                      setState(() {
-                                        radioValue = value;
-                                      });
+                                      setState(() => radioValue = value);
                                       // ignore: use_build_context_synchronously
                                       Navigator.pop(context);
                                       await language
@@ -156,12 +150,11 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                               Row(
                                 children: [
                                   Radio(
+                                    activeColor: darkBlue,
                                     value: AppLanguages.en.name,
                                     groupValue: radioValue,
                                     onChanged: (value) async {
-                                      setState(() {
-                                        radioValue = value;
-                                      });
+                                      setState(() => radioValue = value);
                                       // ignore: use_build_context_synchronously
                                       Navigator.pop(context);
                                       await language

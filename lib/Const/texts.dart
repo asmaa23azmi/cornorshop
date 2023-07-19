@@ -7,15 +7,15 @@ var textHeaderStyle = TextStyle(
   fontSize: 25.03.sp,
   color: darkBlue,
 );
-var textAppBarStyle = const TextStyle(
-  fontSize: 20.0,
+var textAppBarStyle =  TextStyle(
+  fontSize: 16.sp,
   fontWeight: FontWeight.bold,
   color: darkBlue,
 );
 var hintTextButtonStyle = TextStyle(
     fontSize: 14.0.sp,
     fontWeight: FontWeight.normal,
-    color: grayColor
+    color: greyColor
 );
 
 
@@ -27,7 +27,7 @@ var textStyle = TextStyle(
 
 var bnbTitlestyle = TextStyle(
   fontSize: 14.sp,
-  fontWeight: FontWeight.normal,
+  fontWeight: FontWeight.w600,
   color: orangeColor,
 
 );

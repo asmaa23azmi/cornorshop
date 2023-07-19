@@ -30,120 +30,120 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
 
         ///Request Delete Account
         MyListItem(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                    elevation: 0.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.circular(14.r),
-                    ),
-                    child: Container(
-                      width: 234.w,
-                      padding: EdgeInsetsDirectional.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ///Paragraph
-                          Text(
-                            AppLocalizations.of(context)!
-                                .deleteAccountParagraphOne,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: darkBlue,
-                            ),
-                            textAlign: TextAlign.center,
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  elevation: 0.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.circular(14.r),
+                  ),
+                  child: Container(
+                    width: 234.w,
+                    padding: EdgeInsetsDirectional.symmetric(
+                        horizontal: 20.w, vertical: 20.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ///Paragraph
+                        Text(
+                          AppLocalizations.of(context)!
+                              .deleteAccountParagraphOne,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
+                            color: darkBlue,
                           ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
 
-                          ///Delete Account Action
-                          MyButton(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return Dialog(
-                                    elevation: 0.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadiusDirectional.circular(
-                                              14.r),
+                        ///Delete Account Action
+                        MyButton(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  elevation: 0.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadiusDirectional.circular(14.r),
+                                  ),
+                                  child: Container(
+                                    width: 234.w,
+                                    padding: EdgeInsetsDirectional.symmetric(
+                                        horizontal: 20.w, vertical: 22.h),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .deleteAccountParagraphTwo,
+                                          style: textStyle,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        MyButton(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          text:
+                                              AppLocalizations.of(context)!.ok,
+                                          buttonColor: orangeColor,
+                                          myWidth: 135.w,
+                                          myHeight: 38.h,
+                                          myFontSize: 12.sp,
+                                        ),
+                                      ],
                                     ),
-                                    child: Container(
-                                      width: 234.w,
-                                      padding: EdgeInsetsDirectional.symmetric(
-                                          horizontal: 20.w, vertical: 22.h),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .deleteAccountParagraphTwo,
-                                            style: textStyle,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          MyButton(
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                            },
-                                            text: AppLocalizations.of(context)!
-                                                .ok,
-                                            buttonColor: orangeColor,
-                                            myWidth: 135.w,
-                                            myHeight: 38.h,
-                                            myFontSize: 13.sp,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            text: AppLocalizations.of(context)!.deleteAccount,
-                            buttonColor: orangeColor,
-                            myWidth: 135.w,
-                            myHeight: 38.h,
-                            myFontSize: 13.sp,
-                          ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          text: AppLocalizations.of(context)!.deleteAccount,
+                          buttonColor: orangeColor,
+                          myWidth: 135.w,
+                          myHeight: 38.h,
+                          myFontSize: 12.sp,
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
 
-                          ///Cancel
-                          MyButton(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            text: AppLocalizations.of(context)!.cancel,
-                            buttonColor: Colors.transparent,
-                            myWidth: 135.w,
-                            myHeight: 38.h,
-                            myFontSize: 13.sp,
-                            borderBouttonColor: orangeColor,
-                            textButtonColor: orangeColor,
-                          ),
-                        ],
-                      ),
+                        ///Cancel
+                        MyButton(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          text: AppLocalizations.of(context)!.cancel,
+                          buttonColor: Colors.transparent,
+                          myWidth: 135.w,
+                          myHeight: 38.h,
+                          myFontSize: 12.sp,
+                          borderBouttonColor: orangeColor,
+                          textButtonColor: orangeColor,
+                        ),
+                      ],
                     ),
-                  );
-                },
-              );
-            },
-            text: AppLocalizations.of(context)!.requestDeleteAccount,
-            icon: Icons.person_remove_rounded,
-            size: 21.w),
+                  ),
+                );
+              },
+            );
+          },
+          text: AppLocalizations.of(context)!.requestDeleteAccount,
+          icon: Icons.person_remove_rounded,
+          size: 21.w,
+        ),
         SizedBox(
           height: 16.h,
         ),
@@ -188,7 +188,7 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                             buttonColor: orangeColor,
                             myWidth: 135.w,
                             myHeight: 38.h,
-                            myFontSize: 13.sp,
+                            myFontSize: 12.sp,
                           ),
                           SizedBox(
                             height: 16.h,
@@ -203,7 +203,7 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                             buttonColor: Colors.transparent,
                             myWidth: 135.w,
                             myHeight: 38.h,
-                            myFontSize: 13.sp,
+                            myFontSize: 12.sp,
                             borderBouttonColor: orangeColor,
                             textButtonColor: orangeColor,
                           ),
