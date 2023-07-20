@@ -45,7 +45,7 @@ class _MyButtonState extends State<MyButton> {
           borderRadius: BorderRadiusDirectional.circular(14.0.r),
           border: Border.all(
             color: widget.borderBouttonColor,
-            width: 1.5.w,
+            width: 1.w,
           ),
         ),
         child: !widget.loading

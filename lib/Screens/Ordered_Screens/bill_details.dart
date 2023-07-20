@@ -89,7 +89,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                 children: [
                   Icon(
                     Icons.arrow_back_ios,
-                    color: darkBlue,
+                    color: orangeColor,
                     size: 8.w,
                   ),
                   SizedBox(
@@ -97,7 +97,11 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                   ),
                   Text(
                     AppLocalizations.of(context)!.addDetailsToBuy,
-                    style: textStyle,
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14.0.sp,
+                      color: orangeColor,
+                    ),
                   )
                 ],
               ),

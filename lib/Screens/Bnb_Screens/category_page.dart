@@ -61,7 +61,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 40.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

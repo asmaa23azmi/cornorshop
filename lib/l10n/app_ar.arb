@@ -108,7 +108,15 @@
     "editVendorImg": "تعديل الصورة",
     "userPage": "صفحة المستخدم",
     "more": "المزيد",
-    "chooseOne": "تحديد خيار"
+    "chooseOne": "تحديد خيار",
+    "shoppingTrolley": "عربة التسوق",
+    "store": "المتجر :",
+    "quantity": "الكمية",
+    "remove": "إزالة",
+    "totalBasketPurchases": "إجمالي سلة المشتريات",
+    "total": "المجموع",
+    "shipping": "الشحن",
+    "fixedPrice": "سعر ثابت"
 
 
 

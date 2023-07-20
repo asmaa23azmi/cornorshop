@@ -111,6 +111,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          ///Product Name
                           Text(
                             product[index].productName,
                             style: TextStyle(
@@ -124,6 +125,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                           ),
                           Row(
                             children: [
+                              /// Vendor or Store Name
                               Text(
                                 product[index].vendorName,
                                 style: TextStyle(
@@ -135,8 +137,9 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                               SizedBox(
                                 width: 5.w,
                               ),
+                              /// Price
                               Text(
-                                '₪ ${product[index].productPrice}',
+                                '${product[index].productPrice} ₪',
                                 style: TextStyle(
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,

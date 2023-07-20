@@ -108,7 +108,15 @@
        "editVendorImg": "Edit Image",
        "userPage": "User Page",
        "more": "More",
-       "chooseOne": "select an option"
+       "chooseOne": "select an option",
+       "shoppingTrolley": "Shopping Trolley",
+       "store": "Store :",
+       "quantity": "Quantity",
+       "remove": "Remove",
+       "totalBasketPurchases": "Total Basket Purchases",
+       "total": "Total",
+       "shipping": "Shipping",
+       "fixedPrice": "Fixed Price"
 
 
 
