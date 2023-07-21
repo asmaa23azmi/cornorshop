@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
@@ -129,7 +128,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

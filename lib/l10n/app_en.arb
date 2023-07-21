@@ -116,7 +116,13 @@
        "totalBasketPurchases": "Total Basket Purchases",
        "total": "Total",
        "shipping": "Shipping",
-       "fixedPrice": "Fixed Price"
+       "fixedPrice": "Fixed Price",
+       "enterGender": "Enter Your Gender",
+       "enterCorrectGender": "Sorry You Cannot Create a Vendor Account",
+       "chosenStore" : "Chosen Stores",
+       "openPage": "Open Page",
+       "recommendProducts": "Products we recommend",
+       "productsList" : "Products List"
 
 
 

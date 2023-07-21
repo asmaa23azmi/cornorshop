@@ -115,7 +115,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                           Text(
                             product[index].productName,
                             style: TextStyle(
-                              fontSize: 10.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               color: darkBlue,
                             ),
@@ -151,6 +151,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                           SizedBox(
                             height: 14.h,
                           ),
+                          ///Action
                           Row(
                             children: [
                               MyButton(

@@ -45,6 +45,7 @@ flutter:
       - assets/images/
 
 
+
   fonts:
       - family: NotoKufiArabic
         fonts:

@@ -4,12 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
+import '../../Models/category_model.dart';
+import '../../Models/product_model.dart';
+import '../../Widgets/Home_Page_Widget/category_home_section.dart';
+import '../../Widgets/Home_Page_Widget/product_list_home_section.dart';
+import '../../Widgets/Home_Page_Widget/recommend_product_home_section.dart';
+import '../../Widgets/Home_Page_Widget/store_home_section.dart';
 import '../../Widgets/my_list_item.dart';
 import '../Menu_Items_screens/app_information_page.dart';
 import '../Menu_Items_screens/app_settings_page.dart';
 import '../Menu_Items_screens/message_page.dart';
 import '../Menu_Items_screens/notifications_page.dart';
 import '../Search_Screens/search_page.dart';
+import '../../Const/texts.dart';
+import '../../Screens/Bnb_Screens/category_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +27,63 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with NavigatorHelper {
+  List<CategoryModel> categoryItems = [
+    CategoryModel(
+      categoryId: 1,
+      categoryImg: 'clothIcon',
+      //categoryTitle: appLocale.cloth,
+      categoryTitle: 'ملابس',
+    ),
+    CategoryModel(
+      categoryId: 2,
+      categoryImg: 'naturalProductIcon',
+      //categoryTitle: AppLocalizations.of(context)!.naturalProduct,
+      categoryTitle: 'منتجات طبيعية',
+    ),
+    CategoryModel(
+      categoryId: 3,
+      categoryImg: 'homeFoodIcon',
+      // categoryTitle: AppLocalizations.of(context)!.homeFood,
+      categoryTitle: 'طعام وحلويات منزلية',
+    ),
+    CategoryModel(
+      categoryId: 4,
+      categoryImg: 'handicraftsIcon',
+      // categoryTitle: AppLocalizations.of(context)!.handicrafts,
+      categoryTitle: 'مشغولات يدوية',
+    ),
+  ];
+  List<ProductModel> product = [
+    ProductModel(
+      productId: 1,
+      productName: 'كيكة الكريمة',
+      productPrice: 25.0,
+      productImg: ['cake'],
+      productCategoryType: 'طعام وحلويات منزلية',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
+    ProductModel(
+      productId: 2,
+      productName: 'مسخن رول _ عدد 1 ',
+      productPrice: 2.0,
+      productImg: ['food'],
+      productCategoryType: 'طعام وحلويات منزلية',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
+    ProductModel(
+      productId: 3,
+      productName: 'قميص شتوي ',
+      productPrice: 70.0,
+      productImg: ['shirt'],
+      productCategoryType: 'ملابس',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -208,6 +273,109 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
           ),
         ],
       ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding:
+              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+          physics: const BouncingScrollPhysics(),
+          child: ConstrainedBox(
+            constraints:
+                BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ///Category Section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.categoryBar,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: darkBlue,
+                          fontSize: 14.sp),
+                    ),
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        jump(context, to: const CategoryPage());
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.showAll,
+                        style: textStyle,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 6.h,
+                ),
+                CategoryHomeSection(categoryItems: categoryItems),
+                SizedBox(
+                  height: 10.h,
+                ),
+
+                ///Stores Section
+                Text(
+                  AppLocalizations.of(context)!.chosenStore,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: darkBlue,
+                      fontSize: 14.sp),
+                ),
+                SizedBox(
+                  height: 6.h,
+                ),
+                const StoreHomeSection(),
+                SizedBox(
+                  height: 15.h,
+                ),
+
+                ///Recommend Products
+                Text(
+                  AppLocalizations.of(context)!.recommendProducts,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: darkBlue,
+                      fontSize: 14.sp),
+                ),
+                SizedBox(
+                  height: 6.h,
+                ),
+                RecommendProductHomeSection(product: product),
+                SizedBox(
+                  height: 15.h,
+                ),
+
+                ///Products List
+                Text(
+                  AppLocalizations.of(context)!.productsList,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: darkBlue,
+                      fontSize: 14.sp),
+                ),
+                SizedBox(
+                  height: 6.h,
+                ),
+               // const ProductListHomeSection(),
+                SizedBox(
+                  height: 15.h,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
+
+
+
+
+
+
+

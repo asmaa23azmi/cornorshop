@@ -330,6 +330,14 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
       return false;
+    } else if (radioValue == null) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterGender, error: true);
+      return false;
+    }else if (radioValue == 'M') {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterCorrectGender, error: true);
+      return false;
     }
     return true;
   }

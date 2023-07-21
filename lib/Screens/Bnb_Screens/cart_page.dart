@@ -317,7 +317,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                           ),
                           Text(
                             '${_getTotalPrice()} ₪',
-                            style: textStyle,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14.sp,
+                              color: darkBlue,
+                            ),
                           ),
                         ],
                       ),
@@ -347,18 +351,24 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                       SizedBox(
                         height: 12.h,
                       ),
+
                       ///Action
-                      MyButton(
-                        text: AppLocalizations.of(context)!.addToCart,
-                        onTap: () {
-                          jump(context, to: const BillDetailScreen());
-                        },
-                        buttonColor: orangeColor,
+                      Center(
+                        child: MyButton(
+                          text: AppLocalizations.of(context)!.addToCart,
+                          onTap: () {
+                            jump(context, to: const BillDetailScreen());
+                          },
+                          buttonColor: orangeColor,
+                          myWidth: 250.w,
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 15.h,),
+                SizedBox(
+                  height: 18.h,
+                ),
               ],
             ),
           ),

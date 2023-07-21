@@ -116,7 +116,13 @@
     "totalBasketPurchases": "إجمالي سلة المشتريات",
     "total": "المجموع",
     "shipping": "الشحن",
-    "fixedPrice": "سعر ثابت"
+    "fixedPrice": "سعر ثابت",
+    "enterGender" : "يرجى إدخال الجنس",
+    "enterCorrectGender" : "عذرا لا يمكنك إنشاء حساب كبائع",
+    "chosenStore": "مختارات من المتاجر",
+    "openPage": "فتح الصفحة",
+    "recommendProducts": "منتجات نوصي بها",
+    "productsList": "قائمة المنتجات"
 
 
 
