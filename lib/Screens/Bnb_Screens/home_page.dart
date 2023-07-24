@@ -52,6 +52,30 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
       // categoryTitle: AppLocalizations.of(context)!.handicrafts,
       categoryTitle: 'مشغولات يدوية',
     ),
+    CategoryModel(
+      categoryId: 1,
+      categoryImg: 'clothIcon',
+      //categoryTitle: appLocale.cloth,
+      categoryTitle: 'ملابس',
+    ),
+    CategoryModel(
+      categoryId: 2,
+      categoryImg: 'naturalProductIcon',
+      //categoryTitle: AppLocalizations.of(context)!.naturalProduct,
+      categoryTitle: 'منتجات طبيعية',
+    ),
+    CategoryModel(
+      categoryId: 3,
+      categoryImg: 'homeFoodIcon',
+      // categoryTitle: AppLocalizations.of(context)!.homeFood,
+      categoryTitle: 'طعام وحلويات منزلية',
+    ),
+    CategoryModel(
+      categoryId: 4,
+      categoryImg: 'handicraftsIcon',
+      // categoryTitle: AppLocalizations.of(context)!.handicrafts,
+      categoryTitle: 'مشغولات يدوية',
+    ),
   ];
   List<ProductModel> product = [
     ProductModel(
@@ -81,7 +105,33 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
       vendorName: 'اسم المتجر',
       productQuantity: 1,
     ),
-
+    ProductModel(
+      productId: 1,
+      productName: 'كيكة الكريمة',
+      productPrice: 25.0,
+      productImg: ['cake'],
+      productCategoryType: 'طعام وحلويات منزلية',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
+    ProductModel(
+      productId: 2,
+      productName: 'مسخن رول _ عدد 1 ',
+      productPrice: 2.0,
+      productImg: ['food'],
+      productCategoryType: 'طعام وحلويات منزلية',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
+    ProductModel(
+      productId: 3,
+      productName: 'قميص شتوي ',
+      productPrice: 70.0,
+      productImg: ['shirt'],
+      productCategoryType: 'ملابس',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
   ];
 
   @override
@@ -276,17 +326,16 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
       body: SafeArea(
         child: SingleChildScrollView(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 0.w, vertical: 20.h),
           physics: const BouncingScrollPhysics(),
-          child: ConstrainedBox(
-            constraints:
-                BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ///Category Section
-                Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ///Category Section
+              Padding(
+                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w, top: 20.h),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -309,73 +358,71 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 6.h,
-                ),
-                CategoryHomeSection(categoryItems: categoryItems),
-                SizedBox(
-                  height: 10.h,
-                ),
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              CategoryHomeSection(categoryItems: categoryItems),
+              SizedBox(
+                height: 10.h,
+              ),
 
-                ///Stores Section
-                Text(
+              ///Stores Section
+              Padding(
+                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w),
+                child: Text(
                   AppLocalizations.of(context)!.chosenStore,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: darkBlue,
                       fontSize: 14.sp),
                 ),
-                SizedBox(
-                  height: 6.h,
-                ),
-                const StoreHomeSection(),
-                SizedBox(
-                  height: 15.h,
-                ),
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              const StoreHomeSection(),
+              SizedBox(
+                height: 15.h,
+              ),
 
-                ///Recommend Products
-                Text(
+              ///Recommend Products
+              Padding(
+                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w),
+                child: Text(
                   AppLocalizations.of(context)!.recommendProducts,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: darkBlue,
                       fontSize: 14.sp),
                 ),
-                SizedBox(
-                  height: 6.h,
-                ),
-                RecommendProductHomeSection(product: product),
-                SizedBox(
-                  height: 15.h,
-                ),
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              RecommendProductHomeSection(product: product),
+              SizedBox(
+                height: 15.h,
+              ),
 
-                ///Products List
-                Text(
+              ///Products List
+              Padding(
+                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w),
+                child: Text(
                   AppLocalizations.of(context)!.productsList,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: darkBlue,
                       fontSize: 14.sp),
                 ),
-                SizedBox(
-                  height: 6.h,
-                ),
-               // const ProductListHomeSection(),
-                SizedBox(
-                  height: 15.h,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: 6.h),
+              const ProductListHomeSection(),
+              SizedBox(height: 15.h),
+            ],
           ),
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-

@@ -39,6 +39,7 @@
      "enterCurrentPassword": "Enter Current Password",
       "enterNewPassword": "Enter New Password",
       "resetPassword": "Reset Password",
+      "notMatchPass": "The password you entered do not match",
       "selectCountry": "Select Country",
       "male": "Male",
       "female": "Female",

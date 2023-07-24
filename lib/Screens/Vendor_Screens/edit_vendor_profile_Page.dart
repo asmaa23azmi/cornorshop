@@ -10,6 +10,7 @@ import '../../../Helper/snack_bar_helper.dart';
 import '../../../Widgets/my_rich_text.dart';
 import '../../../Widgets/my_text_field.dart';
 import '../../Widgets/my_phone_text_field.dart';
+import '../../Helper/img_picker_helper.dart';
 
 class EditVendorProfile extends StatefulWidget {
   const EditVendorProfile({super.key});
@@ -19,7 +20,7 @@ class EditVendorProfile extends StatefulWidget {
 }
 
 class _EditVendorProfileState extends State<EditVendorProfile>
-    with SnackBarHelper {
+    with SnackBarHelper, ImgPickerHelper {
   CountryModel selectedCountry =
       appCountries.firstWhere((element) => element.dialCode == '970');
   late TextEditingController userNameController;
@@ -92,25 +93,32 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                       clipBehavior: Clip.antiAlias,
                       width: 100.w,
                       height: 100.h,
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
-                        Icons.person,
-                        size: 70.h,
-                        color: Colors.grey.shade300,
-                      ),
+                      child: profileImg == null
+                          ? Icon(
+                              Icons.person,
+                              size: 70.h,
+                              color: Colors.grey.shade300,
+                            )
+                          : Image.file(
+                              profileImg!,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                     InkWell(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      onTap: () {},
+                      onTap: () async {
+                        await pickImgFromGallery();
+                      },
                       child: Text(
                         AppLocalizations.of(context)!.editVendorImg,
                         style: TextStyle(
                             fontSize: 12.sp,
-                            color: darkBlue,
+                            color: Colors.blue,
                             fontWeight: FontWeight.normal),
                       ),
                     ),
@@ -225,8 +233,8 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                         _performConfirm();
                       },
                       text: AppLocalizations.of(context)!.save,
-                      myWidth: 135.w,
-                      myHeight: 38.h,
+                      myWidth: 135,
+                      myHeight: 38,
                       myFontSize: 12.sp,
                       borderBouttonColor: Colors.transparent,
                       buttonColor: orangeColor),
@@ -235,8 +243,8 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                         Navigator.pop(context);
                       },
                       text: AppLocalizations.of(context)!.cancel,
-                      myWidth: 135.w,
-                      myHeight: 38.h,
+                      myWidth: 135,
+                      myHeight: 38,
                       myFontSize: 12.sp,
                       borderBouttonColor: orangeColor,
                       buttonColor: Colors.transparent,
@@ -275,8 +283,8 @@ class _EditVendorProfileState extends State<EditVendorProfile>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterEmail, error: true);
       return false;
-    }else if (!RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+    } else if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(emailController.text)) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterEmailFormat, error: true);

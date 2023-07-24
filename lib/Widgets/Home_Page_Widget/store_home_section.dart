@@ -16,10 +16,10 @@ class _StoreHomeSectionState extends State<StoreHomeSection> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 111.h,
+      height: 106.h,
       child: ListView.separated(
         physics: const BouncingScrollPhysics(),
-        padding: EdgeInsetsDirectional.zero,
+        padding: EdgeInsetsDirectional.only(start: 20.w),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: 10,
@@ -27,11 +27,10 @@ class _StoreHomeSectionState extends State<StoreHomeSection> {
           return Container(
             padding: EdgeInsetsDirectional.symmetric(
                 horizontal: 10.w, vertical: 10.h),
-            width: 150.w,
-            height: 80.h,
+            // width: 150.w,
+            // height: 80.h,
             decoration: BoxDecoration(
-              border:
-              Border.all(color: blackObacityColor, width: 1.w),
+              border: Border.all(color: blackObacityColor, width: 1.w),
               borderRadius: BorderRadiusDirectional.circular(12.r),
             ),
             child: Column(
@@ -66,9 +65,7 @@ class _StoreHomeSectionState extends State<StoreHomeSection> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 3.h,
-                ),
+                SizedBox(height: 3.h),
                 Text(
                   'نص يحتوي على وصف قام البائع باضافته',
                   style: TextStyle(
@@ -76,18 +73,17 @@ class _StoreHomeSectionState extends State<StoreHomeSection> {
                       fontWeight: FontWeight.normal,
                       color: Color(0xFF000000).withOpacity(0.55)),
                 ),
-                SizedBox(
-                  height: 3.h,
-                ),
+                // SizedBox(height: 3.h),
+                const Spacer(),
                 MyButton(
                   onTap: () {},
                   text: AppLocalizations.of(context)!.openPage,
-                  myWidth: 50.w,
-                  myHeight: 20.h,
-                  myFontSize: 6.sp,
+                  myWidth: 55,
+                  myHeight: 20,
+                  myFontSize: 6.5,
                   textButtonColor: whiteColor,
                   buttonColor: orangeColor,
-                )
+                ),
               ],
             ),
           );
@@ -97,4 +93,3 @@ class _StoreHomeSectionState extends State<StoreHomeSection> {
     );
   }
 }
-

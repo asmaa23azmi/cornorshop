@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:image_picker/image_picker.dart';
 
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
@@ -10,6 +12,7 @@ import '../../../Helper/snack_bar_helper.dart';
 import '../../../Widgets/my_dropdown_search.dart';
 import '../../../Widgets/my_rich_text.dart';
 import '../../../Widgets/my_text_field.dart';
+import '../../../Helper/img_picker_helper.dart';
 
 class InsertProductPage extends StatefulWidget {
   const InsertProductPage({super.key});
@@ -19,7 +22,7 @@ class InsertProductPage extends StatefulWidget {
 }
 
 class _InsertProductPageState extends State<InsertProductPage>
-    with SnackBarHelper {
+    with SnackBarHelper, ImgPickerHelper {
   late TextEditingController productNameController;
   late TextEditingController productPriceController;
   late TextEditingController productDescriptionController;
@@ -92,25 +95,25 @@ class _InsertProductPageState extends State<InsertProductPage>
                 height: 3.h,
               ),
               InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {},
-                child: Container(
-                  width: double.infinity.w,
-                  height: 180.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(14.r),
-                    border: Border.all(
-                      color: blackObacityColor,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () {},
+                  child: Container(
+                    width: double.infinity.w,
+                    height: 180.h,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadiusDirectional.circular(14.r),
+                      border: Border.all(
+                        color: blackObacityColor,
+                      ),
                     ),
-                  ),
-                  child: Icon(
-                    Icons.file_upload,
-                    color: greyColor,
-                    size: 40.w,
-                  ),
-                ),
-              ),
+                    child: Icon(
+                      Icons.file_upload,
+                      color: greyColor,
+                      size: 40.w,
+                    ),
+                  )),
               SizedBox(
                 height: 12.h,
               ),
@@ -155,7 +158,7 @@ class _InsertProductPageState extends State<InsertProductPage>
               ),
               MyDropdownSearch(
                 items: items,
-                onChange: (value) => selectedItem =value,
+                onChange: (value) => selectedItem = value,
               ),
               SizedBox(
                 height: 12.h,
@@ -194,9 +197,9 @@ class _InsertProductPageState extends State<InsertProductPage>
                         _performConfirm();
                       },
                       text: AppLocalizations.of(context)!.publishProduct,
-                      myWidth: 135.w,
-                      myHeight: 40.h,
-                      myFontSize: 12.sp,
+                      myWidth: 135,
+                      myHeight: 40,
+                      myFontSize: 12,
                       borderBouttonColor: Colors.transparent,
                       buttonColor: orangeColor),
                   MyButton(
@@ -204,9 +207,9 @@ class _InsertProductPageState extends State<InsertProductPage>
                         Navigator.pop(context);
                       },
                       text: AppLocalizations.of(context)!.cancel,
-                      myWidth: 135.w,
-                      myHeight: 40.h,
-                      myFontSize: 12.sp,
+                      myWidth: 135,
+                      myHeight: 40,
+                      myFontSize: 12,
                       borderBouttonColor: orangeColor,
                       buttonColor: Colors.transparent,
                       textButtonColor: orangeColor),

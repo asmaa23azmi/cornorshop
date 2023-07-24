@@ -16,6 +16,8 @@ class MyPhoneTextField extends StatefulWidget {
   final SelectedCountryCallBak selectedCountryCallBak;
   final Color hintSyleColor;
   final Color textFieldBorderColor;
+  final double textFieldHeigth;
+  final double textFieldWidth;
 
   const MyPhoneTextField(
       {required this.controller,
@@ -25,6 +27,8 @@ class MyPhoneTextField extends StatefulWidget {
       required this.country,
       this.hintSyleColor = greyColor,
       required this.selectedCountryCallBak,
+      this.textFieldHeigth = 44.0,
+      this.textFieldWidth = double.infinity,
       super.key});
 
   @override
@@ -54,14 +58,13 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 44.h,
-      width: double.infinity.w,
+      height: widget.textFieldHeigth.h,
+      width: widget.textFieldWidth.w,
       child: TextFormField(
         textAlignVertical: TextAlignVertical.center,
         controller: widget.controller,
         // to control text field
         cursorColor: greyColor,
-        // autofocus: true,
         onChanged: (String value) {
           //to return the value that i write it in text field
         },
@@ -164,7 +167,8 @@ class _MyPhoneTextFieldState extends State<MyPhoneTextField> {
                         controller: searchController,
                         hintText: AppLocalizations.of(context)!.selectCountry,
                         textFieldColor: Colors.transparent,
-                        textFieldBorderColor: Colors.grey,
+                        textFieldBorderColor: blackObacityColor,
+                        hintSyleColor: blackObacityColor,
                         onChange: (searchValue) {
                           setState(() {
                             searchedCountries.clear();

@@ -41,6 +41,7 @@ class _MyDropdownSearchState extends State<MyDropdownSearch> {
       items: widget.items,
       dropdownDecoratorProps: DropDownDecoratorProps(
         dropdownSearchDecoration: InputDecoration(
+          constraints: BoxConstraints(maxHeight: 44.h),
           contentPadding:
           EdgeInsetsDirectional.symmetric(horizontal: 10.w),
           enabledBorder: OutlineInputBorder(

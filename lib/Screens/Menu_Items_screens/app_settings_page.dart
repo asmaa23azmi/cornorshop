@@ -1,3 +1,4 @@
+import 'package:cornorshop/Chache/cache_controller.dart';
 import 'package:cornorshop/Providers/language_provider.dart';
 import 'package:cornorshop/Widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class AppSettingPge extends StatefulWidget {
 }
 
 class _AppSettingPgeState extends State<AppSettingPge> {
-  String? radioValue;
+  late String? radioValue = Provider.of<LanguageProvider>(context, listen: false).language;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
       builder: (context, language, child) {
         return Scaffold(
           appBar: AppBar(
-            elevation:0.4,
+            elevation: 0.4,
             backgroundColor: whiteColor,
             toolbarHeight: 70.h,
             leading: InkWell(
@@ -53,6 +54,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
+                ///App Language
                 MyListTile(
                   onTap: () {
                     return showModalBottomSheet(
@@ -83,7 +85,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                 ),
                               ),
                               SizedBox(
-                                height: 20.h,
+                                height: 20.h
                               ),
 
                               ///Title
@@ -99,7 +101,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                         size: 20.w,
                                       )),
                                   SizedBox(
-                                    width: 15.w,
+                                    width: 15.w
                                   ),
                                   Text(
                                     AppLocalizations.of(context)!.appLanguage,

@@ -360,7 +360,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                             jump(context, to: const BillDetailScreen());
                           },
                           buttonColor: orangeColor,
-                          myWidth: 250.w,
+                          myWidth: 250,
                         ),
                       ),
                     ],

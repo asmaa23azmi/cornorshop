@@ -39,6 +39,7 @@
     "enterCurrentPassword": "ادخل كلمة السر الحالية",
     "enterNewPassword": "ادخل كلمة السر الجديدة",
     "resetPassword": "إعادة تعيين كلمة السر",
+    "notMatchPass": "كلمة السر التي قمت بإدخالها غير متطابقة",
     "selectCountry": "اختر الدولة",
     "male": "ذكر",
     "female": "أنثى",

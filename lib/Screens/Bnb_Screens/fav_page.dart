@@ -43,16 +43,10 @@ class _FavoritePageState extends State<FavoritePage> {
       vendorName: 'اسم المتجر',
       productQuantity: 1,
     ),
-
   ];
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
-    ///This value is use to determine the layout in GridView(childAspectRatio).
-    final double itemHeight = (size.height - kToolbarHeight - 112) / 2;
-    final double itemWidth = size.width / 2;
 
     return Scaffold(
       appBar: AppBar(
@@ -89,14 +83,18 @@ class _FavoritePageState extends State<FavoritePage> {
                   shrinkWrap: true,
                   itemCount: product.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: (itemWidth.w / itemHeight.h),
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4),
+                    //This value is use to determine the layout in GridView(childAspectRatio).
+                    childAspectRatio: 120.w / 176.h,
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 4,
+                  ),
                   itemBuilder: (context, index) {
                     return Container(
                       //width: 110.h,
                       //height: 300.h,
+                      padding: EdgeInsetsDirectional.symmetric(
+                          horizontal: 4.w, vertical: 4.h),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
@@ -110,16 +108,15 @@ class _FavoritePageState extends State<FavoritePage> {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.symmetric(
-                            horizontal: 4.w, vertical: 4.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ///Product Img
-                            Container(
-                              width: 105.w,
-                              height: 90.h,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ///Product Img
+                          Expanded(
+                            child: Container(
+                              // width: 105.w,
+                              width: double.infinity,
+                              // height: 90.h,
                               clipBehavior: Clip.antiAlias,
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade200,
@@ -131,129 +128,111 @@ class _FavoritePageState extends State<FavoritePage> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
+                          ),
+                          SizedBox(height: 4.h),
 
-                            ///Product Category
-                            Container(
-                              height: 15.h,
-                              padding: EdgeInsetsDirectional.symmetric(
-                                  horizontal: 3.w),
-                              decoration: BoxDecoration(
-                                color: orangeColor.withOpacity(0.3),
-                                borderRadius:
-                                    BorderRadiusDirectional.circular(4.r),
+                          ///Product Category
+                          Container(
+                            height: 15.h,
+                            padding: EdgeInsetsDirectional.symmetric(
+                                horizontal: 3.w),
+                            decoration: BoxDecoration(
+                              color: orangeColor.withOpacity(0.3),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(4.r),
+                            ),
+                            child: Text(
+                              product[index].productCategoryType,
+                              style: TextStyle(
+                                fontSize: 6.5.sp,
+                                color: orangeColor,
+                                fontWeight: FontWeight.normal,
                               ),
-                              child: Text(
-                                product[index].productCategoryType,
+                            ),
+                          ),
+                          SizedBox(height: 7.h),
+
+                          ///Product Name
+                          Text(
+                            product[index].productName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 9.sp,
+                              color: darkBlue,
+                              height: 1.h,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(height: 6.h),
+
+                          ///Vendor Name & Price
+                          Row(
+                            children: [
+                              Container(
+                                width: 14.w,
+                                height: 14.w,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.grey.shade200,
+                                ),
+                                child: Icon(
+                                  Icons.person,
+                                  size: 12.h,
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              SizedBox(width: 2.w),
+                              Text(
+                                product[index].vendorName,
                                 style: TextStyle(
-                                  fontSize: 6.sp,
-                                  color: orangeColor,
+                                  fontSize: 7.5.sp,
                                   fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-
-                            ///Product Name
-                            Expanded(
-                              child: Text(
-                                product[index].productName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 8.5.sp,
                                   color: darkBlue,
+                                  height: 1.h,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-
-                            ///Vendor Name & Price
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 14.w,
-                                    height: 14.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey.shade200,
-                                    ),
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 12.h,
-                                      color: Colors.grey.shade300,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 2.w,
-                                  ),
-                                  Text(
-                                    product[index].vendorName,
-                                    style: TextStyle(
-                                      fontSize: 7.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: darkBlue,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 16.w,
-                                  ),
-                                  Text(
-                                    '${product[index].productPrice} ₪',
-                                    style: TextStyle(
-                                      fontSize: 8.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: darkBlue,
-                                    ),
-                                  ),
-                                ],
+                              SizedBox(width: 16.w),
+                              Text(
+                                '${product[index].productPrice} ₪',
+                                style: TextStyle(
+                                  fontSize: 9.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: darkBlue,
+                                  height: 1.h,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
+                            ],
+                          ),
+                          SizedBox(height: 4.h),
 
-                            ///Actions
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  MyButton(
-                                    text:
-                                        AppLocalizations.of(context)!.addToCart,
-                                    myFontSize: 5.sp,
-                                    myHeight: 35.h,
-                                    myWidth: 60.w,
-                                    buttonColor: orangeColor,
-                                    borderBouttonColor: Colors.transparent,
-                                    onTap: () {},
-                                  ),
-                                  SizedBox(
-                                    width: 8.w,
-                                  ),
-                                  InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    child: Icon(
-                                      Icons.favorite,
-                                      color: darkBlue,
-                                      size: 20.h,
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                ],
+                          ///Actions
+                          Row(
+                            children: [
+                              MyButton(
+                                text: AppLocalizations.of(context)!.addToCart,
+                                myFontSize: 5.5,
+                                myHeight: 22,
+                                myWidth: 62,
+                                buttonColor: orangeColor,
+                                borderBouttonColor: Colors.transparent,
+                                onTap: () {},
                               ),
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-                          ],
-                        ),
+                              SizedBox(width: 10.w),
+                              InkWell(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                child: Icon(
+                                  Icons.favorite,
+                                  color: darkBlue,
+                                  size: 20.h,
+                                ),
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 4.h),
+                        ],
                       ),
                     );
                   },

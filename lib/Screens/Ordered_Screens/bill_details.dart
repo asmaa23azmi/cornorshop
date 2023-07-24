@@ -188,7 +188,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                 hintSyleColor: blackObacityColor,
                 textFieldColor: Colors.transparent,
                 maxLines: 6,
-                textFieldHeigth: 100.h,
+                textFieldHeigth: 100,
               ),
               SizedBox(height: 12.h),
 
@@ -236,23 +236,23 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                       _performConfirmOrder();
                     },
                     text: AppLocalizations.of(context)!.confirmOrder,
-                    myWidth: 135.w,
-                    myHeight: 38.h,
+                    myWidth: 135,
+                    myHeight: 38,
                     borderBouttonColor: Colors.transparent,
                     buttonColor: orangeColor,
-                    myFontSize: 12.sp,
+                    myFontSize: 12,
                   ),
                   MyButton(
                     onTap: () {
                       Navigator.pop(context);
                     },
                     text: AppLocalizations.of(context)!.cancel,
-                    myWidth: 135.w,
-                    myHeight: 38.h,
+                    myWidth: 135,
+                    myHeight: 38,
                     borderBouttonColor: orangeColor,
                     buttonColor: Colors.transparent,
                     textButtonColor: orangeColor,
-                    myFontSize: 12.sp,
+                    myFontSize: 12,
                   ),
                 ],
               ),

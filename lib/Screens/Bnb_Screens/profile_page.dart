@@ -64,15 +64,28 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
       vendorName: 'اسم المتجر',
       productQuantity: 1,
     ),
+    ProductModel(
+      productId: 2,
+      productName: 'مسخن رول _ عدد 1 ',
+      productPrice: 2.0,
+      productImg: ['food'],
+      productCategoryType: 'طعام وحلويات منزلية',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
+    ProductModel(
+      productId: 3,
+      productName: 'قميص شتوي ',
+      productPrice: 70.0,
+      productImg: ['shirt'],
+      productCategoryType: 'ملابس',
+      vendorName: 'اسم المتجر',
+      productQuantity: 1,
+    ),
 
   ];
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
-    ///This value is use to determine the layout in GridView(childAspectRatio).
-    final double itemHeight = (size.height - kToolbarHeight - 290) / 2;
-    final double itemWidth = size.width / 2;
 
     return Scaffold(
       appBar: AppBar(
@@ -276,21 +289,27 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
               Column(
                 children: [
                   GridView.builder(
-                    physics: const BouncingScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsetsDirectional.zero,
                     shrinkWrap: true,
                     itemCount: product.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: (itemWidth.w / itemHeight.h),
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 1,
-                        mainAxisSpacing: 1),
+                      //This value is use to determine the layout in GridView(childAspectRatio).
+                      childAspectRatio: 110.w / 140.h,
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 2,
+                    ),
                     itemBuilder: (context, index) {
                       return Container(
                         //width: 110.h,
                         //height: 300.h,
+                        padding: EdgeInsetsDirectional.symmetric(
+                            horizontal: 4.w, vertical: 4.h),
                         decoration: BoxDecoration(
                           color: Colors.white,
+                          borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(4.r)),
                           boxShadow: [
                             BoxShadow(
                               color: const Color(0xFF000000).withOpacity(0.15),
@@ -300,16 +319,15 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
                             ),
                           ],
                         ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.symmetric(
-                              horizontal: 4.w, vertical: 4.h),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ///Product Img
-                              Container(
-                                width: 125.w,
-                                height: 90.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ///Product Img
+                            Expanded(
+                              child: Container(
+                                // width: 105.w,
+                                width: double.infinity,
+                                // height: 90.h,
                                 clipBehavior: Clip.antiAlias,
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade200,
@@ -321,95 +339,111 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
+                            ),
+                            SizedBox(height: 4.h),
 
-                              ///Product Category
-                              Container(
-                                height: 15.h,
-                                padding: EdgeInsetsDirectional.symmetric(
-                                    horizontal: 3.w),
-                                decoration: BoxDecoration(
-                                  color: orangeColor.withOpacity(0.3),
-                                  borderRadius:
-                                  BorderRadiusDirectional.circular(4.r),
+                            ///Product Category
+                            Container(
+                              height: 15.h,
+                              padding: EdgeInsetsDirectional.symmetric(
+                                  horizontal: 3.w),
+                              decoration: BoxDecoration(
+                                color: orangeColor.withOpacity(0.3),
+                                borderRadius:
+                                BorderRadiusDirectional.circular(4.r),
+                              ),
+                              child: Text(
+                                product[index].productCategoryType,
+                                style: TextStyle(
+                                  fontSize: 6.5.sp,
+                                  color: orangeColor,
+                                  fontWeight: FontWeight.normal,
                                 ),
-                                child: Text(
-                                  product[index].productCategoryType,
+                              ),
+                            ),
+                            SizedBox(height: 7.h),
+
+                            ///Product Name
+                            Text(
+                              product[index].productName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 9.sp,
+                                color: darkBlue,
+                                height: 1.h,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 6.h),
+
+                            ///Vendor Name & Price
+                            Row(
+                              children: [
+                                Container(
+                                  width: 14.w,
+                                  height: 14.w,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey.shade200,
+                                  ),
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 12.h,
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                                SizedBox(width: 2.w),
+                                Text(
+                                  product[index].vendorName,
                                   style: TextStyle(
-                                    fontSize: 6.sp,
-                                    color: orangeColor,
+                                    fontSize: 7.5.sp,
                                     fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-
-                              ///Product Name
-                              Expanded(
-                                child: Text(
-                                  product[index].productName,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 8.5.sp,
                                     color: darkBlue,
+                                    height: 1.h,
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-
-                              ///Vendor Name & Price
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 14.w,
-                                      height: 14.w,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey.shade200,
-                                      ),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 12.h,
-                                        color: Colors.grey.shade300,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    Text(
-                                      product[index].vendorName,
-                                      style: TextStyle(
-                                        fontSize: 7.sp,
-                                        fontWeight: FontWeight.normal,
-                                        color: darkBlue,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 16.w,
-                                    ),
-                                    Text(
-                                      '${product[index].productPrice} ₪',
-                                      style: TextStyle(
-                                        fontSize: 8.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: darkBlue,
-                                      ),
-                                    ),
-                                  ],
+                                SizedBox(width: 16.w),
+                                Text(
+                                  '${product[index].productPrice} ₪',
+                                  style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: darkBlue,
+                                    height: 1.h,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                            SizedBox(height: 4.h),
+
+                            ///Actions
+                            // Row(
+                            //   children: [
+                            //     MyButton(
+                            //       text: AppLocalizations.of(context)!.addToCart,
+                            //       myFontSize: 5,
+                            //       myHeight: 22,
+                            //       myWidth: 60,
+                            //       buttonColor: orangeColor,
+                            //       borderBouttonColor: Colors.transparent,
+                            //       onTap: () {},
+                            //     ),
+                            //     SizedBox(width: 8.w),
+                            //     InkWell(
+                            //       highlightColor: Colors.transparent,
+                            //       splashColor: Colors.transparent,
+                            //       child: Icon(
+                            //         Icons.favorite,
+                            //         color: darkBlue,
+                            //         size: 20.h,
+                            //       ),
+                            //       onTap: () {},
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 4.h),
+                          ],
                         ),
                       );
                     },

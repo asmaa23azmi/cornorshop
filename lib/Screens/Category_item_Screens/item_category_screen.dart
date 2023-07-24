@@ -135,7 +135,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                                 ),
                               ),
                               SizedBox(
-                                width: 5.w,
+                                width: 20.w,
                               ),
                               /// Price
                               Text(
@@ -156,9 +156,9 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                             children: [
                               MyButton(
                                 text: AppLocalizations.of(context)!.addToCart,
-                                myFontSize: 7.sp,
-                                myHeight: 25.h,
-                                myWidth: 93.w,
+                                myFontSize: 7,
+                                myHeight: 25,
+                                myWidth: 93,
                                 buttonColor: orangeColor,
                                 borderBouttonColor: Colors.transparent,
                                 onTap: () {},

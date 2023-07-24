@@ -25,7 +25,7 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection> with Navigato
     return SizedBox(
       height:100.h,
       child: ListView.separated(
-        padding: EdgeInsetsDirectional.zero,
+        padding: EdgeInsetsDirectional.only(start: 20.w),
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,

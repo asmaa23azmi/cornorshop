@@ -199,6 +199,10 @@ class _ChangePasswordState extends State<ChangePassword>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
       return false;
+    }else if (newPassController.text != confirmPassController.text) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.notMatchPass, error: true);
+      return false;
     }
     return true;
   }
