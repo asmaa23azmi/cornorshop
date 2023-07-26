@@ -24,17 +24,15 @@ class _RecommendProductHomeSectionState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 170.h,
+      height: 200.h,
       child: ListView.separated(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        padding: EdgeInsetsDirectional.only(start: 20.w),
+        padding: EdgeInsetsDirectional.only(start: 14.w),
         itemCount: widget.product.length,
         itemBuilder: (context, index) {
           return Container(
-            //width: 110.h,
-            //height: 300.h,
             width: 120.w,
             padding: EdgeInsetsDirectional.symmetric(
                 horizontal: 4.w, vertical: 4.h),
@@ -42,14 +40,7 @@ class _RecommendProductHomeSectionState
               color: Colors.white,
               borderRadius:
               BorderRadiusDirectional.all(Radius.circular(4.r)),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF000000).withOpacity(0.15),
-                  blurRadius: 2,
-                  offset: const Offset(
-                      0, 2), // changes position of shadow
-                ),
-              ],
+              border: Border.all(width: 1.w, color: greyColor),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,9 +48,7 @@ class _RecommendProductHomeSectionState
                 ///Product Img
                 Expanded(
                   child: Container(
-                    // width: 105.w,
                     width: double.infinity,
-                    // height: 90.h,
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade200,
@@ -76,11 +65,11 @@ class _RecommendProductHomeSectionState
 
                 ///Product Category
                 Container(
-                  height: 15.h,
+                  height: 16.h,
                   padding: EdgeInsetsDirectional.symmetric(
                       horizontal: 3.w),
                   decoration: BoxDecoration(
-                    color: orangeColor.withOpacity(0.3),
+                    color: greenColor.withOpacity(0.3),
                     borderRadius:
                     BorderRadiusDirectional.circular(4.r),
                   ),
@@ -88,12 +77,12 @@ class _RecommendProductHomeSectionState
                     widget.product[index].productCategoryType,
                     style: TextStyle(
                       fontSize: 6.5.sp,
-                      color: orangeColor,
+                      color: greenColor,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
                 ),
-                SizedBox(height: 7.h),
+                SizedBox(height: 8.h),
 
                 ///Product Name
                 Text(
@@ -107,7 +96,7 @@ class _RecommendProductHomeSectionState
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 4.h),
+                SizedBox(height: 7.h),
 
                 ///Vendor Name & Price
                 Row(
@@ -147,7 +136,7 @@ class _RecommendProductHomeSectionState
                     ),
                   ],
                 ),
-                SizedBox(height: 4.h),
+                SizedBox(height: 7.h),
 
                 ///Actions
                 Row(
@@ -157,7 +146,7 @@ class _RecommendProductHomeSectionState
                       myFontSize: 5.5,
                       myHeight: 22,
                       myWidth: 62,
-                      buttonColor: orangeColor,
+                      buttonColor: greenColor,
                       borderBouttonColor: Colors.transparent,
                       onTap: () {},
                     ),
@@ -179,7 +168,7 @@ class _RecommendProductHomeSectionState
             ),
           );
         },
-        separatorBuilder: (context, index) => SizedBox(width: 4.w),
+        separatorBuilder: (context, index) => SizedBox(width: 6.w),
       ),
     );
   }

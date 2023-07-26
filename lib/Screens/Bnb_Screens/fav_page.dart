@@ -47,7 +47,6 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.4,
@@ -64,7 +63,7 @@ class _FavoritePageState extends State<FavoritePage> {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -85,28 +84,19 @@ class _FavoritePageState extends State<FavoritePage> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     //This value is use to determine the layout in GridView(childAspectRatio).
                     childAspectRatio: 120.w / 176.h,
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 4,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
                   ),
                   itemBuilder: (context, index) {
                     return Container(
-                      //width: 110.h,
-                      //height: 300.h,
                       padding: EdgeInsetsDirectional.symmetric(
                           horizontal: 4.w, vertical: 4.h),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
                             BorderRadiusDirectional.all(Radius.circular(4.r)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF000000).withOpacity(0.15),
-                            blurRadius: 2,
-                            offset: const Offset(
-                                0, 2), // changes position of shadow
-                          ),
-                        ],
+                        border: Border.all(width: 1.w, color: greyColor),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,11 +123,11 @@ class _FavoritePageState extends State<FavoritePage> {
 
                           ///Product Category
                           Container(
-                            height: 15.h,
+                            height: 16.h,
                             padding: EdgeInsetsDirectional.symmetric(
                                 horizontal: 3.w),
                             decoration: BoxDecoration(
-                              color: orangeColor.withOpacity(0.3),
+                              color: greenColor.withOpacity(0.3),
                               borderRadius:
                                   BorderRadiusDirectional.circular(4.r),
                             ),
@@ -145,12 +135,12 @@ class _FavoritePageState extends State<FavoritePage> {
                               product[index].productCategoryType,
                               style: TextStyle(
                                 fontSize: 6.5.sp,
-                                color: orangeColor,
+                                color: greenColor,
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
                           ),
-                          SizedBox(height: 7.h),
+                          SizedBox(height: 8.h),
 
                           ///Product Name
                           Text(
@@ -164,7 +154,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: 6.h),
+                          SizedBox(height: 7.h),
 
                           ///Vendor Name & Price
                           Row(
@@ -186,7 +176,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               Text(
                                 product[index].vendorName,
                                 style: TextStyle(
-                                  fontSize: 7.5.sp,
+                                  fontSize: 8.sp,
                                   fontWeight: FontWeight.normal,
                                   color: darkBlue,
                                   height: 1.h,
@@ -196,7 +186,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               Text(
                                 '${product[index].productPrice} ₪',
                                 style: TextStyle(
-                                  fontSize: 9.sp,
+                                  fontSize: 10.sp,
                                   fontWeight: FontWeight.w600,
                                   color: darkBlue,
                                   height: 1.h,
@@ -204,7 +194,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 4.h),
+                          SizedBox(height: 7.h),
 
                           ///Actions
                           Row(
@@ -214,18 +204,18 @@ class _FavoritePageState extends State<FavoritePage> {
                                 myFontSize: 5.5,
                                 myHeight: 22,
                                 myWidth: 62,
-                                buttonColor: orangeColor,
+                                buttonColor: greenColor,
                                 borderBouttonColor: Colors.transparent,
                                 onTap: () {},
                               ),
-                              SizedBox(width: 10.w),
+                              SizedBox(width: 15.w),
                               InkWell(
                                 highlightColor: Colors.transparent,
                                 splashColor: Colors.transparent,
                                 child: Icon(
                                   Icons.favorite,
-                                  color: darkBlue,
-                                  size: 20.h,
+                                  color: Colors.red,
+                                  size: 22.h,
                                 ),
                                 onTap: () {},
                               ),

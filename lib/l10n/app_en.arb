@@ -58,7 +58,7 @@
        "payment": "Payment",
        "paymentDescription": "Product prices will be collected by following the payment policy on delivery to ensure trust between traders",
        "showAll" : "Show All",
-       "myFavProduct": "Myw Favorite Product",
+       "myFavProduct": "My Favorite Product",
        "cloth": "Cloth",
        "naturalProduct": "Natural Products",
        "homeFood": "Home Dining & Desserts",
@@ -123,7 +123,26 @@
        "chosenStore" : "Chosen Stores",
        "openPage": "Open Page",
        "recommendProducts": "Products we recommend",
-       "productsList" : "Products List"
+       "productsList" : "Products List",
+       "productSpecifications": "Product Specifications",
+       "productComments": "Comments about the product",
+       "productPromotion": "Product Promotion Request",
+       "editProductDescription": "Edit Product Description",
+       "deleteProduct": "Delete Product",
+       "doYouWantToDeleteThisProduct": "Do you want to delete this product?",
+       "deleteProductParagraph": "You won't be able to recover the product if you delete it, so are you sure you want to delete it?",
+       "productPromotionGoal": "Promotion Goal",
+       "selectAPromotionGoal": "Select a goal",
+       "promotionGoalParagraph": "What results would you like from this ads?",
+       "next": "Next",
+       "promotionBudgetAndDuration": "Budget and duration",
+       "selectBudgetAndDuration": "Select a budget and duration",
+       "promotionBudgetAndDurationParagraph": "How long does the ad appear?",
+       "addPaymentInfo": "Add payment information",
+       "addPaymentMethod": "Add payment method",
+       "paymentParagraph": "Your payment methods are saved and stored securely.",
+       "requestPromotion": "Request for Promotion",
+       "sendMsg": "send a message"
 
 
 

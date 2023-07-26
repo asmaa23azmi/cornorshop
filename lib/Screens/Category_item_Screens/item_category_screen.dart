@@ -38,9 +38,9 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation:0.4,
+        elevation: 0.4,
         backgroundColor: whiteColor,
-        toolbarHeight: 70.h,
+        // toolbarHeight: 70.h,
 
         leading: InkWell(
           splashColor: Colors.transparent,
@@ -63,7 +63,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 14.h),
           child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsetsDirectional.zero,
@@ -72,25 +72,20 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
             itemBuilder: (context, index) {
               return Container(
                 width: double.infinity.w,
-                 //height: 100.h,
+                //height: 100.h,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadiusDirectional.circular(4.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF000000).withOpacity(0.15),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  borderRadius: BorderRadiusDirectional.circular(14.r),
+                  border: Border.all(width: 1.w, color: greyColor),
                 ),
                 child: Row(
                   children: [
                     ///Product Img
                     Container(
-                      margin: EdgeInsetsDirectional.symmetric(horizontal: 10.w, vertical: 10.h),
+                      margin: EdgeInsetsDirectional.symmetric(
+                          horizontal: 6.w, vertical: 6.h),
                       width: 105.w,
-                       height: 100.h,
+                      height: 105.h,
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadiusDirectional.circular(4.r),
@@ -104,10 +99,10 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                     SizedBox(
                       width: 12.w,
                     ),
+
                     ///Product Details
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.symmetric(vertical: 10.h),
+                      padding: EdgeInsetsDirectional.symmetric(vertical: 10.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -137,6 +132,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                               SizedBox(
                                 width: 20.w,
                               ),
+
                               /// Price
                               Text(
                                 '${product[index].productPrice} ₪',
@@ -151,6 +147,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                           SizedBox(
                             height: 14.h,
                           ),
+
                           ///Action
                           Row(
                             children: [
@@ -159,7 +156,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                                 myFontSize: 7,
                                 myHeight: 25,
                                 myWidth: 93,
-                                buttonColor: orangeColor,
+                                buttonColor: greenColor,
                                 borderBouttonColor: Colors.transparent,
                                 onTap: () {},
                               ),

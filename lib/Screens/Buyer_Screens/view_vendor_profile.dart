@@ -1,4 +1,3 @@
-import 'package:cornorshop/Screens/Vendor_Screens/product_screens/product_view_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,19 +6,18 @@ import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
 import '../../Models/product_model.dart';
-import '../../Widgets/my_profile_settings.dart';
-import '../Vendor_Screens/edit_vendor_profile_Page.dart';
-import '../Vendor_Screens/product_screens/insert_product_page.dart';
+import '../../Widgets/my_button.dart';
+import '../../Widgets/my_list_item.dart';
+import 'buyer_product_view.dart';
 
-class VendorProfilePage extends StatefulWidget {
-  const VendorProfilePage({super.key});
+class ViewVendorProfile extends StatefulWidget {
+  const ViewVendorProfile({super.key});
 
   @override
-  State<VendorProfilePage> createState() => _VendorProfilePageState();
+  State<ViewVendorProfile> createState() => _ViewVendorProfileState();
 }
 
-class _VendorProfilePageState extends State<VendorProfilePage>
-    with NavigatorHelper {
+class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHelper {
   List<ProductModel> product = [
     ProductModel(
       productId: 1,
@@ -84,11 +82,46 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       vendorName: 'اسم المتجر',
       productQuantity: 1,
     ),
-  ];
 
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.4,
+        backgroundColor: whiteColor,
+        //toolbarHeight: 70.h,
+        leading: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: darkBlue,
+            size: 22.h,
+          ),
+        ),
+        title: Text(
+          'اسم البائع/ المتجر',
+          style: textAppBarStyle,
+        ),
+        actions: [
+
+          InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            onTap: () => _vendorPageOptionsBottomSheet(context),
+            child: Icon(
+              Icons.more_vert_rounded,
+              color: darkBlue,
+              size: 28.h,
+            ),
+          ),
+          SizedBox(width: 10.w),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -118,14 +151,18 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                         color: Colors.grey.shade300,
                       ),
                     ),
-                    SizedBox(height: 3.h),
+                    SizedBox(
+                      height: 3.h,
+                    ),
 
                     ///Vendor Name
                     Text(
                       'اسم البائع/ المتجر',
                       style: textStyle,
                     ),
-                    SizedBox(height: 5.h),
+                    SizedBox(
+                      height: 5.h,
+                    ),
 
                     ///Bio
                     Text(
@@ -134,128 +171,6 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                           fontSize: 14.0.sp,
                           fontWeight: FontWeight.normal,
                           color: Color(0xFF000000).withOpacity(0.55)),
-                    ),
-                    SizedBox(height: 16.h),
-
-                    /// Vendor Tasks
-                    IntrinsicHeight(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        //mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ///Edit Profile
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.edit,
-                              text: AppLocalizations.of(context)!.editProfile,
-                              onTap: () {
-                                jump(context, to: const EditVendorProfile());
-                              },
-                            ),
-                          ),
-                          VerticalDivider(
-                            width: 20.w,
-                            thickness: 0.3.w,
-                            indent: 0,
-                            endIndent: 20,
-                            color: greyColor,
-                          ),
-
-                          ///Add Product
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.add,
-                              text: AppLocalizations.of(context)!.addProduct,
-                              onTap: () {
-                                jump(context, to: const InsertProductPage());
-                              },
-                            ),
-                          ),
-                          VerticalDivider(
-                            width: 20.w,
-                            thickness: 0.3.w,
-                            indent: 0,
-                            endIndent: 20,
-                            color: greyColor,
-                          ),
-
-                          ///Share Profile
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.share_rounded,
-                              text: AppLocalizations.of(context)!.shareProfile,
-                              onTap: () {},
-                            ),
-                          ),
-                          VerticalDivider(
-                            width: 20.w,
-                            thickness: 0.3.w,
-                            indent: 0,
-                            endIndent: 20,
-                            color: greyColor,
-                          ),
-
-                          ///More
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.more_horiz,
-                              text: AppLocalizations.of(context)!.more,
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadiusDirectional.only(
-                                              topStart: Radius.circular(20.r),
-                                              topEnd: Radius.circular(20.r))),
-                                  builder: (context) {
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.symmetric(
-                                          horizontal: 26.w, vertical: 10.h),
-                                      child: SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height -
-                                                420,
-                                        child: Column(
-                                          children: [
-                                            ///Black Divider
-                                            Container(
-                                              height: 4,
-                                              margin: EdgeInsetsDirectional
-                                                  .symmetric(
-                                                      horizontal:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
-                                                      vertical:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey,
-                                                borderRadius:
-                                                    BorderRadiusDirectional
-                                                        .circular(2.r),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 25.h,
-                                            ),
-                                            const MyProfileSettings(),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),
@@ -276,7 +191,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                     ),
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () => jump(context, to:const ProductViewPage()),
+                        onTap: () => jump(context, to:const BuyerProductViewPage()),
                         child: Container(
                           padding: EdgeInsetsDirectional.symmetric(
                               horizontal: 4.w, vertical: 4.h),
@@ -291,14 +206,12 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                               ///Product Img
                               Expanded(
                                 child: Container(
-                                  // width: 105.w,
                                   width: double.infinity,
-                                  // height: 90.h,
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade200,
                                     borderRadius:
-                                        BorderRadiusDirectional.circular(4.r),
+                                    BorderRadiusDirectional.circular(4.r),
                                   ),
                                   child: Image.asset(
                                     'assets/images/${product[index].productImg[0]}.png',
@@ -306,7 +219,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 5.h),
+                              SizedBox(height: 4.h),
 
                               ///Product Category
                               Container(
@@ -316,7 +229,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                                 decoration: BoxDecoration(
                                   color: greenColor.withOpacity(0.3),
                                   borderRadius:
-                                      BorderRadiusDirectional.circular(4.r),
+                                  BorderRadiusDirectional.circular(4.r),
                                 ),
                                 child: Text(
                                   product[index].productCategoryType,
@@ -327,7 +240,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 8.h),
+                              SizedBox(height: 7.h),
 
                               ///Product Name
                               Text(
@@ -341,7 +254,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(height: 8.h),
+                              SizedBox(height: 6.h),
 
                               ///Vendor Name & Price
                               Row(
@@ -382,6 +295,34 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                                 ],
                               ),
                               SizedBox(height: 4.h),
+
+                              ///Actions
+                              Row(
+                                children: [
+                                  MyButton(
+                                    text: AppLocalizations.of(context)!.addToCart,
+                                    myFontSize: 5,
+                                    myHeight: 21,
+                                    myWidth: 60,
+                                    buttonColor: greenColor,
+                                    borderBouttonColor: Colors.transparent,
+                                    onTap: () {},
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    child: Icon(
+                                      Icons.favorite_border_rounded,
+                                      color: darkBlue,
+                                      size: 21.h,
+                                    ),
+                                    onTap: () {},
+                                  ),
+                                  SizedBox(width: 6.w),
+                                ],
+                              ),
+                              SizedBox(height: 4.h),
                             ],
                           ),
                         ),
@@ -396,47 +337,78 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       ),
     );
   }
-}
-
-/// Actions Profile
-class VendorTasks extends StatelessWidget {
-  late IconData? icon;
-  late String text;
-  late Function()? onTap;
-
-  VendorTasks({
-    required this.text,
-    required this.icon,
-    this.onTap,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: greenColor,
-            size: 24.h,
-          ),
-          SizedBox(
-            height: 3.h,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 9.sp,
-              color: greenColor,
-            ),
-          )
-        ],
+  Future<dynamic> _vendorPageOptionsBottomSheet(BuildContext context) {
+    ///Bottom Sheet
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusDirectional.only(
+            topStart: Radius.circular(20.r), topEnd: Radius.circular(20.r)),
       ),
+      builder: (context) {
+        return Padding(
+          padding:
+          EdgeInsetsDirectional.symmetric(horizontal: 26.w, vertical: 10.h),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Column(
+              children: [
+                ///Black Divider
+                Container(
+                  height: 4,
+                  margin: EdgeInsetsDirectional.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.4,
+                      vertical: MediaQuery.of(context).size.height * 0.015),
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadiusDirectional.circular(2.r),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+
+                ///Send Msg
+                MyListItem(
+                  text: AppLocalizations.of(context)!.sendMsg,
+                  icon: Icons.message_rounded,
+                  size: 21.w,
+                  onTap: () {},
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Divider(
+                  color: greyColor,
+                  height: 0.3.h,
+                ),
+                SizedBox(
+                  height: 18.h,
+                ),
+
+                ///Share Profile
+                MyListItem(
+                  text: AppLocalizations.of(context)!.shareProfile,
+                  icon: Icons.share_rounded,
+                  size: 21.w,
+                  onTap: () {},
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Divider(
+                  color: greyColor,
+                  height: 0.3.h,
+                ),
+                SizedBox(
+                  height: 18.h,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

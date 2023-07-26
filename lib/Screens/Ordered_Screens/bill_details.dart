@@ -57,7 +57,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: whiteColor,
-        toolbarHeight: 70.h,
+        //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -79,7 +79,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
       body: SafeArea(
         child: SingleChildScrollView(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +89,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                 children: [
                   Icon(
                     Icons.arrow_back_ios,
-                    color: orangeColor,
+                    color: greenColor,
                     size: 8.w,
                   ),
                   SizedBox(
@@ -100,7 +100,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 14.0.sp,
-                      color: orangeColor,
+                      color: greenColor,
                     ),
                   )
                 ],
@@ -239,7 +239,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                     myWidth: 135,
                     myHeight: 38,
                     borderBouttonColor: Colors.transparent,
-                    buttonColor: orangeColor,
+                    buttonColor: greenColor,
                     myFontSize: 12,
                   ),
                   MyButton(
@@ -249,9 +249,9 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                     text: AppLocalizations.of(context)!.cancel,
                     myWidth: 135,
                     myHeight: 38,
-                    borderBouttonColor: orangeColor,
+                    borderBouttonColor: greenColor,
                     buttonColor: Colors.transparent,
-                    textButtonColor: orangeColor,
+                    textButtonColor: greenColor,
                     myFontSize: 12,
                   ),
                 ],

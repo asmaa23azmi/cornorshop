@@ -19,7 +19,7 @@ class _NotificationPageState extends State<NotificationPage> {
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: whiteColor,
-        toolbarHeight: 70.h,
+        //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -41,12 +41,12 @@ class _NotificationPageState extends State<NotificationPage> {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 30.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           child: Column(
             children: [
               Row(
                 children: [
-                  Icon(Icons.notifications, color: orangeColor, size: 24.w),
+                  Icon(Icons.notifications, color: greenColor, size: 24.w),
                   SizedBox(
                     width: 12.w,
                   ),
@@ -54,7 +54,7 @@ class _NotificationPageState extends State<NotificationPage> {
                     AppLocalizations.of(context)!.notifications,
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: orangeColor,
+                      color: greenColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

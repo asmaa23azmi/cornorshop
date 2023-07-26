@@ -62,7 +62,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 100.0.h),
+          padding: EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 100.0.h),
           physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +124,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
                     AppLocalizations.of(context)!.forgetPassQuestion,
                     style: TextStyle(
                       fontSize: 13.0.sp,
-                      color: orangeColor,
+                      color: greenColor,
                     ),
                   ),
                 ),
@@ -168,7 +168,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
                       AppLocalizations.of(context)!.createAccount,
                       style: TextStyle(
                           fontSize: 15.0.sp,
-                          color: orangeColor,
+                          color: greenColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ),

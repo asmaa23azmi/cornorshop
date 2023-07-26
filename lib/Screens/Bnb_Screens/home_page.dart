@@ -52,31 +52,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
       // categoryTitle: AppLocalizations.of(context)!.handicrafts,
       categoryTitle: 'مشغولات يدوية',
     ),
-    CategoryModel(
-      categoryId: 1,
-      categoryImg: 'clothIcon',
-      //categoryTitle: appLocale.cloth,
-      categoryTitle: 'ملابس',
-    ),
-    CategoryModel(
-      categoryId: 2,
-      categoryImg: 'naturalProductIcon',
-      //categoryTitle: AppLocalizations.of(context)!.naturalProduct,
-      categoryTitle: 'منتجات طبيعية',
-    ),
-    CategoryModel(
-      categoryId: 3,
-      categoryImg: 'homeFoodIcon',
-      // categoryTitle: AppLocalizations.of(context)!.homeFood,
-      categoryTitle: 'طعام وحلويات منزلية',
-    ),
-    CategoryModel(
-      categoryId: 4,
-      categoryImg: 'handicraftsIcon',
-      // categoryTitle: AppLocalizations.of(context)!.handicrafts,
-      categoryTitle: 'مشغولات يدوية',
-    ),
-  ];
+   ];
   List<ProductModel> product = [
     ProductModel(
       productId: 1,
@@ -185,132 +161,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
                   ///call_back
                   onTap: () {
                     ///Bottom Sheet
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.only(
-                            topStart: Radius.circular(20.r),
-                            topEnd: Radius.circular(20.r)),
-                      ),
-                      builder: (context) {
-                        return Padding(
-                          padding: EdgeInsetsDirectional.symmetric(
-                              horizontal: 26.w, vertical: 10.h),
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: Column(
-                              children: [
-                                ///Black Divider
-                                Container(
-                                  height: 4,
-                                  margin: EdgeInsetsDirectional.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width *
-                                              0.4,
-                                      vertical:
-                                          MediaQuery.of(context).size.height *
-                                              0.015),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius:
-                                        BorderRadiusDirectional.circular(2.r),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-
-                                ///Notification
-                                MyListItem(
-                                  text: AppLocalizations.of(context)!
-                                      .notifications,
-                                  icon: Icons.notifications,
-                                  size: 21.w,
-                                  onTap: () {
-                                    jump(context, to: const NotificationPage());
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Divider(
-                                  color: greyColor,
-                                  height: 0.3.h,
-                                ),
-                                SizedBox(
-                                  height: 18.h,
-                                ),
-
-                                ///Message
-                                MyListItem(
-                                  text: AppLocalizations.of(context)!.msg,
-                                  icon: Icons.message,
-                                  size: 21.w,
-                                  onTap: () {
-                                    jump(context, to: const MessagePage());
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Divider(
-                                  color: greyColor,
-                                  height: 0.3.h,
-                                ),
-                                SizedBox(
-                                  height: 18.h,
-                                ),
-
-                                ///App Settings
-                                MyListItem(
-                                  text:
-                                      AppLocalizations.of(context)!.appSettings,
-                                  icon: Icons.settings,
-                                  size: 21.w,
-                                  onTap: () {
-                                    jump(context, to: const AppSettingPge());
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Divider(
-                                  color: greyColor,
-                                  height: 0.3.h,
-                                ),
-                                SizedBox(
-                                  height: 18.h,
-                                ),
-
-                                ///App Information
-                                MyListItem(
-                                  text: AppLocalizations.of(context)!.appInfo,
-                                  icon: Icons.info_outline_rounded,
-                                  size: 21.w,
-                                  onTap: () {
-                                    jump(
-                                      context,
-                                      to: const AppInformation(),
-                                    );
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Divider(
-                                  color: greyColor,
-                                  height: 0.3.h,
-                                ),
-                                SizedBox(
-                                  height: 18.h,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
+                    _appSettingsBottomSheet(context);
                   },
                   child: Icon(
                     Icons.menu_rounded,
@@ -326,7 +177,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
       body: SafeArea(
         child: SingleChildScrollView(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 0.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 0.w, vertical: 10.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -334,7 +185,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
             children: [
               ///Category Section
               Padding(
-                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w, top: 20.h),
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -364,12 +215,12 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
               ),
               CategoryHomeSection(categoryItems: categoryItems),
               SizedBox(
-                height: 10.h,
+                height: 8.h,
               ),
 
               ///Stores Section
               Padding(
-                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w),
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
                 child: Text(
                   AppLocalizations.of(context)!.chosenStore,
                   style: TextStyle(
@@ -388,7 +239,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
 
               ///Recommend Products
               Padding(
-                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w),
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
                 child: Text(
                   AppLocalizations.of(context)!.recommendProducts,
                   style: TextStyle(
@@ -407,7 +258,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
 
               ///Products List
               Padding(
-                padding: EdgeInsetsDirectional.only(start: 20.w, end: 20.w),
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
                 child: Text(
                   AppLocalizations.of(context)!.productsList,
                   style: TextStyle(
@@ -424,5 +275,134 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
         ),
       ),
     );
+  }
+
+  Future<dynamic> _appSettingsBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(20.r),
+                          topEnd: Radius.circular(20.r)),
+                    ),
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsetsDirectional.symmetric(
+                            horizontal: 26.w, vertical: 10.h),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          child: Column(
+                            children: [
+                              ///Black Divider
+                              Container(
+                                height: 4,
+                                margin: EdgeInsetsDirectional.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.4,
+                                    vertical:
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(2.r),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+
+                              ///Notification
+                              MyListItem(
+                                text: AppLocalizations.of(context)!
+                                    .notifications,
+                                icon: Icons.notifications,
+                                size: 21.w,
+                                onTap: () {
+                                  jump(context, to: const NotificationPage());
+                                },
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Divider(
+                                color: greyColor,
+                                height: 0.3.h,
+                              ),
+                              SizedBox(
+                                height: 18.h,
+                              ),
+
+                              ///Message
+                              MyListItem(
+                                text: AppLocalizations.of(context)!.msg,
+                                icon: Icons.message,
+                                size: 21.w,
+                                onTap: () {
+                                  jump(context, to: const MessagePage());
+                                },
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Divider(
+                                color: greyColor,
+                                height: 0.3.h,
+                              ),
+                              SizedBox(
+                                height: 18.h,
+                              ),
+
+                              ///App Settings
+                              MyListItem(
+                                text:
+                                    AppLocalizations.of(context)!.appSettings,
+                                icon: Icons.settings,
+                                size: 21.w,
+                                onTap: () {
+                                  jump(context, to: const AppSettingPge());
+                                },
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Divider(
+                                color: greyColor,
+                                height: 0.3.h,
+                              ),
+                              SizedBox(
+                                height: 18.h,
+                              ),
+
+                              ///App Information
+                              MyListItem(
+                                text: AppLocalizations.of(context)!.appInfo,
+                                icon: Icons.info_outline_rounded,
+                                size: 21.w,
+                                onTap: () {
+                                  jump(
+                                    context,
+                                    to: const AppInformation(),
+                                  );
+                                },
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Divider(
+                                color: greyColor,
+                                height: 0.3.h,
+                              ),
+                              SizedBox(
+                                height: 18.h,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
   }
 }

@@ -50,7 +50,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
         backgroundColor: whiteColor,
         //toolbarHeight: 100.h,
         title: Padding(
-         padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w),
+         padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
           child: Text(
             AppLocalizations.of(context)!.categoryBar,
             style: textAppBarStyle,
@@ -60,7 +60,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 40.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 40.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -87,6 +87,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
                               color: Colors.grey.shade200,
                               borderRadius: BorderRadiusDirectional.all(
                                   Radius.circular(12.r)),
+                              border: Border.all(color: greenColor, width: 1.w)
                             ),
                             child: Image.asset(
                                 'assets/images/${categoryItems[index].categoryImg}.png',

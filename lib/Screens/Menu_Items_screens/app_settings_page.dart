@@ -28,7 +28,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
           appBar: AppBar(
             elevation: 0.4,
             backgroundColor: whiteColor,
-            toolbarHeight: 70.h,
+            //toolbarHeight: 70.h,
             leading: InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -50,7 +50,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
           body: SafeArea(
               child: SingleChildScrollView(
             padding: EdgeInsetsDirectional.symmetric(
-                horizontal: 20.w, vertical: 20.h),
+                horizontal: 14.w, vertical: 10.h),
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [

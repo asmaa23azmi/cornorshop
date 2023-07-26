@@ -123,9 +123,24 @@
     "chosenStore": "مختارات من المتاجر",
     "openPage": "فتح الصفحة",
     "recommendProducts": "منتجات نوصي بها",
-    "productsList": "قائمة المنتجات"
-
-
-
-
+    "productsList": "قائمة المنتجات",
+    "productSpecifications": "مواصفات المنتج",
+    "productComments": "التعليقات حول المنتج",
+    "productPromotion": "طلب الترويج عن المنتج ",
+    "editProductDescription": "تعديل وصف المنتج ",
+    "deleteProduct": "حذف المنتج",
+    "doYouWantToDeleteThisProduct": "هل تريد حذف هذا المنتج؟",
+    "deleteProductParagraph": "لن تتمكن من استعادة المنتج إذا قمت بحذفه ،لذلك هل أنت متأكد من أنك تريد حذفه؟",
+    "productPromotionGoal": "الهدف من الترويج",
+    "selectAPromotionGoal": "تحديد الهدف",
+    "promotionGoalParagraph" : "ما النتائج التي تريد تحقيقها من هذا الإعلان؟",
+    "next": "التالي",
+    "promotionBudgetAndDuration": "الميزانية والمدة",
+    "selectBudgetAndDuration": "تحديد الميزانية والمدة",
+    "promotionBudgetAndDurationParagraph": "ما مدة ظهور الإعلان التي تريدها؟",
+    "addPaymentInfo": "إضافة معلومات الدفع",
+    "addPaymentMethod" : "إضافة طريقة الدفع",
+    "paymentParagraph": "يتم حفظ طرق الدفع الخاصة بك وتخزينها على نحو آمن",
+    "requestPromotion": "طلب الترويج",
+    "sendMsg": "إرسال رسالة"
 }

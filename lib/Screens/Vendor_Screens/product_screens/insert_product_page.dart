@@ -26,8 +26,6 @@ class _InsertProductPageState extends State<InsertProductPage>
   late TextEditingController productNameController;
   late TextEditingController productPriceController;
   late TextEditingController productDescriptionController;
-  late TextEditingController productImageController;
-  late TextEditingController productCategoryController;
 
   String? selectedItem;
 
@@ -44,7 +42,6 @@ class _InsertProductPageState extends State<InsertProductPage>
     productNameController = TextEditingController();
     productPriceController = TextEditingController();
     productDescriptionController = TextEditingController();
-    productImageController = TextEditingController();
   }
 
   @override
@@ -52,7 +49,6 @@ class _InsertProductPageState extends State<InsertProductPage>
     productNameController.dispose();
     productPriceController.dispose();
     productDescriptionController.dispose();
-    productImageController.dispose();
     super.dispose();
   }
 
@@ -62,7 +58,7 @@ class _InsertProductPageState extends State<InsertProductPage>
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: whiteColor,
-        toolbarHeight: 70.h,
+        //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -85,7 +81,7 @@ class _InsertProductPageState extends State<InsertProductPage>
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -201,7 +197,7 @@ class _InsertProductPageState extends State<InsertProductPage>
                       myHeight: 40,
                       myFontSize: 12,
                       borderBouttonColor: Colors.transparent,
-                      buttonColor: orangeColor),
+                      buttonColor: greenColor),
                   MyButton(
                       onTap: () {
                         Navigator.pop(context);
@@ -210,9 +206,9 @@ class _InsertProductPageState extends State<InsertProductPage>
                       myWidth: 135,
                       myHeight: 40,
                       myFontSize: 12,
-                      borderBouttonColor: orangeColor,
+                      borderBouttonColor: greenColor,
                       buttonColor: Colors.transparent,
-                      textButtonColor: orangeColor),
+                      textButtonColor: greenColor),
                 ],
               ),
             ],
@@ -235,11 +231,7 @@ class _InsertProductPageState extends State<InsertProductPage>
 
   bool checkData() {
     ///to check text field
-    if (productImageController.text.isEmpty) {
-      showMySnackBar(context,
-          text: AppLocalizations.of(context)!.productImage, error: true);
-      return false;
-    } else if (productNameController.text.isEmpty) {
+    if (productNameController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.productName, error: true);
       return false;

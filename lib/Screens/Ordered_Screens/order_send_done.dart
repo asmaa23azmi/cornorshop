@@ -19,7 +19,7 @@ class _OrderedSendScreenState extends State<OrderedSendScreen> {
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: whiteColor,
-        toolbarHeight: 70.h,
+        //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -42,7 +42,7 @@ class _OrderedSendScreenState extends State<OrderedSendScreen> {
         child: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsetsDirectional.symmetric(
-              horizontal: 20.w, vertical: 100.h),
+              horizontal: 14.w, vertical: 100.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

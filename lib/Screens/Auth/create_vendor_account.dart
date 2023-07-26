@@ -75,7 +75,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
       body: SafeArea(
         child: SingleChildScrollView(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 30.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 30.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,7 +269,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
                       AppLocalizations.of(context)!.login,
                       style: TextStyle(
                           fontSize: 15.0.sp,
-                          color: orangeColor,
+                          color: greenColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ),

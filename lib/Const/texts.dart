@@ -28,7 +28,7 @@ var textStyle = TextStyle(
 var bnbTitlestyle = TextStyle(
   fontSize: 14.sp,
   fontWeight: FontWeight.w600,
-  color: orangeColor,
+  color: greenColor,
 
 );
 

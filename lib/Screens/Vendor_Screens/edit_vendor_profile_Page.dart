@@ -26,7 +26,6 @@ class _EditVendorProfileState extends State<EditVendorProfile>
   late TextEditingController userNameController;
   late TextEditingController phoneNumController;
   late TextEditingController bioController;
-  late TextEditingController profileImageController;
   late TextEditingController emailController;
   late TextEditingController addressController;
 
@@ -36,7 +35,6 @@ class _EditVendorProfileState extends State<EditVendorProfile>
     userNameController = TextEditingController();
     phoneNumController = TextEditingController();
     bioController = TextEditingController();
-    profileImageController = TextEditingController();
     emailController = TextEditingController();
     addressController = TextEditingController();
   }
@@ -46,7 +44,6 @@ class _EditVendorProfileState extends State<EditVendorProfile>
     userNameController.dispose();
     phoneNumController.dispose();
     bioController.dispose();
-    profileImageController.dispose();
     emailController.dispose();
     addressController.dispose();
     super.dispose();
@@ -58,7 +55,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: whiteColor,
-        toolbarHeight: 70.h,
+        //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -81,7 +78,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -237,7 +234,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                       myHeight: 38,
                       myFontSize: 12.sp,
                       borderBouttonColor: Colors.transparent,
-                      buttonColor: orangeColor),
+                      buttonColor: greenColor),
                   MyButton(
                       onTap: () {
                         Navigator.pop(context);
@@ -246,9 +243,9 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                       myWidth: 135,
                       myHeight: 38,
                       myFontSize: 12.sp,
-                      borderBouttonColor: orangeColor,
+                      borderBouttonColor: greenColor,
                       buttonColor: Colors.transparent,
-                      textButtonColor: orangeColor),
+                      textButtonColor: greenColor),
                 ],
               ),
             ],

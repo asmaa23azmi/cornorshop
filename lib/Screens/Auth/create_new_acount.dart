@@ -40,7 +40,7 @@ class _CreateNewAccountState extends State<CreateNewAccount>
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsetsDirectional.only(
-              top: 109.0.h, start: 20.0.w, end: 20.0.w),
+              top: 109.0.h, start: 14.0.w, end: 14.0.w),
           physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

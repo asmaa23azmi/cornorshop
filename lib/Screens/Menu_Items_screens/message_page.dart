@@ -33,7 +33,7 @@ class _MessagePageState extends State<MessagePage> {
       appBar: AppBar(
         elevation:0.4,
         backgroundColor: babyBlue,
-        toolbarHeight: 70.h,
+        //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -55,7 +55,7 @@ class _MessagePageState extends State<MessagePage> {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 18.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 14.h),
           child: Column(
             children: [
               MyTextField(

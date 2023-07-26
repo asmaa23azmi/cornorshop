@@ -1,4 +1,3 @@
-import 'package:cornorshop/Screens/Vendor_Screens/vendor_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -55,6 +54,7 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -166,7 +166,8 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
                     ),
                   ),
                 ],
-              )
+              ),
+
             ],
           ),
         ),

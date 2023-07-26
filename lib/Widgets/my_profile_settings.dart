@@ -24,9 +24,7 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
             text: AppLocalizations.of(context)!.changePassword,
             icon: Icons.password_rounded,
             size: 21.w),
-        SizedBox(
-          height: 16.h,
-        ),
+        SizedBox(height: 16.h),
 
         ///Request Delete Account
         MyListItem(
@@ -58,9 +56,7 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
+                        SizedBox(height: 10.h),
 
                         ///Delete Account Action
                         MyButton(
@@ -89,16 +85,14 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                                           style: textStyle,
                                           textAlign: TextAlign.center,
                                         ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
+                                        SizedBox(height: 10.h),
                                         MyButton(
                                           onTap: () {
                                             Navigator.pop(context);
                                           },
                                           text:
                                               AppLocalizations.of(context)!.ok,
-                                          buttonColor: orangeColor,
+                                          buttonColor: greenColor,
                                           myWidth: 135,
                                           myHeight: 38,
                                           myFontSize: 12,
@@ -111,14 +105,12 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                             );
                           },
                           text: AppLocalizations.of(context)!.deleteAccount,
-                          buttonColor: orangeColor,
+                          buttonColor: greenColor,
                           myWidth: 135,
                           myHeight: 38,
                           myFontSize: 12,
                         ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
+                        SizedBox(height: 16.h),
 
                         ///Cancel
                         MyButton(
@@ -130,8 +122,8 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                           myWidth: 135,
                           myHeight: 38,
                           myFontSize: 12,
-                          borderBouttonColor: orangeColor,
-                          textButtonColor: orangeColor,
+                          borderBouttonColor: greenColor,
+                          textButtonColor: greenColor,
                         ),
                       ],
                     ),
@@ -144,9 +136,7 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
           icon: Icons.person_remove_rounded,
           size: 21.w,
         ),
-        SizedBox(
-          height: 16.h,
-        ),
+        SizedBox(height: 16.h),
 
         ///Logout
         MyListItem(
@@ -185,14 +175,12 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                           MyButton(
                             onTap: () {},
                             text: AppLocalizations.of(context)!.logout,
-                            buttonColor: orangeColor,
+                            buttonColor: greenColor,
                             myWidth: 135,
                             myHeight: 38,
                             myFontSize: 12,
                           ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
+                          SizedBox(height: 16.h),
 
                           ///Cancel
                           MyButton(
@@ -204,8 +192,8 @@ class MyProfileSettings extends StatelessWidget with NavigatorHelper {
                             myWidth: 135,
                             myHeight: 38,
                             myFontSize: 12,
-                            borderBouttonColor: orangeColor,
-                            textButtonColor: orangeColor,
+                            borderBouttonColor: greenColor,
+                            textButtonColor: greenColor,
                           ),
                         ],
                       ),

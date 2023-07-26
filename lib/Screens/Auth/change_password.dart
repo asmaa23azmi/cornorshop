@@ -60,7 +60,7 @@ class _ChangePasswordState extends State<ChangePassword>
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 50.h),
+          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 50.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,7 +157,7 @@ class _ChangePasswordState extends State<ChangePassword>
                     AppLocalizations.of(context)!.forgetPassQuestion,
                     style: TextStyle(
                       fontSize: 13.0.sp,
-                      color: orangeColor,
+                      color: greenColor,
                     ),
                   ),
                 ),

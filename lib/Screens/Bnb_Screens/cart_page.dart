@@ -47,7 +47,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
           backgroundColor: whiteColor,
           //toolbarHeight: 100.h,
           title: Padding(
-            padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w),
+            padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
             child: Text(
               AppLocalizations.of(context)!.cartBar,
               style: textAppBarStyle,
@@ -57,7 +57,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
         body: SafeArea(
           child: Padding(
             padding: EdgeInsetsDirectional.symmetric(
-                horizontal: 20.w, vertical: 20.h),
+                horizontal: 14.w, vertical: 10.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -65,9 +65,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                   AppLocalizations.of(context)!.shoppingTrolley,
                   style: bnbTitlestyle,
                 ),
-                SizedBox(
-                  height: 15.h,
-                ),
+                SizedBox(height: 10.h),
 
                 ///Product List
                 Expanded(
@@ -76,211 +74,202 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                     shrinkWrap: true,
                     itemCount: product.length,
                     itemBuilder: (context, index) {
-                      return Row(
+                      return Stack(
                         children: [
-                          ///Product Img
                           Container(
-                            width: 90.w,
-                            height: 90.w,
-                            clipBehavior: Clip.antiAlias,
+                            padding: EdgeInsetsDirectional.symmetric(
+                                horizontal: 6.w, vertical: 6.h),
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius:
-                                  BorderRadiusDirectional.circular(14.r),
-                              border: Border.all(color: blackObacityColor),
+                              borderRadius: BorderRadiusDirectional.circular(14.r),
+                              border: Border.all(color: greyColor, width: 1.w),
                             ),
-                            child: Image.asset(
-                              'assets/images/${product[index].productImg[0]}.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 6.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ///Product Nmae
-                              Text(
-                                product[index].productName,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlue,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-
-                              /// Store Name
-                              Row(
-                                children: [
-                                  Text(
-                                    AppLocalizations.of(context)!.store,
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: darkBlue,
-                                    ),
+                            child: Row(
+                              children: [
+                                ///Product Img
+                                Container(
+                                  width: 90.w,
+                                  height: 90.w,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade200,
+                                    borderRadius:
+                                        BorderRadiusDirectional.circular(14.r),
+                                    border: Border.all(color: blackObacityColor),
                                   ),
-                                  SizedBox(
-                                    width: 3.w,
-                                  ),
-                                  Text(
-                                    product[index].vendorName,
-                                    style: TextStyle(
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: darkBlue,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-
-                              /// Product Price
-                              Text(
-                                '${product[index].productPrice} ₪',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlue,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-
-                          ///Product Quantity
-                          Column(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.quantity,
-                                style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlue,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 7.h,
-                              ),
-                              Container(
-                                padding: EdgeInsetsDirectional.symmetric(
-                                    horizontal: 4.w),
-                                width: 90.w,
-                                height: 34.h,
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadiusDirectional.circular(14.0.r),
-                                  border: Border.all(
-                                    color: blackObacityColor,
-                                    width: 1.w,
+                                  child: Image.asset(
+                                    'assets/images/${product[index].productImg[0]}.png',
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  mainAxisSize: MainAxisSize.min,
+                                SizedBox(width: 6.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    InkWell(
-                                      highlightColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      onTap: () {
-                                        setState(
-                                          () {
-                                            product[index].productQuantity++;
-                                          },
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.add,
-                                        color: blackObacityColor,
-                                        size: 22.h,
-                                      ),
-                                    ),
+                                    ///Product Nmae
                                     Text(
-                                      product[index].productQuantity.toString(),
-                                      style: textStyle,
-                                    ),
-                                    InkWell(
-                                      highlightColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      onTap: () {
-                                        setState(
-                                          () {
-                                            if (product[index].productQuantity >
-                                                1) {
-                                              product[index].productQuantity--;
-                                            } else {
-                                              null;
-                                            }
-                                          },
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: blackObacityColor,
-                                        size: 22.h,
+                                      product[index].productName,
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: darkBlue,
                                       ),
                                     ),
+                                    SizedBox(
+                                      height: 4.h
+                                    ),
+
+                                    /// Store Name
+                                    Row(
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.store,
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: darkBlue,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 3.w,
+                                        ),
+                                        Text(
+                                          product[index].vendorName,
+                                          style: TextStyle(
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.normal,
+                                            color: darkBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 4.h
+                                    ),
+                                    SizedBox(
+                                      width: 230.w,
+                                      child: Row(
+                                        children: [
+                                          /// Product Price
+                                          Text(
+                                            '${product[index].productPrice} ₪',
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: darkBlue,
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          ///Determine Quantity
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(
+                                                        () {
+                                                      product[index].productQuantity++;
+                                                    },
+                                                  );
+                                                },
+                                                highlightColor: Colors.transparent,
+                                                splashColor: Colors.transparent,
+                                                child: Container(
+                                                  height: 32.h,
+                                                  width: 32.h,
+                                                  padding:
+                                                  EdgeInsetsDirectional.symmetric(
+                                                      horizontal: 4.w),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: greyColor, width: 0.3.w),
+                                                    borderRadius:
+                                                    BorderRadiusDirectional.circular(
+                                                        4.r),
+                                                  ),
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      color: darkBlue,
+                                                      size: 22.h,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(width: 8.w),
+                                              Text(
+                                                product[index].productQuantity.toString(),
+                                                style: textStyle,
+                                              ),
+                                              SizedBox(width: 8.w),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(
+                                                        () {
+                                                      if (product[index].productQuantity >
+                                                          1) {
+                                                        product[index].productQuantity--;
+                                                      } else {
+                                                        null;
+                                                      }
+                                                    },
+                                                  );
+                                                },
+                                                highlightColor: Colors.transparent,
+                                                splashColor: Colors.transparent,
+                                                child: Container(
+                                                  height: 32.h,
+                                                  width: 32.h,
+                                                  padding:
+                                                  EdgeInsetsDirectional.symmetric(
+                                                      horizontal: 4.w),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: greyColor, width: 0.3.w),
+                                                    borderRadius:
+                                                    BorderRadiusDirectional.circular(
+                                                        4.r),
+                                                  ),
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.remove,
+                                                      color: blackObacityColor,
+                                                      size: 22.h,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+
                                   ],
                                 ),
-                              ),
-                              SizedBox(
-                                height: 7.h,
-                              ),
-                              InkWell(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onTap: () {},
-                                child: Container(
-                                  alignment: AlignmentDirectional.center,
-                                  width: 90.w,
-                                  height: 34.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadiusDirectional.circular(
-                                            14.0.r),
-                                    border: Border.all(
-                                      color: blackObacityColor,
-                                      width: 1.w,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    AppLocalizations.of(context)!.remove,
-                                    style: TextStyle(
-                                      fontSize: 13.0.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: blackObacityColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                          ///Delete product from cart
+                          PositionedDirectional(
+                            end: 10.w,
+                            top: 10.h,
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {},
+                              child: Icon(
+                                Icons.delete_outline_rounded,
+                                color: blackObacityColor,
+                                size: 34.h,
+                              ),
+                            ),),
                         ],
                       );
                     },
-                    separatorBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          Divider(
-                            color: greyColor,
-                            height: 0.3.h,
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                        ],
-                      );
-                    },
+                    separatorBuilder: (context, index) =>
+                        SizedBox(height: 10.h),
                   ),
                 ),
                 Container(
@@ -359,16 +348,14 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                           onTap: () {
                             jump(context, to: const BillDetailScreen());
                           },
-                          buttonColor: orangeColor,
+                          buttonColor: greenColor,
                           myWidth: 250,
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 18.h,
-                ),
+                SizedBox(height: 18.h),
               ],
             ),
           ),

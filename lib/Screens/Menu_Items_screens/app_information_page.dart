@@ -18,7 +18,7 @@ class _AppInformationState extends State<AppInformation> {
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: whiteColor,
-        toolbarHeight: 70.h,
+        //toolbarHeight: 70.h,
         title: Text(
           AppLocalizations.of(context)!.appInfo,
           style: textAppBarStyle,
@@ -40,7 +40,7 @@ class _AppInformationState extends State<AppInformation> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 30.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +49,7 @@ class _AppInformationState extends State<AppInformation> {
                 AppLocalizations.of(context)!.appServices,
                 style: TextStyle(
                   fontSize: 14.sp,
-                  color: orangeColor,
+                  color: greenColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -153,7 +153,7 @@ class _AppInformationState extends State<AppInformation> {
         Icon(
           icon,
           size: 23.w,
-          color: orangeColor,
+          color: greenColor,
         ),
         SizedBox(
           width: 10.w,
@@ -163,7 +163,7 @@ class _AppInformationState extends State<AppInformation> {
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,
-            color: orangeColor,
+            color: greenColor,
           ),
         ),
       ],

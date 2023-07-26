@@ -75,7 +75,7 @@ class _SearchPageState extends State<SearchPage> {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 20.w, vertical: 20.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 14.h),
           child: Column(
             children: [
               Row(
@@ -109,175 +109,7 @@ class _SearchPageState extends State<SearchPage> {
                     highlightColor: Colors.transparent,
                     onTap: () {
                       ///Bottom Sheet
-                      showModalBottomSheet(
-                        context: context,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusDirectional.only(
-                                topStart: Radius.circular(20.r),
-                                topEnd: Radius.circular(20.r))),
-                        builder: (context) {
-                          return Padding(
-                            padding: EdgeInsetsDirectional.symmetric(
-                                horizontal: 26.w, vertical: 10.h),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ///Black Divider
-                                Container(
-                                  height: 4,
-                                  margin: EdgeInsetsDirectional.symmetric(
-                                      horizontal:
-                                          MediaQuery.of(context).size.width *
-                                              0.4,
-                                      vertical:
-                                          MediaQuery.of(context).size.height *
-                                              0.015),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius:
-                                        BorderRadiusDirectional.circular(2.r),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .productFiltering,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14.0.sp,
-                                    color: darkBlue,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Divider(
-                                  color: greyColor,
-                                  height: 0.3.h,
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Padding(
-                                  padding:
-                                      EdgeInsetsDirectional.only(start: 15.w),
-                                  child: Text(
-                                    AppLocalizations.of(context)!.priceRange,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: darkBlue,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-
-                                ///Determine the Price Range
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    MyTextField(
-                                      controller: lowerPriceController,
-                                      hintText: AppLocalizations.of(context)!
-                                          .lowestPrice,
-                                      textFieldColor: Colors.transparent,
-                                      hintSyleColor: blackObacityColor,
-                                      textFieldBorderColor: blackObacityColor,
-                                      textFieldWidth: 115,
-                                      textFieldHeigth: 38,
-                                      myFontSize: 12,
-                                      inputType: TextInputType.number,
-                                    ),
-                                    SizedBox(
-                                      width: 20.w,
-                                    ),
-                                    Text(
-                                      AppLocalizations.of(context)!.to,
-                                      style: textStyle,
-                                    ),
-                                    SizedBox(
-                                      width: 20.w,
-                                    ),
-                                    MyTextField(
-                                      controller: topPriceController,
-                                      hintText: AppLocalizations.of(context)!
-                                          .topPrice,
-                                      textFieldColor: Colors.transparent,
-                                      hintSyleColor: blackObacityColor,
-                                      textFieldBorderColor: blackObacityColor,
-                                      textFieldWidth: 115,
-                                      textFieldHeigth: 38,
-                                      myFontSize: 12,
-                                      inputType: TextInputType.number,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 12.h,
-                                ),
-
-                                ///Choose Category
-                                Padding(
-                                  padding:
-                                      EdgeInsetsDirectional.only(start: 15.w),
-                                  child: Text(
-                                    AppLocalizations.of(context)!.categoryBar,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: darkBlue,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                MyDropdownSearch(
-                                  items: items,
-                                  onChange: (value) => selectedItem = value,
-                                ),
-                                SizedBox(
-                                  height: 26.h,
-                                ),
-
-                                ///Actions
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    MyButton(
-                                        onTap: () {},
-                                        text:
-                                            AppLocalizations.of(context)!.apply,
-                                        myWidth: 130,
-                                        myHeight: 38,
-                                        myFontSize: 12,
-                                        borderBouttonColor: Colors.transparent,
-                                        buttonColor: orangeColor),
-                                    MyButton(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        text: AppLocalizations.of(context)!
-                                            .cancel,
-                                        myWidth: 130,
-                                        myHeight: 38,
-                                        myFontSize: 12,
-                                        borderBouttonColor: orangeColor,
-                                        buttonColor: Colors.transparent,
-                                        textButtonColor: orangeColor),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
+                      _filteringBottomSheet(context);
                     },
                     child: Container(
                       height: 44.h,
@@ -330,5 +162,177 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> _filteringBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+                      context: context,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusDirectional.only(
+                              topStart: Radius.circular(20.r),
+                              topEnd: Radius.circular(20.r))),
+                      builder: (context) {
+                        return Padding(
+                          padding: EdgeInsetsDirectional.symmetric(
+                              horizontal: 26.w, vertical: 10.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ///Black Divider
+                              Container(
+                                height: 4,
+                                margin: EdgeInsetsDirectional.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.4,
+                                    vertical:
+                                        MediaQuery.of(context).size.height *
+                                            0.015),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(2.r),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .productFiltering,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14.0.sp,
+                                  color: darkBlue,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Divider(
+                                color: greyColor,
+                                height: 0.3.h,
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.only(start: 15.w),
+                                child: Text(
+                                  AppLocalizations.of(context)!.priceRange,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: darkBlue,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+
+                              ///Determine the Price Range
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  MyTextField(
+                                    controller: lowerPriceController,
+                                    hintText: AppLocalizations.of(context)!
+                                        .lowestPrice,
+                                    textFieldColor: Colors.transparent,
+                                    hintSyleColor: blackObacityColor,
+                                    textFieldBorderColor: blackObacityColor,
+                                    textFieldWidth: 115,
+                                    textFieldHeigth: 38,
+                                    myFontSize: 12,
+                                    inputType: TextInputType.number,
+                                  ),
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.to,
+                                    style: textStyle,
+                                  ),
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  MyTextField(
+                                    controller: topPriceController,
+                                    hintText: AppLocalizations.of(context)!
+                                        .topPrice,
+                                    textFieldColor: Colors.transparent,
+                                    hintSyleColor: blackObacityColor,
+                                    textFieldBorderColor: blackObacityColor,
+                                    textFieldWidth: 115,
+                                    textFieldHeigth: 38,
+                                    myFontSize: 12,
+                                    inputType: TextInputType.number,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 12.h,
+                              ),
+
+                              ///Choose Category
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.only(start: 15.w),
+                                child: Text(
+                                  AppLocalizations.of(context)!.categoryBar,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: darkBlue,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              MyDropdownSearch(
+                                items: items,
+                                onChange: (value) => selectedItem = value,
+                              ),
+                              SizedBox(
+                                height: 26.h,
+                              ),
+
+                              ///Actions
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  MyButton(
+                                      onTap: () {},
+                                      text:
+                                          AppLocalizations.of(context)!.apply,
+                                      myWidth: 130,
+                                      myHeight: 38,
+                                      myFontSize: 12,
+                                      borderBouttonColor: Colors.transparent,
+                                      buttonColor: greenColor),
+                                  MyButton(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      text: AppLocalizations.of(context)!
+                                          .cancel,
+                                      myWidth: 130,
+                                      myHeight: 38,
+                                      myFontSize: 12,
+                                      borderBouttonColor: greenColor,
+                                      buttonColor: Colors.transparent,
+                                      textButtonColor: greenColor),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
   }
 }

@@ -23,9 +23,9 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection> with Navigato
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height:100.h,
+      height: 100.h,
       child: ListView.separated(
-        padding: EdgeInsetsDirectional.only(start: 20.w),
+        padding: EdgeInsetsDirectional.only(start: 14.w),
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -38,12 +38,12 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection> with Navigato
                 splashColor: Colors.transparent,
                 onTap: () {jump(context, to:const CategoryItemScreen());},
                 child: Container(
-                  // height: 70.h,
                   width: 74.h,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     borderRadius:
                     BorderRadiusDirectional.circular(10.r),
+                    border: Border.all(color: greyColor, width: 0.8.w),
                     color: Colors.grey.shade200,
                   ),
                   child: Image.asset(
@@ -64,7 +64,7 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection> with Navigato
             ],
           );
         },
-        separatorBuilder: (context, index) => SizedBox(width: 20.w),
+        separatorBuilder: (context, index) => SizedBox(width: 6.w),
       ),
     );
   }

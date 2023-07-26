@@ -54,7 +54,7 @@ class _ResetPasswordState extends State<ResetPassword> with SnackBarHelper {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsetsDirectional.symmetric(
-              horizontal: 20.0.w, vertical: 109.h),
+              horizontal: 14.0.w, vertical: 109.h),
           physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
