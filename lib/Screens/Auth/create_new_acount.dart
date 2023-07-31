@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Screens/Auth/create_buyer_account.dart';
 import '../../Screens/Auth/create_vendor_account.dart';
@@ -20,12 +20,12 @@ class _CreateNewAccountState extends State<CreateNewAccount>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: babyBlue,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
 
         ///delete appBar border
-        backgroundColor: babyBlue,
+        backgroundColor: whiteColor,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);

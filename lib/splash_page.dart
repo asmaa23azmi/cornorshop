@@ -1,8 +1,10 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'Helper/navigator_helper.dart';
-import 'Screens/Bnb_Screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Helper/navigator_helper.dart';
+import 'Screens/Admin_Screens/bnb/main_admin_page.dart';
+import 'Screens/Bnb_Screens/main_page.dart';
+
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,7 +17,9 @@ class _SplashPageState extends State<SplashPage> with NavigatorHelper {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
-      jump(context, to: const MainPage(), replace: true);
+    // jump(context, to: const MainPage(), replace: true);
+     jump(context, to: const MainAdminPage(), replace: true);
+
     });
 
     super.initState();
@@ -29,8 +33,8 @@ class _SplashPageState extends State<SplashPage> with NavigatorHelper {
           alignment: Alignment.center,
           child: SvgPicture.asset(
             'assets/images/logo.svg',
-            width: 180.w,
-            height: 180.w,
+            width: 100.w,
+            height: 100.w,
           ),
         ),
       ),

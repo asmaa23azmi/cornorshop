@@ -1,4 +1,4 @@
-import 'package:cornorshop/Widgets/my_profile_settings.dart';
+import '../../Widgets/My_Widgets/my_profile_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

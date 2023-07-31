@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 import '../../Models/product_model.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 
 class CategoryItemScreen extends StatefulWidget {
   const CategoryItemScreen({super.key});
@@ -17,7 +17,7 @@ class CategoryItemScreen extends StatefulWidget {
 class _CategoryItemScreenState extends State<CategoryItemScreen> {
   List<ProductModel> product = [
     ProductModel(
-      productId: 1,
+      productId: '1',
       productName: 'كيكة الكريمة',
       productPrice: 25.0,
       productImg: ['cake'],
@@ -25,7 +25,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
       vendorName: 'اسم المتجر',
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../Const/colors.dart';
+import '../../Const/colors.dart';
 import 'my_text_field.dart';
 
 ///To Build CallBack Fun

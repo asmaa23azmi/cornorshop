@@ -17,25 +17,25 @@ class CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
   List<CategoryModel> categoryItems = [
     CategoryModel(
-      categoryId: 1,
+      categoryId: '1',
       categoryImg: 'clothIcon',
       //categoryTitle: appLocale.cloth,
       categoryTitle: 'ملابس',
     ),
     CategoryModel(
-      categoryId: 2,
+      categoryId: '2',
       categoryImg: 'naturalProductIcon',
       //categoryTitle: AppLocalizations.of(context)!.naturalProduct,
       categoryTitle: 'منتجات طبيعية',
     ),
     CategoryModel(
-      categoryId: 3,
+      categoryId: '3',
       categoryImg: 'homeFoodIcon',
       // categoryTitle: AppLocalizations.of(context)!.homeFood,
       categoryTitle: 'طعام وحلويات منزلية',
     ),
     CategoryModel(
-      categoryId: 4,
+      categoryId: '4',
       categoryImg: 'handicraftsIcon',
       // categoryTitle: AppLocalizations.of(context)!.handicrafts,
       categoryTitle: 'مشغولات يدوية',
@@ -49,12 +49,9 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
       elevation: 0.4,
         backgroundColor: whiteColor,
         //toolbarHeight: 100.h,
-        title: Padding(
-         padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-          child: Text(
-            AppLocalizations.of(context)!.categoryBar,
-            style: textAppBarStyle,
-          ),
+        title: Text(
+          AppLocalizations.of(context)!.categoryBar,
+          style: textAppBarStyle,
         ),
       ),
       body: SafeArea(

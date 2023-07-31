@@ -1,5 +1,5 @@
 class CategoryModel {
-  late int categoryId;
+  late String categoryId;
   late String categoryImg;
   late String categoryTitle;
 

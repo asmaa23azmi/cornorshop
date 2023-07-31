@@ -43,7 +43,7 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection> with Navigato
                   decoration: BoxDecoration(
                     borderRadius:
                     BorderRadiusDirectional.circular(10.r),
-                    border: Border.all(color: greyColor, width: 0.8.w),
+                    border: Border.all(color: greyColor, width: 0.9.w),
                     color: Colors.grey.shade200,
                   ),
                   child: Image.asset(

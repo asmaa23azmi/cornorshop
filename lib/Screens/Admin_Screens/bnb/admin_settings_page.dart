@@ -1,23 +1,25 @@
-import 'package:cornorshop/Providers/language_provider.dart';
-import '../../Widgets/My_Widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:cornorshop/Providers/language_provider.dart';
 
-import '../../Const/colors.dart';
-import '../../Const/texts.dart';
-import '../../enums.dart';
+import '../../../Const/colors.dart';
+import '../../../Const/texts.dart';
+import '../../../Widgets/My_Widgets/my_button.dart';
+import '../../../enums.dart';
+import '../../../Widgets/My_Widgets/my_list_tile.dart';
 
-class AppSettingPge extends StatefulWidget {
-  const AppSettingPge({super.key});
+class AdminSettingPge extends StatefulWidget {
+  const AdminSettingPge({super.key});
 
   @override
-  State<AppSettingPge> createState() => _AppSettingPgeState();
+  State<AdminSettingPge> createState() => _AdminSettingPgeState();
 }
 
-class _AppSettingPgeState extends State<AppSettingPge> {
-  late String? radioValue = Provider.of<LanguageProvider>(context, listen: false).language;
+class _AdminSettingPgeState extends State<AdminSettingPge> {
+  late String? radioValue =
+      Provider.of<LanguageProvider>(context, listen: false).language;
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +29,6 @@ class _AppSettingPgeState extends State<AppSettingPge> {
           appBar: AppBar(
             elevation: 0.4,
             backgroundColor: whiteColor,
-            leading: InkWell(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: darkBlue,
-                size: 22.h,
-              ),
-            ),
-            centerTitle: true,
             title: Text(
               AppLocalizations.of(context)!.appSettings,
               style: textAppBarStyle,
@@ -82,9 +71,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                       BorderRadiusDirectional.circular(2.r),
                                 ),
                               ),
-                              SizedBox(
-                                height: 20.h
-                              ),
+                              SizedBox(height: 20.h),
 
                               ///Title
                               Row(
@@ -98,9 +85,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                         color: darkBlue,
                                         size: 20.w,
                                       )),
-                                  SizedBox(
-                                    width: 15.w
-                                  ),
+                                  SizedBox(width: 15.w),
                                   Text(
                                     AppLocalizations.of(context)!.appLanguage,
                                     style: TextStyle(
@@ -186,6 +171,73 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                 SizedBox(
                   height: 12.h,
                 ),
+                MyListTile(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          elevation: 0.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.circular(14.r),
+                          ),
+                          child: Container(
+                            width: 234.w,
+                            padding: EdgeInsetsDirectional.symmetric(
+                                horizontal: 20.w, vertical: 20.h),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ///Paragraph
+                                Text(
+                                  AppLocalizations.of(context)!.logoutParagraph,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp,
+                                    color: darkBlue,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+
+                                ///Logout Action
+                                MyButton(
+                                  onTap: () {},
+                                  text: AppLocalizations.of(context)!.logout,
+                                  buttonColor: greenColor,
+                                  myWidth: 135,
+                                  myHeight: 38,
+                                  myFontSize: 12,
+                                ),
+                                SizedBox(height: 16.h),
+
+                                ///Cancel
+                                MyButton(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  text: AppLocalizations.of(context)!.cancel,
+                                  buttonColor: Colors.transparent,
+                                  myWidth: 135,
+                                  myHeight: 38,
+                                  myFontSize: 12,
+                                  borderBouttonColor: greenColor,
+                                  textButtonColor: greenColor,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  text: AppLocalizations.of(context)!.logout,
+                  icon: Icons.logout,
+                  color: Colors.red,
+                )
               ],
             ),
           )),

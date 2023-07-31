@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../Const/colors.dart';
+import '../../Const/colors.dart';
 
 class MyButton extends StatefulWidget {
   final String text;

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
-import '../../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../../Helper/navigator_helper.dart';
 
 class BuyerProductViewPage extends StatefulWidget {
@@ -88,7 +88,7 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                             end: 0,
                             child: Container(
                               alignment: Alignment.center,
-                              height: 14.h,
+                              height: 10.h,
                               child: ListView.separated(
                                 padding: EdgeInsetsDirectional.zero,
                                 physics: const BouncingScrollPhysics(),
@@ -98,8 +98,8 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                                 itemBuilder: (context, index) {
                                   bool selected = selectedIndex == index;
                                   return Container(
-                                    height: 14.h,
-                                    width: 14.h,
+                                    height: 10.h,
+                                    width: 10.h,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: selected
@@ -120,7 +120,7 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                           ///Add To Fav. Action
                           PositionedDirectional(
                             end: 20.w,
-                            top: 20.h,
+                            top: 10.h,
                             child: InkWell(
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
@@ -133,7 +133,7 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                                 child: Center(
                                   child: Icon(
                                     Icons.favorite_border_rounded,
-                                    color: darkBlue,
+                                    color: greenColor,
                                     size: 28.h,
                                   ),
                                 ),

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../Const/colors.dart';
 import '../../../../Const/texts.dart';
-import '../../../../Widgets/my_button.dart';
+import '../../../../Widgets/My_Widgets/my_button.dart';
 import '../../../../Helper/navigator_helper.dart';
 import '../../../../Screens/Vendor_Screens/product_screens/Product_Promotion_Screens/add_product_payment_method.dart';
 

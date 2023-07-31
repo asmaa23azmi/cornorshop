@@ -5,12 +5,12 @@ import 'package:intl_phone_field/countries.dart';
 
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Widgets/my_phone_text_field.dart';
-import '../../Widgets/my_rich_text.dart';
-import '../../Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_phone_text_field.dart';
+import '../../Widgets/My_Widgets/my_rich_text.dart';
+import '../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Screens/Ordered_Screens/order_send_done.dart';
 
 class BillDetailScreen extends StatefulWidget {
@@ -92,9 +92,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                     color: greenColor,
                     size: 8.w,
                   ),
-                  SizedBox(
-                    width: 7.w,
-                  ),
+                  SizedBox(width: 7.w),
                   Text(
                     AppLocalizations.of(context)!.addDetailsToBuy,
                     style: TextStyle(
@@ -105,16 +103,12 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                   )
                 ],
               ),
-              SizedBox(
-                height: 6.0.h,
-              ),
+              SizedBox(height: 6.h),
 
               /// Full Name
               MyRichText(text: AppLocalizations.of(context)!.fullName),
 
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                   controller: nameController,
                   hintText: AppLocalizations.of(context)!.enterFullName,
@@ -126,9 +120,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               /// Phone Num
               MyRichText(text: AppLocalizations.of(context)!.phoneNum),
 
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyPhoneTextField(
                 controller: phoneNumController,
                 hintText: AppLocalizations.of(context)!.enterPhoneNum,
@@ -145,9 +137,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               ///the Governorate
               MyRichText(text: AppLocalizations.of(context)!.theGovernorate),
 
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                   controller: governorateController,
                   hintText: AppLocalizations.of(context)!.enterGovernorate,
@@ -159,9 +149,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               /// Address
               MyRichText(text: AppLocalizations.of(context)!.addressInDetails),
 
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                   controller: addressController,
                   hintText: AppLocalizations.of(context)!.enterAddress,
@@ -178,9 +166,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                   style: textStyle,
                 ),
               ),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: orderNotesController,
                 hintText: AppLocalizations.of(context)!.enterOrderNotes,
@@ -223,17 +209,15 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                       color: darkBlue),
                 ),
               ),
-              SizedBox(
-                height: 40.h,
-              ),
+              SizedBox(height: 40.h),
 
               ///Actions
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MyButton(
-                    onTap: () {
-                      _performConfirmOrder();
+                    onTap: () async {
+                      await _performConfirmOrder();
                     },
                     text: AppLocalizations.of(context)!.confirmOrder,
                     myWidth: 135,
@@ -265,14 +249,14 @@ class _BillDetailScreenState extends State<BillDetailScreen>
 
   ///Functions
 
-  void _performConfirmOrder() {
+  Future<void> _performConfirmOrder() async {
     ///before create account
     if (checkData()) {
-      _confirmOrder();
+      await _confirmOrder();
     }
   }
 
-  void _confirmOrder() {
+  Future<void> _confirmOrder() async {
     showMySnackBar(context,
         text: AppLocalizations.of(context)!.sendOrderSuccessfully);
     jump(context, to: const OrderedSendScreen(), replace: true);

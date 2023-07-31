@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
-import '../../../Widgets/my_button.dart';
-import '../../../Widgets/my_list_item.dart';
+import '../../../Widgets/My_Widgets/my_button.dart';
+import '../../../Widgets/My_Widgets/my_list_item.dart';
 import '../../../Helper/navigator_helper.dart';
 import '../../../Screens/Vendor_Screens/product_screens/insert_product_page.dart';
 import '../../../Screens/Vendor_Screens/product_screens/Product_Promotion_Screens/product_promotion_target.dart';
@@ -100,7 +100,7 @@ class _ProductViewPageState extends State<ProductViewPage>
                       end: 0,
                       child: Container(
                         alignment: Alignment.center,
-                        height: 14.h,
+                        height: 10.h,
                         child: ListView.separated(
                           padding: EdgeInsetsDirectional.zero,
                           physics: const BouncingScrollPhysics(),
@@ -110,8 +110,8 @@ class _ProductViewPageState extends State<ProductViewPage>
                           itemBuilder: (context, index) {
                             bool selected = selectedIndex == index;
                             return Container(
-                              height: 14.h,
-                              width: 14.h,
+                              height: 10.h,
+                              width: 10.h,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: selected
@@ -272,16 +272,12 @@ class _ProductViewPageState extends State<ProductViewPage>
                   onTap: () =>
                       jump(context, to: const ProductPromotionTargetPage()),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
                 Divider(
                   color: greyColor,
                   height: 0.3.h,
                 ),
-                SizedBox(
-                  height: 18.h,
-                ),
+                SizedBox(height: 18.h),
 
                 ///Edit Product Description
                 MyListItem(
@@ -290,16 +286,12 @@ class _ProductViewPageState extends State<ProductViewPage>
                   size: 18.w,
                   onTap: () => jump(context, to: const InsertProductPage()),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
                 Divider(
                   color: greyColor,
                   height: 0.3.h,
                 ),
-                SizedBox(
-                  height: 18.h,
-                ),
+                SizedBox(height: 18.h),
 
                 ///Delete Product
                 MyListItem(
@@ -378,16 +370,12 @@ class _ProductViewPageState extends State<ProductViewPage>
                     );
                   },
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
                 Divider(
                   color: greyColor,
                   height: 0.3.h,
                 ),
-                SizedBox(
-                  height: 18.h,
-                ),
+                SizedBox(height: 18.h),
               ],
             ),
           ),

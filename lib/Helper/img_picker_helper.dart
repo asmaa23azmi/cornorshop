@@ -4,29 +4,17 @@ import 'dart:io';
 
 
 mixin ImgPickerHelper<T extends StatefulWidget> on State<T> {
-  File? profileImg;
-  List<XFile>? multiImg=[];
+  final ImagePicker _picker = ImagePicker();
 
-  Future<void> pickImgFromGallery({bool multiImgs = false}) async {
-    ImagePicker imgPicker = ImagePicker();
-    if (multiImgs) {
-        List<XFile>? pickedImg = await imgPicker.pickMultiImage();
-        //you can use ImageCourse.camera for Camera capture
-        if(pickedImg != null){
-          multiImg!.addAll(pickedImg);
-          setState(() {
-            //productImg = File(multiImg[index].path);
+  Future<File?> pickImageFromGallery() async {
+    XFile? data = await _picker.pickImage(source: ImageSource.gallery);
+    if (data == null) return null;
+    return File(data.path);
+  }
 
-          });
-        }
+  Future<List<File>> pickMultiImagesFromGallery() async {
+    List<XFile> data = await _picker.pickMultiImage();
 
-    } else {
-      XFile? img = await imgPicker.pickImage(source: ImageSource.gallery);
-      if (img != null) {
-        setState(() {
-          profileImg = File(img.path);
-        });
-      }
-    }
+    return data.map((xFile) => File(xFile.path)).toList();
   }
 }

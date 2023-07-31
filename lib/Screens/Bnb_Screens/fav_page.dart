@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 import '../../Models/product_model.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
@@ -17,7 +17,7 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   List<ProductModel> product = [
     ProductModel(
-      productId: 1,
+      productId: '1',
       productName: 'كيكة الكريمة',
       productPrice: 25.0,
       productImg: ['cake'],
@@ -26,7 +26,7 @@ class _FavoritePageState extends State<FavoritePage> {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -35,7 +35,7 @@ class _FavoritePageState extends State<FavoritePage> {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -52,12 +52,9 @@ class _FavoritePageState extends State<FavoritePage> {
         elevation: 0.4,
         backgroundColor: whiteColor,
         //  toolbarHeight: 100.h,
-        title: Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w),
-          child: Text(
-            AppLocalizations.of(context)!.myFavProduct,
-            style: textAppBarStyle,
-          ),
+        title: Text(
+          AppLocalizations.of(context)!.myFavProduct,
+          style: textAppBarStyle,
         ),
       ),
       body: SafeArea(
@@ -186,7 +183,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               Text(
                                 '${product[index].productPrice} ₪',
                                 style: TextStyle(
-                                  fontSize: 10.sp,
+                                  fontSize: 11.sp,
                                   fontWeight: FontWeight.w600,
                                   color: darkBlue,
                                   height: 1.h,

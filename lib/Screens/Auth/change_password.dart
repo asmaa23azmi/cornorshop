@@ -1,12 +1,12 @@
 import 'package:cornorshop/Screens/Auth/reset_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Const/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/my_rich_text.dart';
-import '../../Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_rich_text.dart';
+import '../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 
@@ -43,10 +43,10 @@ class _ChangePasswordState extends State<ChangePassword>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: babyBlue,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: babyBlue,
+        backgroundColor: whiteColor,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -72,75 +72,62 @@ class _ChangePasswordState extends State<ChangePassword>
                   style: textHeaderStyle,
                 ),
               ),
-              SizedBox(
-                height: 30.h,
-              ),
+              SizedBox(height: 30.h),
 
               ///Current Password
               MyRichText(text: AppLocalizations.of(context)!.currentPassword),
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: currentPassController,
                 hintText: AppLocalizations.of(context)!.enterCurrentPassword,
                 password: true,
+                textFieldBorderColor: blackObacityColor,
               ),
-              SizedBox(
-                height: 20.h,
-              ),
+              SizedBox(height: 20.h),
 
               ///New Password
               MyRichText(text: AppLocalizations.of(context)!.newPassword),
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: newPassController,
                 hintText: AppLocalizations.of(context)!.enterNewPassword,
+                textFieldBorderColor: blackObacityColor,
                 password: true,
               ),
-              SizedBox(
-                height: 20.h,
-              ),
+              SizedBox(height: 20.h),
 
               ///Confirm New Password
               MyRichText(
                   text: AppLocalizations.of(context)!.confirmNewPassword),
 
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: confirmPassController,
                 hintText: AppLocalizations.of(context)!.enterReturnPassword,
+                textFieldBorderColor: blackObacityColor,
                 password: true,
               ),
-              SizedBox(
-                height: 30.h,
-              ),
+              SizedBox(height: 30.h),
 
               ///Confirm Action
               MyButton(
                 text: AppLocalizations.of(context)!.changePassword,
-                onTap: () {
-                  _performChangePass();
+                onTap: () async{
+                  await _performChangePass();
                 },
               ),
-              SizedBox(
-                height: 20.h,
-              ),
+              SizedBox(height: 20.h),
 
               ///Cancel Action
               MyButton(
                   text: AppLocalizations.of(context)!.cancel,
-                  onTap: () {Navigator.pop(context);},
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   buttonColor: Colors.transparent,
                   textButtonColor: darkBlue,
                   borderBouttonColor: darkBlue),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Are You Forget Password
               InkWell(
@@ -156,6 +143,7 @@ class _ChangePasswordState extends State<ChangePassword>
                   child: Text(
                     AppLocalizations.of(context)!.forgetPassQuestion,
                     style: TextStyle(
+                      fontWeight: FontWeight.w600,
                       fontSize: 13.0.sp,
                       color: greenColor,
                     ),
@@ -169,14 +157,14 @@ class _ChangePasswordState extends State<ChangePassword>
     );
   }
 
-  void _performChangePass() {
+  Future<void> _performChangePass() async{
     ///before create account
     if (checkData()) {
-      _changePass();
+     await _changePass();
     }
   }
 
-  void _changePass() {}
+  Future<void> _changePass() async{}
 
   bool checkData() {
     ///to check text field
@@ -199,7 +187,7 @@ class _ChangePasswordState extends State<ChangePassword>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
       return false;
-    }else if (newPassController.text != confirmPassController.text) {
+    } else if (newPassController.text != confirmPassController.text) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.notMatchPass, error: true);
       return false;

@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../Const/colors.dart';
 import '../../Models/product_model.dart';
-import '../my_button.dart';
+import '../My_Widgets/my_button.dart';
 
 class RecommendProductHomeSection extends StatefulWidget {
   final List<ProductModel> product;
@@ -128,7 +128,7 @@ class _RecommendProductHomeSectionState
                     Text(
                       '${widget.product[index].productPrice} ₪',
                       style: TextStyle(
-                        fontSize: 9.sp,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w600,
                         color: darkBlue,
                         height: 1.h,

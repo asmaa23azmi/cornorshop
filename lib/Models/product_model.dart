@@ -1,11 +1,11 @@
 class ProductModel {
-  late int productId;
+  late String productId;
   late String productName;
   late String? productDescription;
   late num productPrice;
   late int productQuantity;
   late String productCategoryType;
-  late List<String> productImg;
+  late List<dynamic> productImg;
   late String vendorName;
 
   ProductModel({

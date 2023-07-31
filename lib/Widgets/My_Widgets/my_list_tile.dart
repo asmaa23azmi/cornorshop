@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../Const/colors.dart';
-import '../Const/texts.dart';
+import '../../Const/colors.dart';
+import '../../Const/texts.dart';
 
 class MyListTile extends StatelessWidget {
   final String text;
   final IconData? icon;
+  final Color color;
   final Function()? onTap;
 
  const MyListTile({
     required this.text,
     required this.icon,
+    this.color = darkBlue,
     this.onTap,
     super.key,
   });
@@ -26,7 +28,7 @@ class MyListTile extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: darkBlue,
+            color: color,
             size: 20.w,
           ),
           SizedBox(
@@ -34,7 +36,11 @@ class MyListTile extends StatelessWidget {
           ),
           Text(
             text,
-            style: textStyle,
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: 14.0.sp,
+              color: color,
+            ),
           ),
         ],
       ),

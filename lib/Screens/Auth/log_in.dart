@@ -6,11 +6,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl_phone_field/countries.dart';
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/my_phone_text_field.dart';
-import '../../Widgets/my_rich_text.dart';
-import '../../Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_phone_text_field.dart';
+import '../../Widgets/My_Widgets/my_rich_text.dart';
+import '../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
 
 class LogIn extends StatefulWidget {
@@ -43,12 +43,12 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: babyBlue,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
 
         ///delete appBar border
-        backgroundColor: babyBlue,
+        backgroundColor: whiteColor,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -74,19 +74,16 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
                   style: textHeaderStyle,
                 ),
               ),
-              SizedBox(
-                height: 40.0.h,
-              ),
+              SizedBox(height: 40.h),
 
               ///Phone Num
               MyRichText(text: AppLocalizations.of(context)!.phoneNum),
 
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyPhoneTextField(
                 controller: phoneNumController,
                 hintText: AppLocalizations.of(context)!.enterPhoneNum,
+                textFieldBorderColor: blackObacityColor,
                 country: selectedCountry,
                 selectedCountryCallBak: ({required country}) {
                   setState(() => selectedCountry = country);
@@ -94,55 +91,47 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
               ),
 
               ///Password
-              SizedBox(
-                height: 16.0.h,
-              ),
+              SizedBox(height: 16.h),
               MyRichText(text: AppLocalizations.of(context)!.password),
 
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: passwordController,
                 hintText: AppLocalizations.of(context)!.enterPassword,
+                textFieldBorderColor: blackObacityColor,
                 password: true,
               ),
-              SizedBox(
-                height: 10.0.h,
-              ),
+              SizedBox(height: 10.h),
 
               ///Are You Forget Password
               InkWell(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () {
-                  jump(context, to:const ResetPassword());
+                  jump(context, to: const ResetPassword());
                 },
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(start: 15.w),
                   child: Text(
                     AppLocalizations.of(context)!.forgetPassQuestion,
                     style: TextStyle(
-                      fontSize: 13.0.sp,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13.sp,
                       color: greenColor,
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20.0.h,
-              ),
+              SizedBox(height: 20.h),
 
               ///Action
               MyButton(
                 text: AppLocalizations.of(context)!.login,
-                onTap: () {
-                  _performLogIn();
+                onTap: () async{
+                  await _performLogIn();
                 },
               ),
-              SizedBox(
-                height: 10.0.h,
-              ),
+              SizedBox(height: 10.h),
 
               ///Create Account
               Row(
@@ -155,9 +144,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
                       color: darkBlue,
                     ),
                   ),
-                  SizedBox(
-                    width: 4.5.w,
-                  ),
+                  SizedBox(width: 4.5.w),
                   InkWell(
                     onTap: () {
                       jump(context, to: const CreateNewAccount());
@@ -183,14 +170,14 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
 
   ///Functions
 
-  void _performLogIn() {
+  Future<void> _performLogIn() async{
     ///before create account
     if (checkData()) {
-      _login();
+      await _login();
     }
   }
 
-  void _login() {}
+  Future<void> _login() async{}
 
   bool checkData() {
     ///to check text field

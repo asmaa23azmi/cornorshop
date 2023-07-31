@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
-import '../../Const/texts.dart';
-import '../../Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_text_field.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({super.key});
@@ -32,7 +31,7 @@ class _MessagePageState extends State<MessagePage> {
     return Scaffold(
       appBar: AppBar(
         elevation:0.4,
-        backgroundColor: babyBlue,
+        backgroundColor: greenColor,
         //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
@@ -42,14 +41,18 @@ class _MessagePageState extends State<MessagePage> {
           },
           child: Icon(
             Icons.arrow_back_ios,
-            color: darkBlue,
+            color: whiteColor,
             size: 22.h,
           ),
         ),
         centerTitle: true,
         title: Text(
           AppLocalizations.of(context)!.msg,
-          style: textAppBarStyle,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+            color: whiteColor,
+          ),
         ),
       ),
       body: SafeArea(

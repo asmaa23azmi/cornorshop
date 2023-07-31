@@ -3,10 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
 import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/my_button.dart';
-import '../../Widgets/my_phone_text_field.dart';
-import '../../Widgets/my_rich_text.dart';
-import '../../Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_phone_text_field.dart';
+import '../../Widgets/My_Widgets/my_rich_text.dart';
+import '../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Const/texts.dart';
 import '../../Const/colors.dart';
 import '../../Helper/navigator_helper.dart';
@@ -57,14 +57,12 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: babyBlue,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: babyBlue,
+        backgroundColor: whiteColor,
         leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
+          onTap: () => Navigator.pop(context),
           child: Icon(
             Icons.arrow_back_ios,
             color: darkBlue,
@@ -86,53 +84,42 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
                   style: textHeaderStyle,
                 ),
               ),
-              SizedBox(
-                height: 18.h,
-              ),
+              SizedBox(height: 18.h),
 
               ///Full Name
               MyRichText(text: AppLocalizations.of(context)!.fullName),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyTextField(
                 controller: nameController,
                 hintText: AppLocalizations.of(context)!.enterFullName,
+                textFieldBorderColor: blackObacityColor,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Phone Num
               MyRichText(text: AppLocalizations.of(context)!.phoneNum),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyPhoneTextField(
                 controller: phoneNumController,
                 hintText: AppLocalizations.of(context)!.enterPhoneNum,
+                textFieldBorderColor: blackObacityColor,
                 country: selectedCountry,
                 selectedCountryCallBak: ({required country}) {
                   setState(() => selectedCountry = country);
                 },
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Email
               MyRichText(text: AppLocalizations.of(context)!.email),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyTextField(
                 controller: emailController,
                 hintText: AppLocalizations.of(context)!.enterEmail,
                 inputType: TextInputType.emailAddress,
+                textFieldBorderColor: blackObacityColor,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Address
               Padding(
@@ -144,44 +131,35 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
                   style: textStyle,
                 ),
               ),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyTextField(
                 controller: addressController,
                 hintText: AppLocalizations.of(context)!.enterAddress,
+                textFieldBorderColor: blackObacityColor,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Password
               MyRichText(text: AppLocalizations.of(context)!.password),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyTextField(
                 controller: passwordController,
                 hintText: AppLocalizations.of(context)!.enterPassword,
+                textFieldBorderColor: blackObacityColor,
                 password: true,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Return Pass
               MyRichText(text: AppLocalizations.of(context)!.returnPassword),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyTextField(
                 controller: returnPassController,
                 hintText: AppLocalizations.of(context)!.enterReturnPassword,
+                textFieldBorderColor: blackObacityColor,
                 password: true,
               ),
-              SizedBox(
-                height: 12.0.h,
-              ),
+              SizedBox(height: 12.0.h),
 
               ///Choose Gender
               Row(
@@ -198,9 +176,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
                           });
                         },
                       ),
-                      SizedBox(
-                        width: 3.w,
-                      ),
+                      SizedBox(width: 3.w),
                       Text(
                         AppLocalizations.of(context)!.male,
                         style: TextStyle(
@@ -233,21 +209,17 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
                   ),
                 ],
               ),
-              SizedBox(
-                height: 15.0.h,
-              ),
+              SizedBox(height: 15.h),
 
               ///Action
               MyButton(
                 text: AppLocalizations.of(context)!.createAccount,
-                onTap: () {
-                  _performCreate();
+                onTap: () async{
+                  await _performCreate();
                   setState(() {});
                 },
               ),
-              SizedBox(
-                height: 8.h,
-              ),
+              SizedBox(height: 8.h),
 
               ///Log In
               Row(
@@ -284,14 +256,14 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
 
   ///Functions
 
-  void _performCreate() {
+  Future<void> _performCreate() async{
     ///before create account
     if (checkData()) {
-      _create();
+      await _create();
     }
   }
 
-  void _create() {
+  Future<void> _create() async{
     showMySnackBar(context,
         text: AppLocalizations.of(context)!.createdSuccessfully);
   }
@@ -334,7 +306,7 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterGender, error: true);
       return false;
-    }else if (radioValue == 'M') {
+    } else if (radioValue == 'M') {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterCorrectGender, error: true);
       return false;

@@ -1,12 +1,12 @@
-import 'package:cornorshop/Widgets/my_dropdown_search.dart';
+import '../../Widgets/My_Widgets/my_dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Widgets/my_button.dart';
-import '../../Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_text_field.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

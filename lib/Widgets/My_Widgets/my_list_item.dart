@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../Const/colors.dart';
-import '../Const/texts.dart';
+import '../../Const/colors.dart';
+import '../../Const/texts.dart';
 
 class MyListItem extends StatefulWidget {
   final String text;

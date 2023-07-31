@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
-
+import 'dart:io';
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
-import '../../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../../Helper/snack_bar_helper.dart';
-import '../../../Widgets/my_rich_text.dart';
-import '../../../Widgets/my_text_field.dart';
-import '../../Widgets/my_phone_text_field.dart';
+import '../../../Widgets/My_Widgets/my_rich_text.dart';
+import '../../../Widgets/My_Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_phone_text_field.dart';
 import '../../Helper/img_picker_helper.dart';
 
 class EditVendorProfile extends StatefulWidget {
@@ -48,6 +48,8 @@ class _EditVendorProfileState extends State<EditVendorProfile>
     addressController.dispose();
     super.dispose();
   }
+
+  File? profileImg;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +111,8 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        await pickImgFromGallery();
+                        profileImg = await pickImageFromGallery();
+                        setState(() {});
                       },
                       child: Text(
                         AppLocalizations.of(context)!.editVendorImg,
@@ -122,31 +125,23 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                   ],
                 ),
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///User Name
               MyRichText(text: AppLocalizations.of(context)!.userName),
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                   controller: userNameController,
                   hintText: AppLocalizations.of(context)!.enterUserName,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
                   textFieldColor: Colors.transparent),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Phone Number
               MyRichText(text: AppLocalizations.of(context)!.phoneNum),
 
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyPhoneTextField(
                 controller: phoneNumController,
                 hintText: AppLocalizations.of(context)!.enterPhoneNum,
@@ -158,24 +153,18 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                   setState(() => selectedCountry = country);
                 },
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Email
               MyRichText(text: AppLocalizations.of(context)!.email),
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                   controller: emailController,
                   hintText: AppLocalizations.of(context)!.enterEmail,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
                   textFieldColor: Colors.transparent),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               /// Address
 
@@ -186,9 +175,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                   style: textStyle,
                 ),
               ),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyTextField(
                   controller: addressController,
                   hintText: AppLocalizations.of(context)!.enterAddress,
@@ -205,9 +192,7 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                   style: textStyle,
                 ),
               ),
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: bioController,
                 hintText: AppLocalizations.of(context)!.enterBio,
@@ -217,17 +202,15 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                 maxLines: 6,
                 textFieldHeigth: 100.h,
               ),
-              SizedBox(
-                height: 34.h,
-              ),
+              SizedBox(height: 34.h),
 
               ///Actions
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MyButton(
-                      onTap: () {
-                        _performConfirm();
+                      onTap: () async{
+                        await _performConfirm();
                       },
                       text: AppLocalizations.of(context)!.save,
                       myWidth: 135,
@@ -257,14 +240,14 @@ class _EditVendorProfileState extends State<EditVendorProfile>
 
   ///Functions
 
-  void _performConfirm() {
+  Future<void> _performConfirm() async{
     ///before create account
     if (checkData()) {
-      _confirm();
+      await  _confirm();
     }
   }
 
-  void _confirm() {}
+  Future<void> _confirm() async{}
 
   bool checkData() {
     ///to check text field

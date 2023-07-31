@@ -7,7 +7,7 @@ import '../../Models/product_model.dart';
 import '../../Screens/Ordered_Screens/bill_details.dart';
 
 import '../../Const/texts.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({super.key});
@@ -20,7 +20,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
     with NavigatorHelper {
   List<ProductModel> product = [
     ProductModel(
-      productId: 1,
+      productId: '1',
       productName: 'كيكة الكريمة',
       productPrice: 25.0,
       productImg: ['cake'],
@@ -29,7 +29,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -46,12 +46,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
           elevation: 0.4,
           backgroundColor: whiteColor,
           //toolbarHeight: 100.h,
-          title: Padding(
-            padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-            child: Text(
-              AppLocalizations.of(context)!.cartBar,
-              style: textAppBarStyle,
-            ),
+          title: Text(
+            AppLocalizations.of(context)!.cartBar,
+            style: textAppBarStyle,
           ),
         ),
         body: SafeArea(
@@ -80,7 +77,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                             padding: EdgeInsetsDirectional.symmetric(
                                 horizontal: 6.w, vertical: 6.h),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadiusDirectional.circular(14.r),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(14.r),
                               border: Border.all(color: greyColor, width: 1.w),
                             ),
                             child: Row(
@@ -94,7 +92,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                     color: Colors.grey.shade200,
                                     borderRadius:
                                         BorderRadiusDirectional.circular(14.r),
-                                    border: Border.all(color: blackObacityColor),
+                                    border:
+                                        Border.all(color: blackObacityColor),
                                   ),
                                   child: Image.asset(
                                     'assets/images/${product[index].productImg[0]}.png',
@@ -114,9 +113,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                         color: darkBlue,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 4.h
-                                    ),
+                                    SizedBox(height: 4.h),
 
                                     /// Store Name
                                     Row(
@@ -142,9 +139,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 4.h
-                                    ),
+                                    SizedBox(height: 4.h),
                                     SizedBox(
                                       width: 230.w,
                                       child: Row(
@@ -159,33 +154,37 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                             ),
                                           ),
                                           const Spacer(),
+
                                           ///Determine Quantity
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               InkWell(
                                                 onTap: () {
                                                   setState(
-                                                        () {
-                                                      product[index].productQuantity++;
+                                                    () {
+                                                      product[index]
+                                                          .productQuantity++;
                                                     },
                                                   );
                                                 },
-                                                highlightColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
                                                 splashColor: Colors.transparent,
                                                 child: Container(
                                                   height: 32.h,
                                                   width: 32.h,
-                                                  padding:
-                                                  EdgeInsetsDirectional.symmetric(
-                                                      horizontal: 4.w),
+                                                  padding: EdgeInsetsDirectional
+                                                      .symmetric(
+                                                          horizontal: 4.w),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color: greyColor, width: 0.3.w),
+                                                        color: greyColor,
+                                                        width: 0.3.w),
                                                     borderRadius:
-                                                    BorderRadiusDirectional.circular(
-                                                        4.r),
+                                                        BorderRadiusDirectional
+                                                            .circular(4.r),
                                                   ),
                                                   child: Center(
                                                     child: Icon(
@@ -198,37 +197,43 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                               ),
                                               SizedBox(width: 8.w),
                                               Text(
-                                                product[index].productQuantity.toString(),
+                                                product[index]
+                                                    .productQuantity
+                                                    .toString(),
                                                 style: textStyle,
                                               ),
                                               SizedBox(width: 8.w),
                                               InkWell(
                                                 onTap: () {
                                                   setState(
-                                                        () {
-                                                      if (product[index].productQuantity >
+                                                    () {
+                                                      if (product[index]
+                                                              .productQuantity >
                                                           1) {
-                                                        product[index].productQuantity--;
+                                                        product[index]
+                                                            .productQuantity--;
                                                       } else {
                                                         null;
                                                       }
                                                     },
                                                   );
                                                 },
-                                                highlightColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
                                                 splashColor: Colors.transparent,
                                                 child: Container(
                                                   height: 32.h,
                                                   width: 32.h,
-                                                  padding:
-                                                  EdgeInsetsDirectional.symmetric(
-                                                      horizontal: 4.w),
+                                                  padding: EdgeInsetsDirectional
+                                                      .symmetric(
+                                                          horizontal: 4.w),
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color: greyColor, width: 0.3.w),
+                                                        color: greyColor,
+                                                        width: 0.3.w),
                                                     borderRadius:
-                                                    BorderRadiusDirectional.circular(
-                                                        4.r),
+                                                        BorderRadiusDirectional
+                                                            .circular(4.r),
                                                   ),
                                                   child: Center(
                                                     child: Icon(
@@ -244,27 +249,27 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                         ],
                                       ),
                                     ),
-
-
                                   ],
                                 ),
                               ],
                             ),
                           ),
+
                           ///Delete product from cart
                           PositionedDirectional(
-                            end: 10.w,
-                            top: 10.h,
+                            end: 6.w,
+                            top: 8.h,
                             child: InkWell(
                               splashColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () {},
-                              child: Icon(
-                                Icons.delete_outline_rounded,
-                                color: blackObacityColor,
-                                size: 34.h,
+                              child:const Icon(
+                                Icons.delete_rounded,
+                                color: Colors.red,
+                               // size: 26.h,
                               ),
-                            ),),
+                            ),
+                          ),
                         ],
                       );
                     },
@@ -272,90 +277,68 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                         SizedBox(height: 10.h),
                   ),
                 ),
+                ///check out
                 Container(
-                  padding: EdgeInsetsDirectional.symmetric(
-                      horizontal: 20.w, vertical: 20.h),
-                  width: double.infinity.w,
+                  //height: 44.h,
+                  width: double.infinity,
+                  padding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadiusDirectional.circular(14.r),
-                    border: Border.all(color: blackObacityColor, width: 1.w),
+                    border: Border.all(color: greyColor, width: 0.4.w),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ///Title
-                      Text(
-                        AppLocalizations.of(context)!.totalBasketPurchases,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.sp,
-                          color: darkBlue,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4.h,
-                      ),
-
-                      ///Details
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.total,
-                            style: textStyle,
+                            AppLocalizations.of(context)!.totalBasketPurchases,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: greenColor,
+                            ),
                           ),
+                          const Spacer(),
                           Text(
                             '${_getTotalPrice()} ₪',
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
-                              color: darkBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.sp,
+                              color: greenColor,
                             ),
                           ),
                         ],
-                      ),
-                      SizedBox(
-                        height: 6.h,
-                      ),
-                      Divider(
-                        color: greyColor,
-                        height: 0.3.h,
-                      ),
-                      SizedBox(
-                        height: 6.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             AppLocalizations.of(context)!.shipping,
-                            style: textStyle,
+                            style: TextStyle(
+                              fontSize: 12.0.sp,
+                              color: greenColor,
+                            ),
                           ),
                           Text(
                             '${AppLocalizations.of(context)!.fixedPrice} 5.0 ₪',
-                            style: textStyle,
+                            style: TextStyle(
+                              fontSize: 14.0.sp,
+                              color: greenColor,
+                            ),
                           ),
                         ],
-                      ),
-                      SizedBox(
-                        height: 12.h,
-                      ),
-
-                      ///Action
-                      Center(
-                        child: MyButton(
-                          text: AppLocalizations.of(context)!.addToCart,
-                          onTap: () {
-                            jump(context, to: const BillDetailScreen());
-                          },
-                          buttonColor: greenColor,
-                          myWidth: 250,
-                        ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 18.h),
+                SizedBox(height: 10.h),
+                MyButton(
+                  text: AppLocalizations.of(context)!.addToCart,
+                  onTap: () {
+                    jump(context, to: const BillDetailScreen());
+                  },
+                  buttonColor: greenColor,
+                ),
+                SizedBox(height: 25.h),
               ],
             ),
           ),

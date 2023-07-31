@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../Const/colors.dart';
 import '../../Helper/navigator_helper.dart';
-import '../my_button.dart';
+import '../My_Widgets/my_button.dart';
 import '../../Screens/Buyer_Screens/view_vendor_profile.dart';
 
 class StoreHomeSection extends StatefulWidget {

@@ -6,8 +6,8 @@ import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
 import '../../Models/product_model.dart';
-import '../../Widgets/my_button.dart';
-import '../../Widgets/my_list_item.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_list_item.dart';
 import 'buyer_product_view.dart';
 
 class ViewVendorProfile extends StatefulWidget {
@@ -20,7 +20,7 @@ class ViewVendorProfile extends StatefulWidget {
 class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHelper {
   List<ProductModel> product = [
     ProductModel(
-      productId: 1,
+      productId: '1',
       productName: 'كيكة الكريمة',
       productPrice: 25.0,
       productImg: ['cake'],
@@ -29,7 +29,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -38,7 +38,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -47,7 +47,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -56,7 +56,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -65,7 +65,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -74,7 +74,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -282,11 +282,11 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
                                       height: 1.h,
                                     ),
                                   ),
-                                  SizedBox(width: 16.w),
+                                  const Spacer(),
                                   Text(
                                     '${product[index].productPrice} ₪',
                                     style: TextStyle(
-                                      fontSize: 10.sp,
+                                      fontSize: 11.sp,
                                       fontWeight: FontWeight.w600,
                                       color: darkBlue,
                                       height: 1.h,

@@ -4,10 +4,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl_phone_field/countries.dart';
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/my_phone_text_field.dart';
-import '../../Widgets/my_rich_text.dart';
+import '../../Widgets/My_Widgets/my_phone_text_field.dart';
+import '../../Widgets/My_Widgets/my_rich_text.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -36,10 +36,10 @@ class _ResetPasswordState extends State<ResetPassword> with SnackBarHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: babyBlue,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: babyBlue,
+        backgroundColor: whiteColor,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -72,26 +72,23 @@ class _ResetPasswordState extends State<ResetPassword> with SnackBarHelper {
 
               /// Phone Num
               MyRichText(text: AppLocalizations.of(context)!.phoneNum),
-              SizedBox(
-                height: 3.h,
-              ),
+              SizedBox(height: 3.h),
               MyPhoneTextField(
                 controller: phoneNumController,
                 hintText: AppLocalizations.of(context)!.enterPhoneNum,
+                textFieldBorderColor: blackObacityColor,
                 country: selectedCountry,
                 selectedCountryCallBak: ({required country}) {
                   setState(() => selectedCountry = country);
                 },
               ),
-              SizedBox(
-                height: 30.h,
-              ),
+              SizedBox(height: 30.h),
 
               ///Action
               MyButton(
                 text: AppLocalizations.of(context)!.resetPassword,
-                onTap: () {
-                  _performResetPass();
+                onTap: () async{
+                  await _performResetPass();
                 },
               ),
             ],
@@ -101,14 +98,14 @@ class _ResetPasswordState extends State<ResetPassword> with SnackBarHelper {
     );
   }
 
-  void _performResetPass() {
+  Future<void> _performResetPass() async{
     ///before create account
     if (checkData()) {
-      _resetPass();
+      await _resetPass();
     }
   }
 
-  void _resetPass() {}
+  Future<void> _resetPass() async{}
 
   bool checkData() {
     ///to check text field

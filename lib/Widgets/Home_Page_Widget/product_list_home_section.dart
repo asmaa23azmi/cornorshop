@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
 import '../../Models/product_model.dart';
-import '../my_button.dart';
+import '../My_Widgets/my_button.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Screens/Buyer_Screens/buyer_product_view.dart';
 
@@ -18,7 +18,7 @@ class ProductListHomeSection extends StatefulWidget {
 class _ProductListHomeSectionState extends State<ProductListHomeSection> with NavigatorHelper{
   List<ProductModel> product = [
     ProductModel(
-      productId: 1,
+      productId: '1',
       productName: 'كيكة الكريمة',
       productPrice: 25.0,
       productImg: ['cake'],
@@ -27,7 +27,7 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection> with Na
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -36,7 +36,7 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection> with Na
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -45,7 +45,7 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection> with Na
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -54,7 +54,7 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection> with Na
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -179,7 +179,7 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection> with Na
                     Text(
                       '${product[index].productPrice} ₪',
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w600,
                         color: darkBlue,
                         height: 1.h,

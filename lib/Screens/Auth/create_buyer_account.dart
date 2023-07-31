@@ -1,15 +1,15 @@
-import 'package:cornorshop/Screens/Auth/log_in.dart';
-import 'package:cornorshop/Widgets/my_phone_text_field.dart';
+import '../../Screens/Auth/log_in.dart';
+import '../../Widgets/My_Widgets/my_phone_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl_phone_field/countries.dart';
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Widgets/my_button.dart';
+import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/my_rich_text.dart';
-import '../../Widgets/my_text_field.dart';
+import '../../Widgets/My_Widgets/my_rich_text.dart';
+import '../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
 
 class CreateBuyerAccount extends StatefulWidget {
@@ -55,10 +55,10 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: babyBlue,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: babyBlue,
+        backgroundColor: whiteColor,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -84,52 +84,41 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
                   style: textHeaderStyle,
                 ),
               ),
-              SizedBox(
-                height: 18.h,
-              ),
+              SizedBox(height: 18.h),
 
               ///Full Name
               MyRichText(text: AppLocalizations.of(context)!.fullName),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyTextField(
                 controller: nameController,
                 hintText: AppLocalizations.of(context)!.enterFullName,
+                textFieldBorderColor: blackObacityColor,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Phone Num
               MyRichText(text: AppLocalizations.of(context)!.phoneNum),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.0.h),
               MyPhoneTextField(
                 controller: phoneNumController,
                 hintText: AppLocalizations.of(context)!.enterPhoneNum,
+                textFieldBorderColor: blackObacityColor,
                 country: selectedCountry,
                 selectedCountryCallBak: ({required country}) {
                   setState(() => selectedCountry = country);
                 },
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Email
               MyRichText(text: AppLocalizations.of(context)!.email),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: emailController,
                 hintText: AppLocalizations.of(context)!.enterEmail,
+                textFieldBorderColor: blackObacityColor,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Address
               Padding(
@@ -141,56 +130,45 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
                   style: textStyle,
                 ),
               ),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: addressController,
                 hintText: AppLocalizations.of(context)!.enterAddress,
+                textFieldBorderColor: blackObacityColor,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Password
               MyRichText(text: AppLocalizations.of(context)!.password),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: passwordController,
                 hintText: AppLocalizations.of(context)!.enterPassword,
+                textFieldBorderColor: blackObacityColor,
                 password: true,
               ),
-              SizedBox(
-                height: 12.h,
-              ),
+              SizedBox(height: 12.h),
 
               ///Return Pass
               MyRichText(text: AppLocalizations.of(context)!.returnPassword),
-              SizedBox(
-                height: 3.0.h,
-              ),
+              SizedBox(height: 3.h),
               MyTextField(
                 controller: returnPassController,
                 hintText: AppLocalizations.of(context)!.enterReturnPassword,
+                textFieldBorderColor: blackObacityColor,
                 password: true,
               ),
-              SizedBox(
-                height: 30.0.h,
-              ),
+              SizedBox(height: 30.h),
 
               ///Action
               MyButton(
                 text: AppLocalizations.of(context)!.createAccount,
-                onTap: () {
-                  _performCreate();
+                onTap: () async{
+                  await _performCreate();
                   setState(() {});
                 },
               ),
-              SizedBox(
-                height: 8.h,
-              ),
+              SizedBox(height: 8.h),
 
               ///Log In
               Row(
@@ -206,7 +184,7 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
                   SizedBox(width: 4.5.w),
                   InkWell(
                     onTap: () {
-                      jump(context, to: LogIn());
+                      jump(context, to: const LogIn());
                     },
                     child: Text(
                       AppLocalizations.of(context)!.login,
@@ -227,14 +205,14 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
 
   ///Functions
 
-  void _performCreate() {
+  Future<void> _performCreate() async{
     ///before create account
     if (checkData()) {
-      _create();
+      await _create();
     }
   }
 
-  void _create() {
+  Future<void> _create() async{
     showMySnackBar(context,
         text: AppLocalizations.of(context)!.createdSuccessfully);
   }

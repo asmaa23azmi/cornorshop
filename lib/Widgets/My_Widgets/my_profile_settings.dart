@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../Const/colors.dart';
-import '../Const/texts.dart';
-import '../Screens/Auth/change_password.dart';
-import 'my_button.dart';
+import '../../Const/colors.dart';
+import '../../Const/texts.dart';
+import '../../Screens/Auth/change_password.dart';
+import '../My_Widgets/my_button.dart';
 import 'my_list_item.dart';
 import '../../Helper/navigator_helper.dart';
 

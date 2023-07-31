@@ -18,7 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
   List<ProductModel> product = [
     ProductModel(
-      productId: 1,
+      productId: '1',
       productName: 'كيكة الكريمة',
       productPrice: 25.0,
       productImg: ['cake'],
@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -45,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -90,12 +90,9 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
         elevation: 0.4,
         backgroundColor: whiteColor,
         //toolbarHeight: 100.h,
-        title: Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w),
-          child: Text(
-            AppLocalizations.of(context)!.userPage,
-            style: textAppBarStyle,
-          ),
+        title: Text(
+          AppLocalizations.of(context)!.userPage,
+          style: textAppBarStyle,
         ),
       ),
       body:const VendorProfilePage(),

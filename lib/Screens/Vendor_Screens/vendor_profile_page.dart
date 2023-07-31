@@ -7,7 +7,7 @@ import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
 import '../../Models/product_model.dart';
-import '../../Widgets/my_profile_settings.dart';
+import '../../Widgets/My_Widgets/my_profile_settings.dart';
 import '../Vendor_Screens/edit_vendor_profile_Page.dart';
 import '../Vendor_Screens/product_screens/insert_product_page.dart';
 
@@ -22,7 +22,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
     with NavigatorHelper {
   List<ProductModel> product = [
     ProductModel(
-      productId: 1,
+      productId: '1',
       productName: 'كيكة الكريمة',
       productPrice: 25.0,
       productImg: ['cake'],
@@ -31,7 +31,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -40,7 +40,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -49,7 +49,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -58,7 +58,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -67,7 +67,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 2,
+      productId: '2',
       productName: 'مسخن رول _ عدد 1 ',
       productPrice: 2.0,
       productImg: ['food'],
@@ -76,7 +76,7 @@ class _VendorProfilePageState extends State<VendorProfilePage>
       productQuantity: 1,
     ),
     ProductModel(
-      productId: 3,
+      productId: '3',
       productName: 'قميص شتوي ',
       productPrice: 70.0,
       productImg: ['shirt'],
@@ -138,128 +138,106 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                     SizedBox(height: 16.h),
 
                     /// Vendor Tasks
-                    IntrinsicHeight(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        //mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ///Edit Profile
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.edit,
-                              text: AppLocalizations.of(context)!.editProfile,
-                              onTap: () {
-                                jump(context, to: const EditVendorProfile());
-                              },
-                            ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      //mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ///Edit Profile
+                        Expanded(
+                          child: VendorTasks(
+                            icon: Icons.edit,
+                            text: AppLocalizations.of(context)!.editProfile,
+                            onTap: () {
+                              jump(context, to: const EditVendorProfile());
+                            },
                           ),
-                          VerticalDivider(
-                            width: 20.w,
-                            thickness: 0.3.w,
-                            indent: 0,
-                            endIndent: 20,
-                            color: greyColor,
-                          ),
+                        ),
 
-                          ///Add Product
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.add,
-                              text: AppLocalizations.of(context)!.addProduct,
-                              onTap: () {
-                                jump(context, to: const InsertProductPage());
-                              },
-                            ),
-                          ),
-                          VerticalDivider(
-                            width: 20.w,
-                            thickness: 0.3.w,
-                            indent: 0,
-                            endIndent: 20,
-                            color: greyColor,
-                          ),
 
-                          ///Share Profile
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.share_rounded,
-                              text: AppLocalizations.of(context)!.shareProfile,
-                              onTap: () {},
-                            ),
+                        ///Add Product
+                        Expanded(
+                          child: VendorTasks(
+                            icon: Icons.add,
+                            text: AppLocalizations.of(context)!.addProduct,
+                            onTap: () {
+                              jump(context, to: const InsertProductPage());
+                            },
                           ),
-                          VerticalDivider(
-                            width: 20.w,
-                            thickness: 0.3.w,
-                            indent: 0,
-                            endIndent: 20,
-                            color: greyColor,
-                          ),
+                        ),
 
-                          ///More
-                          Expanded(
-                            child: VendorTasks(
-                              icon: Icons.more_horiz,
-                              text: AppLocalizations.of(context)!.more,
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadiusDirectional.only(
-                                              topStart: Radius.circular(20.r),
-                                              topEnd: Radius.circular(20.r))),
-                                  builder: (context) {
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.symmetric(
-                                          horizontal: 26.w, vertical: 10.h),
-                                      child: SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height -
-                                                420,
-                                        child: Column(
-                                          children: [
-                                            ///Black Divider
-                                            Container(
-                                              height: 4,
-                                              margin: EdgeInsetsDirectional
-                                                  .symmetric(
-                                                      horizontal:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.4,
-                                                      vertical:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.015),
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey,
-                                                borderRadius:
-                                                    BorderRadiusDirectional
-                                                        .circular(2.r),
-                                              ),
+                        ///Share Profile
+                        Expanded(
+                          child: VendorTasks(
+                            icon: Icons.share_rounded,
+                            text: AppLocalizations.of(context)!.shareProfile,
+                            onTap: () {},
+                          ),
+                        ),
+                        ///More
+                        Expanded(
+                          child: VendorTasks(
+                            icon: Icons.more_horiz,
+                            text: AppLocalizations.of(context)!.more,
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadiusDirectional.only(
+                                            topStart: Radius.circular(20.r),
+                                            topEnd: Radius.circular(20.r))),
+                                builder: (context) {
+                                  return Padding(
+                                    padding: EdgeInsetsDirectional.symmetric(
+                                        horizontal: 26.w, vertical: 10.h),
+                                    child: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height -
+                                              420,
+                                      child: Column(
+                                        children: [
+                                          ///Black Divider
+                                          Container(
+                                            height: 4,
+                                            margin: EdgeInsetsDirectional
+                                                .symmetric(
+                                                    horizontal:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.4,
+                                                    vertical:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.015),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadiusDirectional
+                                                      .circular(2.r),
                                             ),
-                                            SizedBox(
-                                              height: 25.h,
-                                            ),
-                                            const MyProfileSettings(),
-                                          ],
-                                        ),
+                                          ),
+                                          SizedBox(
+                                            height: 25.h,
+                                          ),
+                                          const MyProfileSettings(),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
+              ///Vendor Product List
               Column(
                 children: [
                   GridView.builder(
@@ -369,11 +347,11 @@ class _VendorProfilePageState extends State<VendorProfilePage>
                                       height: 1.h,
                                     ),
                                   ),
-                                  SizedBox(width: 16.w),
+                                  const Spacer(),
                                   Text(
                                     '${product[index].productPrice} ₪',
                                     style: TextStyle(
-                                      fontSize: 10.sp,
+                                      fontSize: 11.sp,
                                       fontWeight: FontWeight.w600,
                                       color: darkBlue,
                                       height: 1.h,
