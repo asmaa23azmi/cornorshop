@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:cornorshop/Fierbase/controllers/categories_fb_controller.dart';
+import 'package:cornorshop/Models/fb/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
@@ -21,17 +24,17 @@ class InsertCategoryPage extends StatefulWidget {
 
 class _InsertCategoryPageState extends State<InsertCategoryPage>
     with SnackBarHelper, ImgPickerHelper {
-  late TextEditingController nameController;
+  late TextEditingController titleController;
 
   @override
   void initState() {
-    nameController = TextEditingController();
+    titleController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    nameController.dispose();
+    titleController.dispose();
     super.dispose();
   }
 
@@ -95,10 +98,6 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
               ),
             ),
             SizedBox(height: 3.h),
-            // Align(
-            //   alignment: Alignment.center,
-            //     child: MyRichText(
-            //         text: AppLocalizations.of(context)!.categoryImg)),
             Text(
               AppLocalizations.of(context)!.categoryImg,
               style: TextStyle(
@@ -113,7 +112,7 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
             MyRichText(text: AppLocalizations.of(context)!.categoryName),
             SizedBox(height: 3.h),
             MyTextField(
-                controller: nameController,
+                controller: titleController,
                 hintText: AppLocalizations.of(context)!.enterCategoryName,
                 textFieldBorderColor: blackObacityColor),
             SizedBox(height: 80.h),
@@ -123,15 +122,14 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MyButton(
-                  onTap: () async {
-                    await _performAdd();
-                  },
+                  onTap: () async => await _performAdd(),
                   text: AppLocalizations.of(context)!.save,
                   myWidth: 135,
                   myHeight: 38,
                   borderBouttonColor: Colors.transparent,
                   buttonColor: greenColor,
                   myFontSize: 12,
+                  loading: loading,
                 ),
                 MyButton(
                   onTap: () {
@@ -153,6 +151,8 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
     );
   }
 
+  bool loading = false;
+
   Future<void> _performAdd() async {
     ///before create account
     if (checkData()) {
@@ -160,7 +160,18 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
     }
   }
 
-  Future<void> _addCategory() async {}
+  Future<void> _addCategory() async {
+    setState(() => loading = true);
+    var status = await CategoriesFbController().create(CategoryModel(
+        categoryId: const Uuid().v4(),
+        categoryImg: null,
+        categoryTitle: titleController.text));
+    if (status) {
+      //ToDo: create snack bar for success add category
+      Navigator.pop(context);
+    }
+    setState(() => loading = false);
+  }
 
   bool checkData() {
     ///to check text field
@@ -168,7 +179,7 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterCategoryImg, error: true);
       return false;
-    } else if (nameController.text.isEmpty) {
+    } else if (titleController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterCategoryName, error: true);
       return false;

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../Const/colors.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/product_model.dart';
 import '../My_Widgets/my_button.dart';
 
 class RecommendProductHomeSection extends StatefulWidget {

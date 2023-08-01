@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:cornorshop/Widgets/My_Widgets/my_dropdown_search.dart';
+import 'package:cornorshop/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -133,7 +135,11 @@ class _InsertUserPageState extends State<InsertUserPage>
               textFieldBorderColor: blackObacityColor,
             ),
             SizedBox(height: 12.h),
-
+            ///UserType
+            MyRichText(text: AppLocalizations.of(context)!.userType),
+            SizedBox(height: 3.0.h),
+              //ToDo: create a userType
+            SizedBox(height: 12.h),
             ///Phone Num
             MyRichText(text: AppLocalizations.of(context)!.phoneNum),
             SizedBox(height: 3.0.h),

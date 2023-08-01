@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
-import '../../Models/category_model.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/category_model.dart';
+import '../../Models/fb/product_model.dart';
 import '../../Widgets/Home_Page_Widget/category_home_section.dart';
 import '../../Widgets/Home_Page_Widget/product_list_home_section.dart';
 import '../../Widgets/Home_Page_Widget/recommend_product_home_section.dart';

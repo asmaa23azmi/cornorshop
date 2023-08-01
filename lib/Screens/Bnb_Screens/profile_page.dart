@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/product_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

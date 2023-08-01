@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../enums.dart';
+
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
@@ -17,13 +19,14 @@ class CreateNewAccount extends StatefulWidget {
 
 class _CreateNewAccountState extends State<CreateNewAccount>
     with NavigatorHelper {
+  UserType selectedUserType = UserType.vendor;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
-
         ///delete appBar border
         backgroundColor: whiteColor,
         leading: InkWell(
@@ -58,6 +61,9 @@ class _CreateNewAccountState extends State<CreateNewAccount>
               MyButton(
                 text: AppLocalizations.of(context)!.createVendorAccount,
                 onTap: () {
+                  setState(() {
+                    selectedUserType = UserType.vendor;
+                  });
                   jump(context, to: const CreateVendorAccount());
                 },
               ),
@@ -67,6 +73,9 @@ class _CreateNewAccountState extends State<CreateNewAccount>
               MyButton(
                 text: AppLocalizations.of(context)!.createBuyerAccount,
                 onTap: () {
+                  setState(() {
+                    selectedUserType = UserType.buyer;
+                  });
                   jump(context, to: const CreateBuyerAccount());
                 },
               ),

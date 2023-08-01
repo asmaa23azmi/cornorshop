@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/product_model.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
 
 class FavoritePage extends StatefulWidget {

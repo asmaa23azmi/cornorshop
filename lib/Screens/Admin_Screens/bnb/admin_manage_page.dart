@@ -30,8 +30,7 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-           physics:const BouncingScrollPhysics(),
+        child: Padding(
           padding:
               EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           child: Column(
@@ -126,10 +125,10 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
               selectedIndex == 0
                   ? const ManageCategoryPage()
                   : selectedIndex == 1
-                  ? const ManageUsersPage()
-                  : selectedIndex == 2
-                      ? const ManageProductPage()
-                      : const ManageAdminPage()
+                      ? const ManageUsersPage()
+                      : selectedIndex == 2
+                          ? const ManageProductPage()
+                          : const ManageAdminPage()
             ],
           ),
         ),

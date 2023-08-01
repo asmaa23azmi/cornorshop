@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
-import '../../Models/category_model.dart';
+import '../../Models/fb/category_model.dart';
 import '../../Screens/Category_item_Screens/item_category_screen.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -94,7 +94,7 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
                             width: 9.w,
                           ),
                           Text(
-                            categoryItems[index].categoryTitle,
+                            '${categoryItems[index].categoryTitle}',
                             style: textStyle,
                           ),
                           const Spacer(

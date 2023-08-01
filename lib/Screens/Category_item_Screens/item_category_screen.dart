@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/product_model.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
 
 class CategoryItemScreen extends StatefulWidget {

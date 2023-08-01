@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/product_model.dart';
 import '../My_Widgets/my_button.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Screens/Buyer_Screens/buyer_product_view.dart';

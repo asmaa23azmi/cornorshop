@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
-import '../../Models/category_model.dart';
+import '../../Models/fb/category_model.dart';
 
 class CategoryHomeSection extends StatefulWidget {
   
@@ -55,7 +55,7 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection> with Navigato
                 height: 4.h,
               ),
               Text(
-                widget.categoryItems[index].categoryTitle,
+                '${widget.categoryItems[index].categoryTitle}',
                 style: TextStyle(
                   color: darkBlue,
                   fontSize: 7.sp,

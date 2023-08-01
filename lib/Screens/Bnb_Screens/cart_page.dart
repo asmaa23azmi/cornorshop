@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../Const/colors.dart';
 import '../../Helper/navigator_helper.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/product_model.dart';
 import '../../Screens/Ordered_Screens/bill_details.dart';
 
 import '../../Const/texts.dart';

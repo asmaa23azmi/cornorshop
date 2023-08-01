@@ -158,7 +158,7 @@
    "productDescription": "وصف المنتج",
    "productCategory":"نوع المنتج",
    "vendorName": "اسم البائع",
-   "userCategory": "نوع المستخدم",
+   "userType": "نوع المستخدم",
    "userImg": "صورة المستخدم",
    "adminName":"اسم الأدمن",
    "adminType":"نوع الأدمن",
@@ -173,5 +173,7 @@
    "doYouWantToDeleteThisUser": "هل تريد حذف هذا المستخدم؟",
    "deleteUserParagraph": "لن تتمكن من استعادة المستخدم إذا قمت بحذفه ،لذلك هل أنت متأكد من أنك تريد حذفه؟",
    "addUser": "إضافة مستخدم",
-   "editeUser": "تعديل المستخدم"
+   "editUser": "تعديل بيانات المستخدم",
+   "addAmin": "إضافة أدمن",
+   "editAdmin": "تعديل بيانات الأدمن"
 }

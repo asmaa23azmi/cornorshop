@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
-import '../../Models/product_model.dart';
+import '../../Models/fb/product_model.dart';
 import '../../Widgets/My_Widgets/my_profile_settings.dart';
 import '../Vendor_Screens/edit_vendor_profile_Page.dart';
 import '../Vendor_Screens/product_screens/insert_product_page.dart';

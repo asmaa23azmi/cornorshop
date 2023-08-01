@@ -1,11 +1,12 @@
-import 'package:cornorshop/Chache/cache_controller.dart';
-import 'package:cornorshop/Const/colors.dart';
-import 'package:cornorshop/Providers/language_provider.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import '../../Chache/cache_controller.dart';
+import '../../Const/colors.dart';
+import '../../Providers/language_provider.dart';
 import 'enums.dart';
 import 'splash_page.dart';
 
@@ -17,6 +18,8 @@ Future<void> main() async {
 
   ///data base
   ///firebase
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 

@@ -158,7 +158,7 @@
        "productDescription": "Product Description",
        "productCategory":"Product Category",
        "vendorName" :"Vendor Name",
-       "userCategory": "User Type",
+       "userType": "User Type",
        "userImg": "User Image",
        "adminName": "Admin Name",
        "adminType": "Admin Type",
@@ -173,7 +173,9 @@
        "doYouWantToDeleteThisUser":"Do you want to delete this user?",
        "deleteUserParagraph": "You won't be able to recover the user if you delete it, so are you sure you want to delete it?",
        "addUser": "Add User",
-       "editeUser" : "Edite User"
+       "editUser" : "Edit User Information",
+       "addAmin": "Add Amin",
+       "editAdmin": "Edit Admin Information"
 
 
 

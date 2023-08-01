@@ -57,8 +57,13 @@ class _MyButtonState extends State<MyButton> {
                   color: widget.textButtonColor,
                 ),
               )
-            : const CircularProgressIndicator(
-                color: Colors.black,
+            : SizedBox(
+                height: 20.h,
+                width: 20.h,
+                child:  CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: .8.w,
+                ),
               ),
       ),
     );
