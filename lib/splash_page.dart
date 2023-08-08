@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> with NavigatorHelper {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
-    // jump(context, to: const MainPage(), replace: true);
+    //jump(context, to: const MainPage(), replace: true);
      jump(context, to: const MainAdminPage(), replace: true);
 
     });

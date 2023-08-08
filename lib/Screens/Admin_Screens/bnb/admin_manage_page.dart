@@ -1,3 +1,4 @@
+import 'package:cornorshop/Fierbase/controllers/categories_fb_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,10 +30,10 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
           style: textAppBarStyle,
         ),
       ),
-      body: SafeArea(
+      body:SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
+          EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,9 +44,7 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      setState(() {
-                        selectedIndex = 0;
-                      });
+                      setState(() => selectedIndex = 0);
                     },
                     child: Text(
                       textAlign: TextAlign.center,
@@ -63,9 +62,7 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      setState(() {
-                        selectedIndex = 1;
-                      });
+                      setState(() => selectedIndex = 1);
                     },
                     child: Text(
                       textAlign: TextAlign.center,
@@ -83,9 +80,7 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      setState(() {
-                        selectedIndex = 2;
-                      });
+                      setState(() => selectedIndex = 2);
                     },
                     child: Text(
                       textAlign: TextAlign.center,
@@ -103,9 +98,7 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: () {
-                      setState(() {
-                        selectedIndex = 3;
-                      });
+                      setState(() => selectedIndex = 3);
                     },
                     child: Text(
                       textAlign: TextAlign.center,
@@ -125,10 +118,10 @@ class _AdminManagingPageState extends State<AdminManagingPage> {
               selectedIndex == 0
                   ? const ManageCategoryPage()
                   : selectedIndex == 1
-                      ? const ManageUsersPage()
-                      : selectedIndex == 2
-                          ? const ManageProductPage()
-                          : const ManageAdminPage()
+                  ? const ManageUsersPage()
+                  : selectedIndex == 2
+                  ? const ManageProductPage()
+                  : const ManageAdminPage()
             ],
           ),
         ),

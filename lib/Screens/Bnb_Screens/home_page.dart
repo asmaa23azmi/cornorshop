@@ -28,86 +28,62 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with NavigatorHelper {
   int selectedIndex = 0;
-  List<CategoryModel> categoryItems = [
-    CategoryModel(
-      categoryId: '1',
-      categoryImg: 'clothIcon',
-      //categoryTitle: appLocale.cloth,
-      categoryTitle: 'ملابس',
-    ),
-    CategoryModel(
-      categoryId: '2',
-      categoryImg: 'naturalProductIcon',
-      //categoryTitle: AppLocalizations.of(context)!.naturalProduct,
-      categoryTitle: 'منتجات طبيعية',
-    ),
-    CategoryModel(
-      categoryId: '3',
-      categoryImg: 'homeFoodIcon',
-      // categoryTitle: AppLocalizations.of(context)!.homeFood,
-      categoryTitle: 'طعام وحلويات منزلية',
-    ),
-    CategoryModel(
-      categoryId: '4',
-      categoryImg: 'handicraftsIcon',
-      // categoryTitle: AppLocalizations.of(context)!.handicrafts,
-      categoryTitle: 'مشغولات يدوية',
-    ),
-  ];
+  List<String> items = ['img1', 'img2'];
+
   List<ProductModel> product = [
     ProductModel(
-      productId: '1',
-      productName: 'كيكة الكريمة',
-      productPrice: 25.0,
-      productImg: ['cake'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '1',
+      name: 'كيكة الكريمة',
+      price: 25.0,
+      img: ['cake'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '2',
-      productName: 'مسخن رول _ عدد 1 ',
-      productPrice: 2.0,
-      productImg: ['food'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '2',
+      name: 'مسخن رول _ عدد 1 ',
+      price: 2.0,
+      img: ['food'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '3',
-      productName: 'قميص شتوي ',
-      productPrice: 70.0,
-      productImg: ['shirt'],
-      productCategoryType: 'ملابس',
+      id: '3',
+      name: 'قميص شتوي ',
+      price: 70.0,
+      img: ['shirt'],
+      categoryType: 'ملابس',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '1',
-      productName: 'كيكة الكريمة',
-      productPrice: 25.0,
-      productImg: ['cake'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '1',
+      name: 'كيكة الكريمة',
+      price: 25.0,
+      img: ['cake'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '2',
-      productName: 'مسخن رول _ عدد 1 ',
-      productPrice: 2.0,
-      productImg: ['food'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '2',
+      name: 'مسخن رول _ عدد 1 ',
+      price: 2.0,
+      img: ['food'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '3',
-      productName: 'قميص شتوي ',
-      productPrice: 70.0,
-      productImg: ['shirt'],
-      productCategoryType: 'ملابس',
+      id: '3',
+      name: 'قميص شتوي ',
+      price: 70.0,
+      img: ['shirt'],
+      categoryType: 'ملابس',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
   ];
 
@@ -193,15 +169,21 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
                       onPageChanged: (value) =>
                           setState(() => selectedIndex = value),
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 2,
+                      itemCount: items.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          margin: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
+                          margin:
+                              EdgeInsetsDirectional.symmetric(horizontal: 14.w),
                           width: double.infinity,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                               color: Colors.grey.shade200,
-                              borderRadius: BorderRadiusDirectional.circular(14.r)),
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(14.r)),
+                          child: Image.asset(
+                            'assets/images/${items[index]}.png',
+                            fit: BoxFit.cover,
+                          ),
                         );
                       },
                     ),
@@ -218,7 +200,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: 2,
+                        itemCount: items.length,
                         itemBuilder: (context, index) {
                           bool selected = selectedIndex == index;
                           return Container(
@@ -273,7 +255,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
                 ),
               ),
               SizedBox(height: 6.h),
-              CategoryHomeSection(categoryItems: categoryItems),
+              const CategoryHomeSection(),
               SizedBox(height: 8.h),
 
               ///Stores Section

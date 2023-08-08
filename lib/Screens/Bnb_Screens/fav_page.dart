@@ -17,31 +17,31 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   List<ProductModel> product = [
     ProductModel(
-      productId: '1',
-      productName: 'كيكة الكريمة',
-      productPrice: 25.0,
-      productImg: ['cake'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '1',
+      name: 'كيكة الكريمة',
+      price: 25.0,
+      img: ['cake'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '2',
-      productName: 'مسخن رول _ عدد 1 ',
-      productPrice: 2.0,
-      productImg: ['food'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '2',
+      name: 'مسخن رول _ عدد 1 ',
+      price: 2.0,
+      img: ['food'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '3',
-      productName: 'قميص شتوي ',
-      productPrice: 70.0,
-      productImg: ['shirt'],
-      productCategoryType: 'ملابس',
+      id: '3',
+      name: 'قميص شتوي ',
+      price: 70.0,
+      img: ['shirt'],
+      categoryType: 'ملابس',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
   ];
 
@@ -111,7 +111,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                     BorderRadiusDirectional.circular(4.r),
                               ),
                               child: Image.asset(
-                                'assets/images/${product[index].productImg[0]}.png',
+                                'assets/images/${product[index].img![0]}.png',
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -129,7 +129,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                   BorderRadiusDirectional.circular(4.r),
                             ),
                             child: Text(
-                              product[index].productCategoryType,
+                              '${product[index].categoryType}',
                               style: TextStyle(
                                 fontSize: 6.5.sp,
                                 color: greenColor,
@@ -141,7 +141,7 @@ class _FavoritePageState extends State<FavoritePage> {
 
                           ///Product Name
                           Text(
-                            product[index].productName,
+                            '${product[index].name}',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 9.sp,
@@ -171,7 +171,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                               SizedBox(width: 2.w),
                               Text(
-                                product[index].vendorName,
+                                '${product[index].vendorName}',
                                 style: TextStyle(
                                   fontSize: 8.sp,
                                   fontWeight: FontWeight.normal,
@@ -181,7 +181,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                               SizedBox(width: 16.w),
                               Text(
-                                '${product[index].productPrice} ₪',
+                                '${product[index].price} ₪',
                                 style: TextStyle(
                                   fontSize: 11.sp,
                                   fontWeight: FontWeight.w600,

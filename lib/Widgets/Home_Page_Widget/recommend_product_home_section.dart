@@ -56,7 +56,7 @@ class _RecommendProductHomeSectionState
                       BorderRadiusDirectional.circular(4.r),
                     ),
                     child: Image.asset(
-                      'assets/images/${widget.product[index].productImg[0]}.png',
+                      'assets/images/${widget.product[index].img![0]}.png',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -74,7 +74,7 @@ class _RecommendProductHomeSectionState
                     BorderRadiusDirectional.circular(4.r),
                   ),
                   child: Text(
-                    widget.product[index].productCategoryType,
+                   '${ widget.product[index].categoryType}',
                     style: TextStyle(
                       fontSize: 6.5.sp,
                       color: greenColor,
@@ -86,7 +86,7 @@ class _RecommendProductHomeSectionState
 
                 ///Product Name
                 Text(
-                  widget.product[index].productName,
+                  '${widget.product[index].name}',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 9.sp,
@@ -116,7 +116,7 @@ class _RecommendProductHomeSectionState
                     ),
                     SizedBox(width: 2.w),
                     Text(
-                      widget.product[index].vendorName,
+                      '${widget.product[index].vendorName}',
                       style: TextStyle(
                         fontSize: 7.5.sp,
                         fontWeight: FontWeight.normal,
@@ -126,7 +126,7 @@ class _RecommendProductHomeSectionState
                     ),
                     SizedBox(width: 16.w),
                     Text(
-                      '${widget.product[index].productPrice} ₪',
+                      '${widget.product[index].price} ₪',
                       style: TextStyle(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w600,

@@ -175,5 +175,12 @@
    "addUser": "إضافة مستخدم",
    "editUser": "تعديل بيانات المستخدم",
    "addAmin": "إضافة أدمن",
-   "editAdmin": "تعديل بيانات الأدمن"
+   "editAdmin": "تعديل بيانات الأدمن",
+   "successfulCategoryAdded":"تمت إضافة التصنيف بنجاح",
+   "theresNoCategoriesYet": "لا توجد تصنيفات حتى الآن",
+   "successfulCategoryEdited": "تم تعديل التصنيف بنجاح",
+   "timestamp": "الطابع الزمني",
+   "successfulProductAdded":"تمت إضافة المنتج بنجاح",
+    "theresNoProductsYet": "لا توجد منتجات حتى الآن",
+    "successfulProductEdited": "تم تعديل المنتج بنجاح"
 }

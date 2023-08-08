@@ -175,9 +175,13 @@
        "addUser": "Add User",
        "editUser" : "Edit User Information",
        "addAmin": "Add Amin",
-       "editAdmin": "Edit Admin Information"
-
-
-
+       "editAdmin": "Edit Admin Information",
+       "successfulCategoryAdded": "Category added successfully",
+       "theresNoCategoriesYet": "There are no categories yet",
+       "successfulCategoryEdited": "Category modified successfully",
+       "timestamp": "Timestamp",
+      "successfulProductAdded": "Product added successfully",
+       "theresNoProductsYet": "There are no products yet",
+       "successfulProductEdited": "Product modified successfully"
 
 }

@@ -17,21 +17,14 @@ class CategoryItemScreen extends StatefulWidget {
 class _CategoryItemScreenState extends State<CategoryItemScreen> {
   List<ProductModel> product = [
     ProductModel(
-      productId: '1',
-      productName: 'كيكة الكريمة',
-      productPrice: 25.0,
-      productImg: ['cake'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '1',
+      name: 'كيكة الكريمة',
+      price: 25.0,
+      img: ['cake'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
     ),
-    ProductModel(
-      productId: '2',
-      productName: 'مسخن رول _ عدد 1 ',
-      productPrice: 2.0,
-      productImg: ['food'],
-      productCategoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-    ),
+
   ];
 
   @override
@@ -92,7 +85,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                         color: Colors.grey.shade200,
                       ),
                       child: Image.asset(
-                        'assets/images/${product[index].productImg[0]}.png',
+                        'assets/images/${product[index].img![0]}.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -108,7 +101,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                         children: [
                           ///Product Name
                           Text(
-                            product[index].productName,
+                            '${product[index].name}',
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
@@ -122,7 +115,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
                             children: [
                               /// Vendor or Store Name
                               Text(
-                                product[index].vendorName,
+                                '${product[index].vendorName}',
                                 style: TextStyle(
                                   fontSize: 8.sp,
                                   fontWeight: FontWeight.normal,
@@ -135,7 +128,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen> {
 
                               /// Price
                               Text(
-                                '${product[index].productPrice} ₪',
+                                '${product[index].price} ₪',
                                 style: TextStyle(
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,

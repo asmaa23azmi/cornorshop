@@ -1,7 +1,6 @@
 import 'dart:io';
-
-import 'package:cornorshop/Fierbase/controllers/categories_fb_controller.dart';
-import 'package:cornorshop/Models/fb/category_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cornorshop/Models/fb/img_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,27 +8,51 @@ import 'package:uuid/uuid.dart';
 
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
+import '../../../Helper/converter_helper.dart';
 import '../../../Helper/img_picker_helper.dart';
 import '../../../Widgets/My_Widgets/my_button.dart';
 import '../../../Widgets/My_Widgets/my_rich_text.dart';
 import '../../../Widgets/My_Widgets/my_text_field.dart';
 import '../../../Helper/snack_bar_helper.dart';
+import '../../../Fierbase/controllers/categories_fb_controller.dart';
+import '../../../Fierbase/controllers/fb_storage_controller.dart';
+import '../../../Models/fb/category_model.dart';
 
 class InsertCategoryPage extends StatefulWidget {
-  const InsertCategoryPage({super.key});
+  final CategoryModel? categoryModel;
+
+  const InsertCategoryPage({
+    this.categoryModel,
+    super.key,
+  });
 
   @override
   State<InsertCategoryPage> createState() => _InsertCategoryPageState();
 }
 
 class _InsertCategoryPageState extends State<InsertCategoryPage>
-    with SnackBarHelper, ImgPickerHelper {
+    with SnackBarHelper, ImgPickerHelper, ConverterHelper {
   late TextEditingController titleController;
 
   @override
   void initState() {
-    titleController = TextEditingController();
+    titleController =
+        TextEditingController(text: widget.categoryModel?.title ?? '');
+    if (widget.categoryModel != null) {
+      convertImg;
+    }
     super.initState();
+  }
+
+  bool categoryImgLoading = false;
+
+  Future<void> get convertImg async {
+    setState(() => categoryImgLoading = true);
+    var file =
+        await convertImgLinkToFile(widget.categoryModel!.img!.link!);
+    categoryImg = file;
+
+    setState(() => categoryImgLoading = false);
   }
 
   @override
@@ -47,7 +70,9 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
         elevation: 0.4,
         backgroundColor: whiteColor,
         title: Text(
-          AppLocalizations.of(context)!.addCategory,
+          widget.categoryModel == null
+              ? AppLocalizations.of(context)!.addCategory
+              : AppLocalizations.of(context)!.editCategory,
           style: textAppBarStyle,
         ),
         centerTitle: true,
@@ -85,16 +110,27 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200, shape: BoxShape.circle),
-                child: categoryImg == null
-                    ? Icon(
+                child: !categoryImgLoading ? categoryImg != null
+                    ? Image.file(categoryImg!, fit: BoxFit.cover)
+                    : Icon(
                         Icons.file_upload,
                         color: greyColor,
-                        size: 34.w,
-                      )
-                    : Image.file(
-                        categoryImg!,
-                        fit: BoxFit.cover,
-                      ),
+                        size: 43.h,
+                      ) :const Center(child: CircularProgressIndicator(),),
+                // child: categoryImg == null
+                //     ? Icon(
+                //         Icons.file_upload,
+                //         color: greyColor,
+                //         size: 34.w,
+                //       )
+                //     : categoryImgLoading
+                //         ? Image.file(
+                //             categoryImg!,
+                //             fit: BoxFit.cover,
+                //           )
+                //         : const Center(
+                //             child: CircularProgressIndicator(),
+                //           ),
               ),
             ),
             SizedBox(height: 3.h),
@@ -122,7 +158,7 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MyButton(
-                  onTap: () async => await _performAdd(),
+                  onTap: () async => await _performInsert(),
                   text: AppLocalizations.of(context)!.save,
                   myWidth: 135,
                   myHeight: 38,
@@ -132,9 +168,8 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
                   loading: loading,
                 ),
                 MyButton(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () =>
+                    Navigator.pop(context),
                   text: AppLocalizations.of(context)!.cancel,
                   myWidth: 135,
                   myHeight: 38,
@@ -153,21 +188,37 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
 
   bool loading = false;
 
-  Future<void> _performAdd() async {
+  Future<void> _performInsert() async {
     ///before create account
     if (checkData()) {
-      await _addCategory();
+      await _insertCategory();
     }
   }
 
-  Future<void> _addCategory() async {
+  Future<void> _insertCategory() async {
+    String uuid = const Uuid().v4();
     setState(() => loading = true);
-    var status = await CategoriesFbController().create(CategoryModel(
-        categoryId: const Uuid().v4(),
-        categoryImg: null,
-        categoryTitle: titleController.text));
+    ImgModel? imgModel = await FbStorageController()
+        .uploadFileToStorage(categoryImg, folderName: 'categoryImg/$uuid');
+
+    var status = widget.categoryModel == null
+        ? await CategoriesFbController().createCategory(CategoryModel(
+            id: uuid,
+            img: imgModel,
+            title: titleController.text,
+            timestamp: Timestamp.now(),
+          ))
+        : await CategoriesFbController().updateCategory(CategoryModel(
+            id: widget.categoryModel!.id,
+            img: null,
+            title: titleController.text,
+            timestamp: Timestamp.now(),
+          ));
     if (status) {
-      //ToDo: create snack bar for success add category
+      showMySnackBar(context,
+          text: widget.categoryModel == null
+              ? AppLocalizations.of(context)!.successfulCategoryAdded
+              : AppLocalizations.of(context)!.successfulCategoryEdited);
       Navigator.pop(context);
     }
     setState(() => loading = false);

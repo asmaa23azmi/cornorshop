@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../Helper/converter_helper.dart';
+import '../../../Models/fb/img_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uuid/uuid.dart';
 import 'dart:io';
 
 import '../../../Const/colors.dart';
@@ -11,16 +15,24 @@ import '../../../Widgets/My_Widgets/my_dropdown_search.dart';
 import '../../../Widgets/My_Widgets/my_rich_text.dart';
 import '../../../Widgets/My_Widgets/my_text_field.dart';
 import '../../../Helper/img_picker_helper.dart';
+import '../../../Fierbase/controllers/fb_storage_controller.dart';
+import '../../../Fierbase/controllers/product_fb_controller.dart';
+import '../../../Models/fb/product_model.dart';
 
 class InsertProductPage extends StatefulWidget {
-  const InsertProductPage({super.key});
+  final ProductModel? productModel;
+
+  const InsertProductPage({
+    this.productModel,
+    super.key,
+  });
 
   @override
   State<InsertProductPage> createState() => _InsertProductPageState();
 }
 
 class _InsertProductPageState extends State<InsertProductPage>
-    with SnackBarHelper, ImgPickerHelper {
+    with SnackBarHelper, ImgPickerHelper, ConverterHelper {
   late TextEditingController productNameController;
   late TextEditingController productPriceController;
   late TextEditingController productDescriptionController;
@@ -37,9 +49,26 @@ class _InsertProductPageState extends State<InsertProductPage>
   @override
   void initState() {
     super.initState();
-    productNameController = TextEditingController();
-    productPriceController = TextEditingController();
-    productDescriptionController = TextEditingController();
+    productNameController =
+        TextEditingController(text: widget.productModel?.name ?? '');
+    productPriceController = TextEditingController(
+        text: widget.productModel?.price.toString() ?? '');
+    productDescriptionController = TextEditingController(
+        text: widget.productModel?.description ?? '');
+    if (widget.productModel != null) {
+      convertImg;
+    }
+  }
+
+  bool productImgLoading = false;
+
+  Future<void> get convertImg async {
+    setState(() => productImgLoading = true);
+    for (var item in widget.productModel!.img!) {
+      var file = await convertImgLinkToFile(item.link);
+      productImg.add(file);
+      setState(() => productImgLoading = false);
+    }
   }
 
   @override
@@ -73,7 +102,9 @@ class _InsertProductPageState extends State<InsertProductPage>
         ),
         centerTitle: true,
         title: Text(
-          AppLocalizations.of(context)!.addProduct,
+          widget.productModel == null
+              ? AppLocalizations.of(context)!.addProduct
+              : AppLocalizations.of(context)!.editProductDescription,
           style: textAppBarStyle,
         ),
       ),
@@ -91,10 +122,10 @@ class _InsertProductPageState extends State<InsertProductPage>
               InkWell(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onTap: () async {
+                onTap: widget.productModel == null ? () async {
                   productImg.addAll(await pickMultiImagesFromGallery());
                   setState(() {});
-                },
+                } : null,
                 child: Container(
                   width: double.infinity.w,
                   height: 180.h,
@@ -105,60 +136,65 @@ class _InsertProductPageState extends State<InsertProductPage>
                       color: blackObacityColor,
                     ),
                   ),
-                  child: productImg == null
+                  child: productImg.isEmpty
                       ? Icon(
                           Icons.file_upload,
                           color: greyColor,
                           size: 40.w,
                         )
-                      ///Show product img
-                      : ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.w, vertical: 5.h),
-                          physics:const BouncingScrollPhysics(),
-                          itemCount: productImg.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              width: 100.w,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  Image.file(
-                                    productImg[index],
-                                    fit: BoxFit.cover,
-                                  ),
 
-                                  ///Remove product from the img list
-                                  PositionedDirectional(
-                                      top: 5.h,
-                                      start: 5.w,
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () {
-                                          setState(() {
-                                            // productImg.remove(productImg[index]);
-                                            productImg.removeAt(index);
-                                          });
-                                        },
-                                        child: const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        ),
-                                      ))
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) =>
-                              SizedBox(width: 10.w),
-                        ),
+                      ///Show product img
+                      : productImgLoading
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 5.h),
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: productImg.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  width: 100.w,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.r),
+                                  ),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Image.file(
+                                        productImg[index],
+                                        fit: BoxFit.cover,
+                                      ),
+
+                                      ///Remove product from the img list
+                                      PositionedDirectional(
+                                          top: 5.h,
+                                          start: 5.w,
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () {
+                                              setState(() {
+                                                // productImg.remove(productImg[index]);
+                                                productImg.removeAt(index);
+                                              });
+                                            },
+                                            child: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(width: 10.w),
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            ),
                 ),
               ),
               SizedBox(height: 12.h),
@@ -222,19 +258,19 @@ class _InsertProductPageState extends State<InsertProductPage>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MyButton(
-                      onTap: () async {
-                        await _performConfirm();
-                      },
-                      text: AppLocalizations.of(context)!.publishProduct,
-                      myWidth: 135,
-                      myHeight: 40,
-                      myFontSize: 12,
-                      borderBouttonColor: Colors.transparent,
-                      buttonColor: greenColor),
+                    onTap: () async {
+                      await _performConfirm();
+                    },
+                    text: AppLocalizations.of(context)!.publishProduct,
+                    myWidth: 135,
+                    myHeight: 40,
+                    myFontSize: 12,
+                    borderBouttonColor: Colors.transparent,
+                    buttonColor: greenColor,
+                    loading: loading,
+                  ),
                   MyButton(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+                      onTap: () => Navigator.pop(context),
                       text: AppLocalizations.of(context)!.cancel,
                       myWidth: 135,
                       myHeight: 40,
@@ -252,6 +288,7 @@ class _InsertProductPageState extends State<InsertProductPage>
   }
 
   ///Functions
+  bool loading = false;
 
   Future<void> _performConfirm() async {
     ///before create account
@@ -260,7 +297,39 @@ class _InsertProductPageState extends State<InsertProductPage>
     }
   }
 
-  Future<void> _confirm() async {}
+  Future<void> _confirm() async {
+    String uuid = const Uuid().v4();
+    setState(() => loading = true);
+
+    List<ImgModel> images = [];
+    for (var img in productImg) {
+      ImgModel? imgModel = await FbStorageController()
+          .uploadFileToStorage(img, folderName: 'productImg/$uuid');
+      if (imgModel != null) {
+        images.add(imgModel);
+      }
+    }
+    var status = await ProductFbController().createProduct(ProductModel(
+        id: uuid,
+        name: productNameController.text,
+        price: num.parse(productPriceController.text),
+        img: images,
+        categoryType: selectedItem,
+        vendorName: null,
+        description: productDescriptionController.text,
+        timestamp: Timestamp.now()));
+
+    if (status) {
+    if(context.mounted){
+      showMySnackBar(context,
+          text: widget.productModel == null
+              ? AppLocalizations.of(context)!.successfulProductAdded
+              : AppLocalizations.of(context)!.successfulProductEdited);
+      Navigator.pop(context);
+    }
+    }
+    setState(() => loading = false);
+  }
 
   bool checkData() {
     ///to check text field
@@ -278,7 +347,8 @@ class _InsertProductPageState extends State<InsertProductPage>
       return false;
     } else if (selectedItem == null) {
       showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterProductCategory, error: true);
+          text: AppLocalizations.of(context)!.enterProductCategory,
+          error: true);
       return false;
     }
     return true;

@@ -1,4 +1,4 @@
-import 'package:cornorshop/Providers/language_provider.dart';
+import '../../Providers/language_provider.dart';
 import '../../Widgets/My_Widgets/my_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +17,8 @@ class AppSettingPge extends StatefulWidget {
 }
 
 class _AppSettingPgeState extends State<AppSettingPge> {
-  late String? radioValue = Provider.of<LanguageProvider>(context, listen: false).language;
+  late String? radioValue =
+      Provider.of<LanguageProvider>(context, listen: false).language;
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +83,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                       BorderRadiusDirectional.circular(2.r),
                                 ),
                               ),
-                              SizedBox(
-                                height: 20.h
-                              ),
+                              SizedBox(height: 20.h),
 
                               ///Title
                               Row(
@@ -98,9 +97,7 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                         color: darkBlue,
                                         size: 20.w,
                                       )),
-                                  SizedBox(
-                                    width: 15.w
-                                  ),
+                                  SizedBox(width: 15.w),
                                   Text(
                                     AppLocalizations.of(context)!.appLanguage,
                                     style: TextStyle(
@@ -111,41 +108,39 @@ class _AppSettingPgeState extends State<AppSettingPge> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
+                              SizedBox(height: 10.h),
                               Divider(
                                 color: greyColor,
                                 height: 0.3.h,
                               ),
 
                               ///Items
-                              Row(
-                                children: [
-                                  Radio(
-                                    activeColor: darkBlue,
-                                    value: AppLanguages.ar.name,
-                                    groupValue: radioValue,
-                                    onChanged: (value) async {
-                                      setState(() => radioValue = value);
-                                      // ignore: use_build_context_synchronously
-                                      Navigator.pop(context);
-                                      await language
-                                          .changeLanguage(AppLanguages.ar);
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: 3.w,
-                                  ),
-                                  Text(
-                                    'العربية',
-                                    style: TextStyle(
-                                      fontFamily: 'NotoKufiArabic',
-                                      fontSize: 14.sp,
-                                      color: darkBlue,
+                              InkWell(
+                                child: Row(
+                                  children: [
+                                    Radio(
+                                      activeColor: darkBlue,
+                                      value: AppLanguages.ar.name,
+                                      groupValue: radioValue,
+                                      onChanged: (value) async {
+                                        setState(() => radioValue = value);
+                                        // ignore: use_build_context_synchronously
+                                        Navigator.pop(context);
+                                        await language
+                                            .changeLanguage(AppLanguages.ar);
+                                      },
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(width: 3.w),
+                                    Text(
+                                      'العربية',
+                                      style: TextStyle(
+                                        fontFamily: 'NotoKufiArabic',
+                                        fontSize: 14.sp,
+                                        color: darkBlue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Row(
                                 children: [

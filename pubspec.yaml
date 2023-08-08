@@ -27,7 +27,11 @@ dependencies:
   provider: ^6.0.5
   dropdown_search: ^5.0.6
   device_preview: ^1.1.0
+  shimmer: ^3.0.0
   uuid: ^3.0.7
+  http: ^1.1.0
+  path: ^1.8.3
+  path_provider: ^2.0.15
 
   #firebase
   firebase_core: ^2.15.0

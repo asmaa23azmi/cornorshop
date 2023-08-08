@@ -20,22 +20,22 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
     with NavigatorHelper {
   List<ProductModel> product = [
     ProductModel(
-      productId: '1',
-      productName: 'كيكة الكريمة',
-      productPrice: 25.0,
-      productImg: ['cake'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '1',
+      name: 'كيكة الكريمة',
+      price: 25.0,
+      img: ['cake'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
     ProductModel(
-      productId: '2',
-      productName: 'مسخن رول _ عدد 1 ',
-      productPrice: 2.0,
-      productImg: ['food'],
-      productCategoryType: 'طعام وحلويات منزلية',
+      id: '2',
+      name: 'مسخن رول _ عدد 1 ',
+      price: 2.0,
+      img: ['food'],
+      categoryType: 'طعام وحلويات منزلية',
       vendorName: 'اسم المتجر',
-      productQuantity: 1,
+      quantity: 1,
     ),
   ];
 
@@ -96,7 +96,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                         Border.all(color: blackObacityColor),
                                   ),
                                   child: Image.asset(
-                                    'assets/images/${product[index].productImg[0]}.png',
+                                    'assets/images/${product[index].img![0]}.png',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -106,7 +106,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                   children: [
                                     ///Product Nmae
                                     Text(
-                                      product[index].productName,
+                                      '${product[index].name}',
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.bold,
@@ -130,7 +130,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                           width: 3.w,
                                         ),
                                         Text(
-                                          product[index].vendorName,
+                                          '${product[index].vendorName}',
                                           style: TextStyle(
                                             fontSize: 10.sp,
                                             fontWeight: FontWeight.normal,
@@ -146,7 +146,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                         children: [
                                           /// Product Price
                                           Text(
-                                            '${product[index].productPrice} ₪',
+                                            '${product[index].price} ₪',
                                             style: TextStyle(
                                               fontSize: 16.sp,
                                               fontWeight: FontWeight.bold,
@@ -165,7 +165,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                   setState(
                                                     () {
                                                       product[index]
-                                                          .productQuantity++;
+                                                          .quantity++;
                                                     },
                                                   );
                                                 },
@@ -198,7 +198,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                               SizedBox(width: 8.w),
                                               Text(
                                                 product[index]
-                                                    .productQuantity
+                                                    .quantity
                                                     .toString(),
                                                 style: textStyle,
                                               ),
@@ -208,10 +208,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                   setState(
                                                     () {
                                                       if (product[index]
-                                                              .productQuantity >
+                                                              .quantity >
                                                           1) {
                                                         product[index]
-                                                            .productQuantity--;
+                                                            .quantity--;
                                                       } else {
                                                         null;
                                                       }
@@ -348,7 +348,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
   num _getTotalPrice() {
     num totalPrice = 0;
     for (int index = 0; index < product.length; index++) {
-      num price = product[index].productPrice * product[index].productQuantity;
+      num price = product[index].price! * product[index].quantity;
       totalPrice = totalPrice + price;
     }
     return totalPrice;
