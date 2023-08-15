@@ -1,3 +1,5 @@
+import '../../Helper/image_helper.dart';
+
 import '../../Fierbase/controllers/categories_fb_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,7 +18,8 @@ class CategoryPage extends StatefulWidget {
   State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
+class _CategoryPageState extends State<CategoryPage>
+    with NavigatorHelper, ImgHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,8 +64,8 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
                           child: Row(
                             children: [
                               Container(
-                                  height: 50.h,
-                                  width: 50.h,
+                                  height: 70.h,
+                                  width: 70.h,
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
                                       color: Colors.grey.shade200,
@@ -70,10 +73,14 @@ class _CategoryPageState extends State<CategoryPage> with NavigatorHelper {
                                           Radius.circular(12.r)),
                                       border: Border.all(
                                           color: greenColor, width: 1.w)),
-                                  child: CachedNetworkImage(
-                                      imageUrl:
-                                          '${categoryItems[index].img!.link}',
-                                      fit: BoxFit.cover)),
+                                  child: appCacheImg(
+                                    categoryItems[index].img!.link!,
+                                    Container(
+                                      width: 70.h,
+                                      height: 70.h,
+                                      color: Colors.grey.shade200,
+                                    ),
+                                  ),),
                               SizedBox(
                                 width: 9.w,
                               ),

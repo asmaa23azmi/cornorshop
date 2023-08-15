@@ -1,3 +1,5 @@
+import 'package:cornorshop/Providers/auth_provider.dart';
+import 'package:cornorshop/Providers/style_provider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +39,9 @@ class MyApp extends StatelessWidget {
           builder: (context, child) {
             return MultiProvider(
               providers: [
-                ChangeNotifierProvider<LanguageProvider>(
-                  create: (context) => LanguageProvider(),
-                ),
+                ChangeNotifierProvider(create: (_) => LanguageProvider()),
+                ChangeNotifierProvider(create: (_) => AuthProvider()),
+                ChangeNotifierProvider(create: (_) => StyleProvider()),
               ],
               child: const MyMaterialApp(),
             );

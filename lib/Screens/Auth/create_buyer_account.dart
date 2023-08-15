@@ -1,5 +1,5 @@
-import '../../Screens/Auth/log_in.dart';
-import '../../Widgets/My_Widgets/my_phone_text_field.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,6 +11,13 @@ import '../../Helper/snack_bar_helper.dart';
 import '../../Widgets/My_Widgets/my_rich_text.dart';
 import '../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
+import '../../enums.dart';
+import '../Bnb_Screens/main_page.dart';
+import '../../Fierbase/controllers/fb_auth_controller.dart';
+import '../../Fierbase/controllers/user_fb_controller.dart';
+import '../../Models/fb/user_model.dart';
+import '../../Screens/Auth/log_in.dart';
+import '../../Widgets/My_Widgets/my_phone_text_field.dart';
 
 class CreateBuyerAccount extends StatefulWidget {
   const CreateBuyerAccount({super.key});
@@ -29,6 +36,8 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
   late TextEditingController returnPassController;
   CountryModel selectedCountry =
       appCountries.firstWhere((element) => element.dialCode == '970');
+  UserType selectedUserType = UserType.buyer;
+  String? radioValue;
 
   @override
   void initState() {
@@ -157,16 +166,68 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
                 hintText: AppLocalizations.of(context)!.enterReturnPassword,
                 textFieldBorderColor: blackObacityColor,
                 password: true,
+                onSubmitted: (p0) async => await _performCreate(),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 12.0.h),
+
+              ///Choose Gender
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      Radio(
+                        value: 'M',
+                        groupValue: radioValue,
+                        onChanged: (value) {
+                          setState(() {
+                            radioValue = value;
+                          });
+                        },
+                      ),
+                      SizedBox(width: 3.w),
+                      Text(
+                        AppLocalizations.of(context)!.male,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: darkBlue,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Radio(
+                        value: 'F',
+                        groupValue: radioValue,
+                        onChanged: (value) {
+                          setState(() {
+                            radioValue = value;
+                          });
+                        },
+                      ),
+                      SizedBox(width: 3.w),
+                      Text(
+                        AppLocalizations.of(context)!.female,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: darkBlue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 15.h),
 
               ///Action
               MyButton(
                 text: AppLocalizations.of(context)!.createAccount,
-                onTap: () async{
+                onTap: () async {
                   await _performCreate();
                   setState(() {});
                 },
+                loading: loading,
               ),
               SizedBox(height: 8.h),
 
@@ -204,20 +265,64 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
   }
 
   ///Functions
+  bool loading = false;
 
-  Future<void> _performCreate() async{
+  Future<void> _performCreate() async {
     ///before create account
-    if (checkData()) {
+    if (_checkData()) {
       await _create();
     }
   }
 
-  Future<void> _create() async{
-    showMySnackBar(context,
-        text: AppLocalizations.of(context)!.createdSuccessfully);
+  Future<void> _create() async {
+    setState(() => loading = true);
+    try {
+      ///Auth
+      var userCredential = await FbAuthController().register(
+          email: emailController.text, password: passwordController.text);
+      if (userCredential == null)
+        throw Exception('Auth Failed / email already exist');
+
+      ///Storage (img != null)
+      ///FCM token
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      if (fcmToken == null) throw Exception('FCM Failed');
+
+      ///FireStore
+      var fireStoreResult = await UserFbController().createUser(UserModel(
+        id: userCredential.user!.uid,
+        name: nameController.text,
+        phoneNum: phoneNumController.text,
+        email: emailController.text,
+        address: addressController.text,
+        password: passwordController.text,
+        sex: radioValue,
+        userType: selectedUserType.name,
+        profileImg: null,
+        description: null,
+        fcm: fcmToken,
+        timestamp: Timestamp.now(),
+      ));
+      if (!fireStoreResult) throw Exception('FireStore Failed');
+
+      ///Pop
+      if (context.mounted) {
+        Navigator.pop(context);
+        jump(context, to: const MainPage(), replace: true);
+        showMySnackBar(context,
+            text: AppLocalizations.of(context)!.createdSuccessfully);
+      }
+    } catch (e) {
+      showMySnackBar(context, text: e.toString());
+    }
+    if (context.mounted) {
+      // showMySnackBar(context,
+      //     text: AppLocalizations.of(context)!.createdSuccessfully);
+    }
+    setState(() => loading = false);
   }
 
-  bool checkData() {
+  bool _checkData() {
     ///to check text field
     if (nameController.text.isEmpty) {
       showMySnackBar(context,
@@ -250,6 +355,14 @@ class _CreateBuyerAccountState extends State<CreateBuyerAccount>
     } else if (returnPassController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
+      return false;
+    } else if (passwordController.text != returnPassController.text) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.notMatchPass, error: true);
+      return false;
+    } else if (radioValue == null) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterGender, error: true);
       return false;
     }
     return true;

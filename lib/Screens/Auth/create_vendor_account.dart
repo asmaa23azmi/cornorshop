@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:provider/provider.dart';
+import '../../Providers/auth_provider.dart';
+import '../../enums.dart';
 import '../../Helper/snack_bar_helper.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Widgets/My_Widgets/my_phone_text_field.dart';
@@ -11,6 +16,12 @@ import '../../Const/texts.dart';
 import '../../Const/colors.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Screens/Auth/log_in.dart';
+import '../../Fierbase/controllers/fb_auth_controller.dart';
+import '../../Chache/cache_controller.dart';
+import '../../Fierbase/controllers/user_fb_controller.dart';
+import '../../Models/fb/user_model.dart';
+import '../../Screens/Bnb_Screens/main_page.dart';
+import '../../Screens/Vendor_Screens/vendor_profile_page.dart';
 
 class CreateVendorAccount extends StatefulWidget {
   const CreateVendorAccount({super.key});
@@ -31,6 +42,8 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
       appCountries.firstWhere((element) => element.dialCode == '970');
 
   String? radioValue;
+  UserType selectedUserType = UserType.vendor;
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
   @override
   void initState() {
@@ -214,10 +227,11 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
               ///Action
               MyButton(
                 text: AppLocalizations.of(context)!.createAccount,
-                onTap: () async{
+                onTap: () async {
                   await _performCreate();
                   setState(() {});
                 },
+                loading: loading,
               ),
               SizedBox(height: 8.h),
 
@@ -255,20 +269,68 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
   }
 
   ///Functions
+  bool loading = false;
 
-  Future<void> _performCreate() async{
+  Future<void> _performCreate() async {
     ///before create account
-    if (checkData()) {
+    if (_checkData()) {
       await _create();
     }
   }
 
-  Future<void> _create() async{
-    showMySnackBar(context,
-        text: AppLocalizations.of(context)!.createdSuccessfully);
+  Future<void> _create() async {
+    setState(() => loading = true);
+    try {
+      ///Auth
+      var userCredential = await FbAuthController().register(
+          email: emailController.text, password: passwordController.text);
+      if (userCredential == null) throw Exception('Auth Failed / email already exist');
+
+      ///Storage (img != null)
+      ///FCM token
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      if (fcmToken == null) throw Exception('FCM Failed');
+
+      ///FireStore
+      var fireStoreResult = await UserFbController().createUser(UserModel(
+        id: userCredential.user!.uid,
+        name: nameController.text,
+        phoneNum: phoneNumController.text,
+        email: emailController.text,
+        address: addressController.text,
+        password: passwordController.text,
+        sex: radioValue,
+        userType: selectedUserType.name,
+        profileImg: null,
+        description: null,
+        fcm: fcmToken,
+        timestamp: Timestamp.now(),
+      ));
+      if (!fireStoreResult) throw Exception('FireStore Failed');
+
+      await CacheController().setter(CacheKeys.userType, selectedUserType.name);
+
+      ///Pop
+      if (context.mounted) {
+        //ToDo:...for create account
+        Navigator.pop(context);
+        Navigator.pop(context);
+       // _auth.login;
+       // jump(context, to: const MainPage(), replace: true);
+        showMySnackBar(context,
+            text: AppLocalizations.of(context)!.createdSuccessfully);
+      }
+    } catch (e) {
+      showMySnackBar(context, text: e.toString());
+    }
+    if (context.mounted) {
+      // showMySnackBar(context,
+      //     text: AppLocalizations.of(context)!.createdSuccessfully);
+    }
+    setState(() => loading = false);
   }
 
-  bool checkData() {
+  bool _checkData() {
     ///to check text field
     if (nameController.text.isEmpty) {
       showMySnackBar(context,
@@ -301,6 +363,10 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
     } else if (returnPassController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
+      return false;
+    } else if (passwordController.text != returnPassController.text) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.notMatchPass, error: true);
       return false;
     } else if (radioValue == null) {
       showMySnackBar(context,

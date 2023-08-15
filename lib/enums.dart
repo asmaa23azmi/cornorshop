@@ -1,5 +1,5 @@
 enum AppLanguages { ar, en }
 
-enum CacheKeys { language, loggedIn, token, fcmToken, theme, userId }
+enum CacheKeys { language, loggedIn, token, fcmToken, theme, userId, userType }
 
-enum UserType {superAdmin , admin , vendor , buyer}
+enum UserType { superAdmin, admin, vendor, buyer }

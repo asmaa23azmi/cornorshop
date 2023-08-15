@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
 import '../../../Fierbase/controllers/categories_fb_controller.dart';
 import '../../../Fierbase/controllers/fb_storage_controller.dart';
+import '../../../Helper/image_helper.dart';
 import '../../../Models/fb/category_model.dart';
 import '../../../Helper/navigator_helper.dart';
 import '../../../Screens/Admin_Screens/Category_Screens/insert_category_page.dart';
@@ -20,7 +20,7 @@ class ManageCategoryPage extends StatefulWidget {
 }
 
 class _ManageCategoryPageState extends State<ManageCategoryPage>
-    with NavigatorHelper {
+    with NavigatorHelper, ImgHelper {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -150,17 +150,17 @@ class _ManageCategoryPageState extends State<ManageCategoryPage>
                                       width: 70.h,
                                       clipBehavior: Clip.antiAlias,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8.r)
+                                          borderRadius:
+                                              BorderRadius.circular(8.r)),
+                                      child: appCacheImg(
+                                        categoryItems[index].img!.link!,
+                                        Container(
+                                          width: 70.h,
+                                          height: 70.h,
+                                          color: Colors.grey.shade200,
+                                        ),
                                       ),
-                                      child: CachedNetworkImage(imageUrl: categoryItems[index].img!.link!, fit: BoxFit.cover,),
                                     ),
-                                    // Expanded(
-                                    //   child: Text(
-                                    //     '${categoryItems[index].categoryImg!.link}',
-                                    //     style: TextStyle(
-                                    //         fontSize: 13.sp, color: darkBlue),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ],

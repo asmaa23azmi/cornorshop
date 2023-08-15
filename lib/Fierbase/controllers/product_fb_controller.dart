@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cornorshop/Models/fb/user_model.dart';
 import '../../Fierbase/controllers/fb_storage_controller.dart';
+import '../../Models/fb/category_model.dart';
 import '../../Models/fb/product_model.dart';
 
 class ProductFbController {

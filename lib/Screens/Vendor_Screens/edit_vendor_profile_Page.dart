@@ -1,16 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
+import '../../Helper/image_helper.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
 import '../../../Helper/snack_bar_helper.dart';
 import '../../../Widgets/My_Widgets/my_rich_text.dart';
 import '../../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Widgets/My_Widgets/my_phone_text_field.dart';
 import '../../Helper/img_picker_helper.dart';
+import '../../Providers/auth_provider.dart';
+import '../../../Fierbase/controllers/fb_storage_controller.dart';
+import '../../../Fierbase/controllers/user_fb_controller.dart';
+import '../../../Models/fb/img_model.dart';
+import '../../../Models/fb/user_model.dart';
 
 class EditVendorProfile extends StatefulWidget {
   const EditVendorProfile({super.key});
@@ -20,7 +28,7 @@ class EditVendorProfile extends StatefulWidget {
 }
 
 class _EditVendorProfileState extends State<EditVendorProfile>
-    with SnackBarHelper, ImgPickerHelper {
+    with SnackBarHelper, ImgPickerHelper, ImgHelper {
   CountryModel selectedCountry =
       appCountries.firstWhere((element) => element.dialCode == '970');
   late TextEditingController userNameController;
@@ -29,14 +37,17 @@ class _EditVendorProfileState extends State<EditVendorProfile>
   late TextEditingController emailController;
   late TextEditingController addressController;
 
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
   @override
   void initState() {
     super.initState();
-    userNameController = TextEditingController();
-    phoneNumController = TextEditingController();
-    bioController = TextEditingController();
-    emailController = TextEditingController();
-    addressController = TextEditingController();
+    userNameController = TextEditingController(text: _auth.user?.name ?? '');
+    phoneNumController =
+        TextEditingController(text: _auth.user?.phoneNum ?? '');
+    bioController = TextEditingController(text: _auth.user?.description ?? '');
+    emailController = TextEditingController(text: _auth.user?.email ?? '');
+    addressController = TextEditingController(text: _auth.user?.address ?? '');
   }
 
   @override
@@ -57,7 +68,6 @@ class _EditVendorProfileState extends State<EditVendorProfile>
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: whiteColor,
-        //toolbarHeight: 70.h,
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -96,15 +106,21 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                         color: Colors.grey.shade200,
                         shape: BoxShape.circle,
                       ),
-                      child: profileImg == null
-                          ? Icon(
-                              Icons.person,
-                              size: 70.h,
-                              color: Colors.grey.shade300,
-                            )
-                          : Image.file(
+                      child: profileImg != null
+                          ? Image.file(
+                              ///pickImg
                               profileImg!,
                               fit: BoxFit.cover,
+                            )
+                          : appCacheImg(
+                              ///previous Img
+                              _auth.user?.profileImg?.link ?? '',
+                              Icon(
+                                ///No Img
+                                Icons.person,
+                                size: 70.h,
+                                color: Colors.grey.shade300,
+                              ),
                             ),
                     ),
                     InkWell(
@@ -163,7 +179,8 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                   hintText: AppLocalizations.of(context)!.enterEmail,
                   textFieldBorderColor: blackObacityColor,
                   hintSyleColor: blackObacityColor,
-                  textFieldColor: Colors.transparent),
+                  textFieldColor: Colors.transparent,
+                  isEnabled: false),
               SizedBox(height: 12.h),
 
               /// Address
@@ -209,15 +226,17 @@ class _EditVendorProfileState extends State<EditVendorProfile>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MyButton(
-                      onTap: () async{
-                        await _performConfirm();
-                      },
-                      text: AppLocalizations.of(context)!.save,
-                      myWidth: 135,
-                      myHeight: 38,
-                      myFontSize: 12.sp,
-                      borderBouttonColor: Colors.transparent,
-                      buttonColor: greenColor),
+                    onTap: () async {
+                      await _performConfirm();
+                    },
+                    text: AppLocalizations.of(context)!.save,
+                    myWidth: 135,
+                    myHeight: 38,
+                    myFontSize: 12.sp,
+                    borderBouttonColor: Colors.transparent,
+                    buttonColor: greenColor,
+                    loading: loading,
+                  ),
                   MyButton(
                       onTap: () {
                         Navigator.pop(context);
@@ -239,15 +258,61 @@ class _EditVendorProfileState extends State<EditVendorProfile>
   }
 
   ///Functions
+  bool loading = false;
 
-  Future<void> _performConfirm() async{
+  Future<void> _performConfirm() async {
     ///before create account
     if (checkData()) {
-      await  _confirm();
+      await _confirm();
     }
   }
 
-  Future<void> _confirm() async{}
+  Future<void> _confirm() async {
+    setState(() => loading = true);
+    try {
+      ///Storage
+      ImgModel? imgModel;
+      if (profileImg != null) {
+        if(_auth.user?.profileImg != null){
+          ///delete a previous img
+          await FbStorageController().deleteFile(_auth.user?.profileImg?.path ?? '');
+        }
+        imgModel = await FbStorageController().uploadFileToStorage(profileImg,
+            folderName: 'usersProfileImg/${_auth.user?.id}');
+      }
+
+      ///FireStore
+      var status = await UserFbController().updateUser(_userModel(imgModel));
+
+      if (status) {
+        _auth.user = _userModel(imgModel);
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
+      }
+    } catch (e) {
+      showMySnackBar(context, text: e.toString());
+    }
+    setState(() => loading = false);
+  }
+
+  ///this model for update user and separate it to update data in provider to avoid duplicate the code
+  UserModel _userModel(ImgModel? imgModel) {
+    return UserModel(
+      id: _auth.user?.id,
+      name: userNameController.text,
+      phoneNum: phoneNumController.text,
+      email: emailController.text,
+      address: addressController.text,
+      profileImg: profileImg != null ? imgModel : _auth.user?.profileImg,
+      password: _auth.user?.password,
+      sex: _auth.user?.sex,
+      userType: _auth.user?.userType,
+      fcm: _auth.user?.fcm,
+      description: bioController.text,
+      timestamp: Timestamp.now(),
+    );
+  }
 
   bool checkData() {
     ///to check text field

@@ -4,11 +4,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:cornorshop/Providers/language_provider.dart';
 
+import '../../../Chache/cache_controller.dart';
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
+import '../../../Fierbase/controllers/fb_auth_controller.dart';
+import '../../../Helper/navigator_helper.dart';
+import '../../../Providers/auth_provider.dart';
 import '../../../Widgets/My_Widgets/my_button.dart';
 import '../../../enums.dart';
 import '../../../Widgets/My_Widgets/my_list_tile.dart';
+import '../../../splash_page.dart';
 
 class AdminSettingPge extends StatefulWidget {
   const AdminSettingPge({super.key});
@@ -17,7 +22,9 @@ class AdminSettingPge extends StatefulWidget {
   State<AdminSettingPge> createState() => _AdminSettingPgeState();
 }
 
-class _AdminSettingPgeState extends State<AdminSettingPge> {
+class _AdminSettingPgeState extends State<AdminSettingPge> with NavigatorHelper{
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
   late String? radioValue =
       Provider.of<LanguageProvider>(context, listen: false).language;
 
@@ -205,7 +212,14 @@ class _AdminSettingPgeState extends State<AdminSettingPge> {
 
                                 ///Logout Action
                                 MyButton(
-                                  onTap: () {},
+                                  onTap: () async{
+                                    Navigator.pop(context);
+                                    await FbAuthController().logout();
+                                    _auth.logout;
+                                    if(context.mounted){
+                                    //  jump(context, to: const SplashPage(), replace: true);
+                                    }
+                                  },
                                   text: AppLocalizations.of(context)!.logout,
                                   buttonColor: greenColor,
                                   myWidth: 135,

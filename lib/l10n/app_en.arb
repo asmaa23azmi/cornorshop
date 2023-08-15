@@ -182,6 +182,7 @@
        "timestamp": "Timestamp",
       "successfulProductAdded": "Product added successfully",
        "theresNoProductsYet": "There are no products yet",
-       "successfulProductEdited": "Product modified successfully"
+       "successfulProductEdited": "Product modified successfully",
+       "theresNoUsersYet": "There are no users yet"
 
 }

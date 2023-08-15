@@ -17,6 +17,8 @@ class MyTextField extends StatefulWidget {
   final double textFieldWidth;
   final bool outoFouce;
   final double myFontSize;
+  final Function(String)? onSubmitted;
+  final bool isEnabled;
 
   const MyTextField(
       {required this.controller,
@@ -33,6 +35,8 @@ class MyTextField extends StatefulWidget {
       this.textFieldWidth = double.infinity,
       this.outoFouce = false,
       this.myFontSize = 14,
+      this.onSubmitted,
+      this.isEnabled = true,
       super.key});
 
   @override
@@ -58,6 +62,8 @@ class _MyTextFieldState extends State<MyTextField> {
         //obscuringCharacter: "*",
         keyboardType: widget.inputType,
         maxLines: widget.maxLines,
+        onFieldSubmitted: widget.onSubmitted,
+        enabled: widget.isEnabled,
         decoration: InputDecoration(
           fillColor: widget.textFieldColor,
 
@@ -81,32 +87,21 @@ class _MyTextFieldState extends State<MyTextField> {
                   ),
                 )
               : null,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14.0.r),
-            borderSide: BorderSide(
-              color: widget.textFieldBorderColor,
-            ),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14.0.r),
-            borderSide: BorderSide(
-              color: widget.textFieldBorderColor,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14.0.r),
-            borderSide: BorderSide(
-              color: widget.textFieldBorderColor,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14.0.r),
-            borderSide: BorderSide(
-              color: widget.textFieldBorderColor,
-            ),
-          ),
+          enabledBorder: buildOutlineInputBorder(),
+          disabledBorder: buildOutlineInputBorder(),
+          focusedBorder: buildOutlineInputBorder(),
+          errorBorder:buildOutlineInputBorder(),
         ),
       ),
     );
+  }
+
+  OutlineInputBorder buildOutlineInputBorder() {
+    return OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.r),
+          borderSide: BorderSide(
+            color: widget.textFieldBorderColor,
+          ),
+        );
   }
 }

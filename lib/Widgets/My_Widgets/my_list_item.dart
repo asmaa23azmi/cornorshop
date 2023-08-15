@@ -5,11 +5,11 @@ import '../../Const/texts.dart';
 
 class MyListItem extends StatefulWidget {
   final String text;
-  late IconData icon;
+  final IconData icon;
   final Function()? onTap;
   final double size;
 
-  MyListItem(
+  const MyListItem(
       {required this.text,
       required this.icon,
       this.onTap,

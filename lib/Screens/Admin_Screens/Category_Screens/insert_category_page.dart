@@ -215,11 +215,13 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
             timestamp: Timestamp.now(),
           ));
     if (status) {
-      showMySnackBar(context,
-          text: widget.categoryModel == null
-              ? AppLocalizations.of(context)!.successfulCategoryAdded
-              : AppLocalizations.of(context)!.successfulCategoryEdited);
-      Navigator.pop(context);
+      if(context.mounted){
+        showMySnackBar(context,
+            text: widget.categoryModel == null
+                ? AppLocalizations.of(context)!.successfulCategoryAdded
+                : AppLocalizations.of(context)!.successfulCategoryEdited);
+        Navigator.pop(context);
+      }
     }
     setState(() => loading = false);
   }

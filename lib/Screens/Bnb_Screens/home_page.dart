@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
-import '../../Models/fb/category_model.dart';
 import '../../Models/fb/product_model.dart';
+import '../../Widgets/Home_Page_Widget/slider_section.dart';
 import '../../Widgets/Home_Page_Widget/category_home_section.dart';
 import '../../Widgets/Home_Page_Widget/product_list_home_section.dart';
 import '../../Widgets/Home_Page_Widget/recommend_product_home_section.dart';
@@ -16,8 +16,6 @@ import '../Menu_Items_screens/app_settings_page.dart';
 import '../Menu_Items_screens/message_page.dart';
 import '../Menu_Items_screens/notifications_page.dart';
 import '../Search_Screens/search_page.dart';
-import '../../Const/texts.dart';
-import '../../Screens/Bnb_Screens/category_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,8 +25,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with NavigatorHelper {
-  int selectedIndex = 0;
-  List<String> items = ['img1', 'img2'];
+
 
   List<ProductModel> product = [
     ProductModel(
@@ -161,147 +158,20 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///Ads
-              Stack(
-                children: [
-                  SizedBox(
-                    height: 150.h,
-                    child: PageView.builder(
-                      onPageChanged: (value) =>
-                          setState(() => selectedIndex = value),
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: items.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin:
-                              EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-                          width: double.infinity,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius:
-                                  BorderRadiusDirectional.circular(14.r)),
-                          child: Image.asset(
-                            'assets/images/${items[index]}.png',
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  PositionedDirectional(
-                    bottom: 10.h,
-                    start: 0,
-                    end: 0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 10.h,
-                      child: ListView.separated(
-                        padding: EdgeInsetsDirectional.zero,
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          bool selected = selectedIndex == index;
-                          return Container(
-                            height: 10.h,
-                            width: 10.h,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: selected
-                                  ? blackObacityColor
-                                  : Colors.transparent,
-                              border: Border.all(
-                                  color: selected
-                                      ? Colors.transparent
-                                      : blackObacityColor),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            SizedBox(width: 4.w),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15.h),
+             const SliderSection(),
 
               ///Category Section
-              Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.categoryBar,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: darkBlue,
-                          fontSize: 14.sp),
-                    ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () {
-                        jump(context, to: const CategoryPage());
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.showAll,
-                        style: textStyle,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 6.h),
               const CategoryHomeSection(),
-              SizedBox(height: 8.h),
 
               ///Stores Section
-              Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-                child: Text(
-                  AppLocalizations.of(context)!.chosenStore,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: darkBlue,
-                      fontSize: 14.sp),
-                ),
-              ),
-              SizedBox(height: 6.h),
               const StoreHomeSection(),
-              SizedBox(height: 15.h),
 
               ///Recommend Products
-              Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-                child: Text(
-                  AppLocalizations.of(context)!.recommendProducts,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: darkBlue,
-                      fontSize: 14.sp),
-                ),
-              ),
-              SizedBox(height: 6.h),
               RecommendProductHomeSection(product: product),
-              SizedBox(height: 15.h),
+
 
               ///Products List
-              Padding(
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-                child: Text(
-                  AppLocalizations.of(context)!.productsList,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: darkBlue,
-                      fontSize: 14.sp),
-                ),
-              ),
-              SizedBox(height: 6.h),
               const ProductListHomeSection(),
-              SizedBox(height: 15.h),
             ],
           ),
         ),

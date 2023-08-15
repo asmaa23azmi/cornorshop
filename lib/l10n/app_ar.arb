@@ -182,5 +182,6 @@
    "timestamp": "الطابع الزمني",
    "successfulProductAdded":"تمت إضافة المنتج بنجاح",
     "theresNoProductsYet": "لا توجد منتجات حتى الآن",
-    "successfulProductEdited": "تم تعديل المنتج بنجاح"
+    "successfulProductEdited": "تم تعديل المنتج بنجاح",
+    "theresNoUsersYet" : "لا يوجد مستخدمين حتى الآن"
 }

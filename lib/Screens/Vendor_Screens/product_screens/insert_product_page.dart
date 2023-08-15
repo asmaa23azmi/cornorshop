@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cornorshop/Models/fb/user_model.dart';
 import '../../../Helper/converter_helper.dart';
 import '../../../Models/fb/img_model.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,7 @@ class _InsertProductPageState extends State<InsertProductPage>
 
   String? selectedItem;
 
-  List<String> items = [
-    'ملابس',
-    'منتجات طبيعية',
-    'طعام وحلويات منزلية',
-    'مشغولات يدوية',
-  ];
+  List<String> items = [];
 
   @override
   void initState() {
@@ -315,7 +311,7 @@ class _InsertProductPageState extends State<InsertProductPage>
         price: num.parse(productPriceController.text),
         img: images,
         categoryType: selectedItem,
-        vendorName: null,
+        vendorName: UserModel().name,
         description: productDescriptionController.text,
         timestamp: Timestamp.now()));
 
