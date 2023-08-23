@@ -20,8 +20,6 @@ import '../../Fierbase/controllers/fb_auth_controller.dart';
 import '../../Chache/cache_controller.dart';
 import '../../Fierbase/controllers/user_fb_controller.dart';
 import '../../Models/fb/user_model.dart';
-import '../../Screens/Bnb_Screens/main_page.dart';
-import '../../Screens/Vendor_Screens/vendor_profile_page.dart';
 
 class CreateVendorAccount extends StatefulWidget {
   const CreateVendorAccount({super.key});
@@ -283,8 +281,8 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
     try {
       ///Auth
       var userCredential = await FbAuthController().register(
-          email: emailController.text, password: passwordController.text);
-      if (userCredential == null) throw Exception('Auth Failed / email already exist');
+          context,email: emailController.text, password: passwordController.text);
+      if (userCredential == null) throw Exception('Auth Failed');
 
       ///Storage (img != null)
       ///FCM token
@@ -315,17 +313,10 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
         //ToDo:...for create account
         Navigator.pop(context);
         Navigator.pop(context);
-       // _auth.login;
-       // jump(context, to: const MainPage(), replace: true);
-        showMySnackBar(context,
-            text: AppLocalizations.of(context)!.createdSuccessfully);
+        showMySnackBar(context, text: AppLocalizations.of(context)!.createdSuccessfully);
       }
     } catch (e) {
-      showMySnackBar(context, text: e.toString());
-    }
-    if (context.mounted) {
-      // showMySnackBar(context,
-      //     text: AppLocalizations.of(context)!.createdSuccessfully);
+      print(e.toString());
     }
     setState(() => loading = false);
   }
@@ -344,23 +335,11 @@ class _CreateVendorAccountState extends State<CreateVendorAccount>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterEmail, error: true);
       return false;
-    } else if (!RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(emailController.text)) {
-      showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterEmailFormat, error: true);
-      return false;
     } else if (passwordController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterPassword, error: true);
       return false;
-    } else if (!RegExp(
-            r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
-        .hasMatch(passwordController.text)) {
-      showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterPassFormat, error: true);
-      return false;
-    } else if (returnPassController.text.isEmpty) {
+    }  else if (returnPassController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterReturnPassword, error: true);
       return false;

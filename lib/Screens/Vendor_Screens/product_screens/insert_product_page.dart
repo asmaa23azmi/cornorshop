@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cornorshop/Models/fb/user_model.dart';
+import 'package:provider/provider.dart';
 import '../../../Helper/converter_helper.dart';
+import '../../../Models/fb/category_model.dart';
 import '../../../Models/fb/img_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,6 +12,7 @@ import 'dart:io';
 
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
+import '../../../Providers/auth_provider.dart';
 import '../../../Widgets/My_Widgets/my_button.dart';
 import '../../../Helper/snack_bar_helper.dart';
 import '../../../Widgets/My_Widgets/my_dropdown_search.dart';
@@ -40,7 +43,7 @@ class _InsertProductPageState extends State<InsertProductPage>
 
   String? selectedItem;
 
-  List<String> items = [];
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
   @override
   void initState() {
@@ -49,8 +52,8 @@ class _InsertProductPageState extends State<InsertProductPage>
         TextEditingController(text: widget.productModel?.name ?? '');
     productPriceController = TextEditingController(
         text: widget.productModel?.price.toString() ?? '');
-    productDescriptionController = TextEditingController(
-        text: widget.productModel?.description ?? '');
+    productDescriptionController =
+        TextEditingController(text: widget.productModel?.description ?? '');
     if (widget.productModel != null) {
       convertImg;
     }
@@ -108,20 +111,23 @@ class _InsertProductPageState extends State<InsertProductPage>
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
+          EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               ///Product Image
               MyRichText(text: AppLocalizations.of(context)!.enterProductImage),
               SizedBox(height: 3.h),
               InkWell(
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                onTap: widget.productModel == null ? () async {
+                onTap: widget.productModel == null
+                    ? () async {
                   productImg.addAll(await pickMultiImagesFromGallery());
                   setState(() {});
-                } : null,
+                }
+                    : null,
                 child: Container(
                   width: double.infinity.w,
                   height: 180.h,
@@ -134,63 +140,63 @@ class _InsertProductPageState extends State<InsertProductPage>
                   ),
                   child: productImg.isEmpty
                       ? Icon(
-                          Icons.file_upload,
-                          color: greyColor,
-                          size: 40.w,
-                        )
+                    Icons.file_upload,
+                    color: greyColor,
+                    size: 40.w,
+                  )
 
-                      ///Show product img
+                  ///Show product img
                       : productImgLoading
-                          ? ListView.separated(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.w, vertical: 5.h),
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: productImg.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  width: 100.w,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  child: Stack(
-                                    fit: StackFit.expand,
-                                    children: [
-                                      Image.file(
-                                        productImg[index],
-                                        fit: BoxFit.cover,
-                                      ),
-
-                                      ///Remove product from the img list
-                                      PositionedDirectional(
-                                          top: 5.h,
-                                          start: 5.w,
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () {
-                                              setState(() {
-                                                // productImg.remove(productImg[index]);
-                                                productImg.removeAt(index);
-                                              });
-                                            },
-                                            child: const Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                            ),
-                                          ))
-                                    ],
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(width: 10.w),
-                            )
-                          : const Center(
-                              child: CircularProgressIndicator(),
+                      ? ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 10.w, vertical: 5.h),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: productImg.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: 100.w,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.file(
+                              productImg[index],
+                              fit: BoxFit.cover,
                             ),
+
+                            ///Remove product from the img list
+                            PositionedDirectional(
+                                top: 5.h,
+                                start: 5.w,
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    setState(() {
+                                      // productImg.remove(productImg[index]);
+                                      productImg.removeAt(index);
+                                    });
+                                  },
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                ))
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        SizedBox(width: 10.w),
+                  )
+                      : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
               SizedBox(height: 12.h),
@@ -224,8 +230,7 @@ class _InsertProductPageState extends State<InsertProductPage>
               ),
               SizedBox(height: 3.h),
               MyDropdownSearch(
-                items: items,
-                onChange: (value) => selectedItem = value,
+                callBack: (value) => selectedItem = value,
               ),
               SizedBox(height: 12.h),
 
@@ -266,7 +271,7 @@ class _InsertProductPageState extends State<InsertProductPage>
                     loading: loading,
                   ),
                   MyButton(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => Navigator.pop(context, false),
                       text: AppLocalizations.of(context)!.cancel,
                       myWidth: 135,
                       myHeight: 40,
@@ -305,24 +310,35 @@ class _InsertProductPageState extends State<InsertProductPage>
         images.add(imgModel);
       }
     }
-    var status = await ProductFbController().createProduct(ProductModel(
+    var status = widget.productModel == null
+        ? await ProductFbController().createProduct(ProductModel(
         id: uuid,
         name: productNameController.text,
         price: num.parse(productPriceController.text),
         img: images,
         categoryType: selectedItem,
-        vendorName: UserModel().name,
         description: productDescriptionController.text,
-        timestamp: Timestamp.now()));
+        timestamp: Timestamp.now(),
+        userModel: _auth.user),)
+        : await ProductFbController().updateProduct(ProductModel(
+        id: widget.productModel!.id,
+        name: productNameController.text,
+        price: num.parse(productPriceController.text),
+        img: widget.productModel?.img,
+        categoryType: selectedItem,
+        description: productDescriptionController.text,
+        timestamp: Timestamp.now(),
+        userModel: _auth.user
+    ),);
 
     if (status) {
-    if(context.mounted){
-      showMySnackBar(context,
-          text: widget.productModel == null
-              ? AppLocalizations.of(context)!.successfulProductAdded
-              : AppLocalizations.of(context)!.successfulProductEdited);
-      Navigator.pop(context);
-    }
+      if (context.mounted) {
+        showMySnackBar(context,
+            text: widget.productModel == null
+                ? AppLocalizations.of(context)!.successfulProductAdded
+                : AppLocalizations.of(context)!.successfulProductEdited);
+        Navigator.pop(context, true);
+      }
     }
     setState(() => loading = false);
   }

@@ -67,12 +67,12 @@ class _SliderSectionState extends State<SliderSection>{
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: selected
-                            ? blackObacityColor
+                            ? whiteColor.withOpacity(.8)
                             : Colors.transparent,
                         border: Border.all(
                             color: selected
                                 ? Colors.transparent
-                                : blackObacityColor),
+                                : whiteColor),
                       ),
                     );
                   },

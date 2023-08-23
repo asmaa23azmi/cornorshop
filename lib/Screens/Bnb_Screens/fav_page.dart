@@ -21,27 +21,17 @@ class _FavoritePageState extends State<FavoritePage> {
       name: 'كيكة الكريمة',
       price: 25.0,
       img: ['cake'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
+      categoryType: null,
+      quantity: 1, userModel: null,
     ),
     ProductModel(
       id: '2',
       name: 'مسخن رول _ عدد 1 ',
       price: 2.0,
       img: ['food'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '3',
-      name: 'قميص شتوي ',
-      price: 70.0,
-      img: ['shirt'],
-      categoryType: 'ملابس',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
+      categoryType: null,
+
+      quantity: 1, userModel: null,
     ),
   ];
 
@@ -171,7 +161,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                               SizedBox(width: 2.w),
                               Text(
-                                '${product[index].vendorName}',
+                                '${product[index].userModel?.name}',
                                 style: TextStyle(
                                   fontSize: 8.sp,
                                   fontWeight: FontWeight.normal,

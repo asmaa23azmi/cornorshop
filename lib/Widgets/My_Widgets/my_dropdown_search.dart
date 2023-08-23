@@ -7,14 +7,20 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
 import 'my_text_field.dart';
 
+typedef MyDropdownCallBack = Function(dynamic _);
+
 class MyDropdownSearch extends StatefulWidget {
-  final List<String> items;
-  final Function(String? value)? onChange;
+ //final List<dynamic>? list;
+ //final dynamic selectedItem;
+ final MyDropdownCallBack? callBack;
+  /// List<dynamic> list;
+  /// dynamic selectedItem
+  /// MyDropdownCallBack callback
 
   const MyDropdownSearch({
     super.key,
-    required this.items,
-    required this.onChange,
+    this.callBack,
+
   });
 
   @override
@@ -44,7 +50,7 @@ class _MyDropdownSearchState extends State<MyDropdownSearch> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const SizedBox();
         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-          List<CategoryModel> categoryItems =
+          List<CategoryModel> items =
               snapshot.data!.docs.map((e) => e.data()).toList();
           return DropdownSearch<String>(
             popupProps: PopupProps.modalBottomSheet(
@@ -61,7 +67,7 @@ class _MyDropdownSearchState extends State<MyDropdownSearch> {
               ),
               showSelectedItems: true,
             ),
-            items: categoryItems.map((e) => e.title ?? '').toList(),
+            items: items.map((e) => e.title ?? '').toList(),
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
                 constraints: BoxConstraints(maxHeight: 44.h),
@@ -81,7 +87,7 @@ class _MyDropdownSearchState extends State<MyDropdownSearch> {
                 ),
               ),
             ),
-            onChanged: widget.onChange,
+            onChanged: widget.callBack,
           );
         } else {
           return MyTextField(

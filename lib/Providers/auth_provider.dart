@@ -21,6 +21,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> get logout async {
+    user = null;
     loggedIn = false;
     await CacheController().setter(CacheKeys.loggedIn, false);
     notifyListeners();

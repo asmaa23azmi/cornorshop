@@ -87,10 +87,14 @@ class _ManageProductPageState extends State<ManageProductPage> {
                                         fontWeight: FontWeight.w600,
                                         color: darkBlue),
                                   ),
-                                  Text(
-                                    '${products[index].name}',
-                                    style: TextStyle(
-                                        fontSize: 13.sp, color: darkBlue),
+                                  Expanded(
+                                    child: Text(
+                                      '${products[index].name}',
+                                      style: TextStyle(
+                                          fontSize: 13.sp, color: darkBlue),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -106,7 +110,7 @@ class _ManageProductPageState extends State<ManageProductPage> {
                                         color: darkBlue),
                                   ),
                                   Text(
-                                    '${products[index].vendorName}',
+                                    '${products[index].userModel?.name}',
                                     style: TextStyle(
                                         fontSize: 13.sp, color: darkBlue),
                                   ),
@@ -158,11 +162,16 @@ class _ManageProductPageState extends State<ManageProductPage> {
                                         fontSize: 13.sp,
                                         fontWeight: FontWeight.w600,
                                         color: darkBlue),
+
                                   ),
-                                  Text(
-                                    '${products[index].description}',
-                                    style: TextStyle(
-                                        fontSize: 13.sp, color: darkBlue),
+                                  Expanded(
+                                    child: Text(
+                                      '${products[index].description}',
+                                      style: TextStyle(
+                                          fontSize: 13.sp, color: darkBlue),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ],
                               ),

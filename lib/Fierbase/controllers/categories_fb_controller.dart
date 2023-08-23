@@ -9,12 +9,23 @@ class CategoriesFbController {
 
   ///CRUD
   Future<bool> createCategory(CategoryModel category) async {
-    await _firestore
-        .collection(_collection)
-        .doc(category.id)
-        .set(category.toJson())
-        .then((value) => true)
-        .catchError((exception) => false);
+    try {
+      final existingCategories = await FirebaseFirestore.instance
+          .collection('categories')
+          .where('title', isEqualTo: category.title)
+          .get();
+      if (existingCategories.docs.isNotEmpty) {
+        print('Category already exists');
+      } else {
+        await _firestore
+            .collection(_collection)
+            .doc(category.id)
+            .set(category.toJson())
+            .then((value) => true)
+            .catchError((exception) => false);
+        return true;
+      }
+    } catch (e) {}
     return true;
   }
 
@@ -31,19 +42,34 @@ class CategoriesFbController {
           ///from model to json
           toFirestore: (value, options) => value.toJson(),
         )
-        .orderBy('timestamp', descending: true).snapshots();
+        .orderBy('timestamp', descending: true)
+        .snapshots();
   }
 
-  Future<CategoryModel?> showCategory(CategoryModel category) async {
-   var result = await _firestore
+  Stream<QuerySnapshot<CategoryModel>> show(String id) async* {
+    yield* _firestore
         .collection(_collection)
-        .doc(category.id)
+        .where('id', isEqualTo: id)
         .withConverter<CategoryModel>(
-            fromFirestore: (snapshot, options) => CategoryModel.fromJson(snapshot.data()!) ,
-        toFirestore: (value, options) => value.toJson(),)
-        .get();
+          fromFirestore: (snapshot, options) =>
+              CategoryModel.fromJson(snapshot.data()!),
+          toFirestore: (value, options) => value.toJson(),
+        )
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
 
-   return result.data();
+  Stream<QuerySnapshot<CategoryModel>> search(String keyword) async* {
+    yield* _firestore
+        .collection(_collection)
+        .where('name', isGreaterThanOrEqualTo: keyword)
+        .withConverter<CategoryModel>(
+      fromFirestore: (snapshot, options) =>
+          CategoryModel.fromJson(snapshot.data()!),
+      toFirestore: (value, options) => value.toJson(),
+    )
+        .orderBy('timestamp', descending: true)
+        .snapshots();
   }
 
   Future<bool> updateCategory(CategoryModel category) async {

@@ -1,3 +1,6 @@
+import 'package:cornorshop/Fierbase/controllers/product_fb_controller.dart';
+import 'package:cornorshop/Helper/image_helper.dart';
+import 'package:cornorshop/Models/fb/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,15 +14,35 @@ import '../../../Screens/Vendor_Screens/product_screens/insert_product_page.dart
 import '../../../Screens/Vendor_Screens/product_screens/Product_Promotion_Screens/product_promotion_target.dart';
 
 class ProductViewPage extends StatefulWidget {
-  const ProductViewPage({super.key});
+  final ProductModel productModel;
+
+  const ProductViewPage({required this.productModel, super.key});
 
   @override
   State<ProductViewPage> createState() => _ProductViewPageState();
 }
 
 class _ProductViewPageState extends State<ProductViewPage>
-    with NavigatorHelper {
+    with NavigatorHelper, ImgHelper {
   int selectedIndex = 0;
+
+  late ProductModel product = widget.productModel;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+bool loading = false;
+  Future<void> get _refresh async {
+    setState(() => loading = true);
+    var data = await ProductFbController().show(widget.productModel.id!);
+
+    if (data != null) {
+      setState(() => product = data);
+    }
+    setState(() => loading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,170 +87,189 @@ class _ProductViewPageState extends State<ProductViewPage>
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 10.h),
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ///Product Img
-              SizedBox(
-                height: 245.h,
-                child: Stack(
-                  children: [
-                    PageView.builder(
-                      onPageChanged: (value) =>
-                          setState(() => selectedIndex = value),
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: 3,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin:
-                              EdgeInsetsDirectional.symmetric(horizontal: 10.w),
-                          width: double.infinity,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius:
-                                BorderRadiusDirectional.circular(14.r),
-                          ),
-                        );
-                      },
-                    ),
-                    PositionedDirectional(
-                      bottom: 10.h,
-                      start: 0,
-                      end: 0,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 10.h,
-                        child: ListView.separated(
-                          padding: EdgeInsetsDirectional.zero,
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 3,
-                          itemBuilder: (context, index) {
-                            bool selected = selectedIndex == index;
-                            return Container(
-                              height: 10.h,
-                              width: 10.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: selected
-                                    ? blackObacityColor
-                                    : Colors.transparent,
-                                border: Border.all(
-                                    color: selected
-                                        ? Colors.transparent
-                                        : blackObacityColor),
+            padding: EdgeInsetsDirectional.symmetric(
+                horizontal: 14.w, vertical: 10.h),
+            physics: const BouncingScrollPhysics(),
+            child: StreamBuilder(
+              stream: ProductFbController().readProduct(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                  ProductModel productModel = product;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ///Product Img
+                      SizedBox(
+                        height: 245.h,
+                        child: Stack(
+                          children: [
+                            PageView.builder(
+                              onPageChanged: (value) =>
+                                  setState(() => selectedIndex = value),
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: productModel.img?.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsetsDirectional.symmetric(
+                                      horizontal: 10.w),
+                                  width: double.infinity,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade200,
+                                    borderRadius:
+                                        BorderRadiusDirectional.circular(14.r),
+                                  ),
+                                  child: appCacheImg(
+                                      productModel.img?[index].link,
+                                      const SizedBox()),
+                                );
+                              },
+                            ),
+                            PositionedDirectional(
+                              bottom: 10.h,
+                              start: 0,
+                              end: 0,
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 10.h,
+                                child: ListView.separated(
+                                  padding: EdgeInsetsDirectional.zero,
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: productModel.img!.length,
+                                  itemBuilder: (context, index) {
+                                    bool selected = selectedIndex == index;
+                                    return Container(
+                                      height: 10.h,
+                                      width: 10.h,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: selected
+                                            ? blackObacityColor
+                                            : Colors.transparent,
+                                        border: Border.all(
+                                            color: selected
+                                                ? Colors.transparent
+                                                : blackObacityColor),
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(width: 4.w),
+                                ),
                               ),
-                            );
-                          },
-                          separatorBuilder: (context, index) =>
-                              SizedBox(width: 4.w),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 18.h),
+                      SizedBox(height: 18.h),
 
-              ///Product Category
-              Container(
-                //height: 15.h,
-                padding: EdgeInsetsDirectional.symmetric(horizontal: 3.w),
-                decoration: BoxDecoration(
-                  color: greenColor.withOpacity(0.3),
-                  borderRadius: BorderRadiusDirectional.circular(4.r),
-                ),
-                child: Text(
-                  'نوع المنتج',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: greenColor,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              SizedBox(height: 7.h),
+                      ///Product Category
+                      Container(
+                        //height: 15.h,
+                        padding:
+                            EdgeInsetsDirectional.symmetric(horizontal: 3.w),
+                        decoration: BoxDecoration(
+                          color: greenColor.withOpacity(0.3),
+                          borderRadius: BorderRadiusDirectional.circular(4.r),
+                        ),
+                        child: Text(
+                          productModel.categoryType ?? '',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: greenColor,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 7.h),
 
-              ///Product Name
-              Text(
-                'اسم المنتج',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: darkBlue,
-                ),
-              ),
-              SizedBox(height: 10.h),
+                      ///Product Name
+                      Text(
+                        productModel.name ?? '',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: darkBlue,
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
 
-              ///Vendor Name & Product Price
-              Row(
-                children: [
-                  Container(
-                    width: 30.w,
-                    height: 30.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey.shade200,
-                    ),
-                    child: Icon(
-                      Icons.person,
-                      size: 22.h,
-                      color: Colors.grey.shade300,
-                    ),
-                  ),
-                  SizedBox(width: 6.w),
-                  Text(
-                    'اسم المتجر',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: darkBlue,
-                    ),
-                  ),
-                  SizedBox(width: 20.w),
-                  Text(
-                    'سعر المنتج',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      color: darkBlue,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8.h),
+                      ///Vendor Name & Product Price
+                      Row(
+                        children: [
+                          Container(
+                            width: 30.w,
+                            height: 30.w,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.shade200,
+                            ),
+                            child: appCacheImg(
+                              productModel.userModel?.profileImg?.link ?? '',
+                              Icon(
+                                Icons.person,
+                                size: 22.h,
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 6.w),
+                          Text(
+                            productModel.userModel?.name ?? '',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: darkBlue,
+                            ),
+                          ),
+                          SizedBox(width: 20.w),
+                          Text(
+                            '${productModel.price} ₪',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                              color: darkBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8.h),
 
-              ///Product Description
-              Text(
-                'وصف يقوم البائع بإضافته يحتوي على تفاصيل حول المنتج',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.black.withOpacity(0.55),
-                ),
-              ),
-              SizedBox(height: 10.h),
-              Divider(
-                color: blackObacityColor,
-                thickness: .7.w,
-              ),
-              SizedBox(height: 12.h),
+                      ///Product Description
+                      Text(
+                        productModel.description ?? '',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.black.withOpacity(0.55),
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
+                      Divider(
+                        color: blackObacityColor,
+                        thickness: .7.w,
+                      ),
+                      SizedBox(height: 12.h),
 
-              ///Product Comments
-              Text(
-                AppLocalizations.of(context)!.productComments,
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: darkBlue,
-                ),
-              ),
-            ],
-          ),
-        ),
+                      ///Product Comments
+                      Text(
+                        AppLocalizations.of(context)!.productComments,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.bold,
+                          color: darkBlue,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            )),
       ),
     );
   }
@@ -284,7 +326,15 @@ class _ProductViewPageState extends State<ProductViewPage>
                   text: AppLocalizations.of(context)!.editProductDescription,
                   icon: Icons.arrow_forward_ios,
                   size: 18.w,
-                  onTap: () => jump(context, to: const InsertProductPage()),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    var result = await jump(context,
+                        to: InsertProductPage(productModel: product));
+
+                    if (result) {
+                      await _refresh;
+                    }
+                  },
                 ),
                 SizedBox(height: 10.h),
                 Divider(
@@ -337,8 +387,12 @@ class _ProductViewPageState extends State<ProductViewPage>
 
                                 ///Delete Product Action
                                 MyButton(
-                                  onTap: () {
+                                  onTap: () async {
                                     Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    await ProductFbController()
+                                        .deleteProduct(product);
                                   },
                                   text: AppLocalizations.of(context)!
                                       .deleteProduct,

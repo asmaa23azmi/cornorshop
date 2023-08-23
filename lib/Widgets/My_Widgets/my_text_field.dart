@@ -19,6 +19,7 @@ class MyTextField extends StatefulWidget {
   final double myFontSize;
   final Function(String)? onSubmitted;
   final bool isEnabled;
+  final TextInputAction textInputAction;
 
   const MyTextField(
       {required this.controller,
@@ -37,6 +38,7 @@ class MyTextField extends StatefulWidget {
       this.myFontSize = 14,
       this.onSubmitted,
       this.isEnabled = true,
+      this.textInputAction = TextInputAction.done,
       super.key});
 
   @override
@@ -64,6 +66,7 @@ class _MyTextFieldState extends State<MyTextField> {
         maxLines: widget.maxLines,
         onFieldSubmitted: widget.onSubmitted,
         enabled: widget.isEnabled,
+        textInputAction: widget.textInputAction,
         decoration: InputDecoration(
           fillColor: widget.textFieldColor,
 

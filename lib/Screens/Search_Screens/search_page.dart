@@ -1,3 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../Helper/image_helper.dart';
+import '../../Fierbase/controllers/product_fb_controller.dart';
+import '../../Models/fb/product_model.dart';
+import '../../Screens/Buyer_Screens/buyer_product_view.dart';
+import '../../Helper/navigator_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,23 +21,34 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
-  late TextEditingController searchController;
+class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper {
+  late TextEditingController _searchController;
   late TextEditingController lowerPriceController;
   late TextEditingController topPriceController;
-
+   Stream<QuerySnapshot>? _searchStream;
+  String _searchTerm = '';
+  List<ProductModel>? _searchedProducts = [];
   String? selectedItem;
 
-  List<String> items = [
-    'ملابس',
-    'منتجات طبيعية',
-    'طعام وحلويات منزلية',
-    'مشغولات يدوية',
-  ];
+  void _search() async {
+    _searchedProducts = await ProductFbController().searchProducts(_searchTerm);
+   // _searchedUsers = await FirebaseController.searchUsers(_searchTerm);
+    setState(() {});
+  }
+
+  void _startSearch(String keyword) {
+    setState(() {
+      _searchStream = FirebaseFirestore.instance
+          .collection('products') // Replace with your collection name
+          .where('name', isGreaterThanOrEqualTo: keyword)
+          .snapshots();
+    });
+  }
+
 
   @override
   void initState() {
-    searchController = TextEditingController();
+    _searchController = TextEditingController();
     lowerPriceController = TextEditingController();
     topPriceController = TextEditingController();
     super.initState();
@@ -39,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    searchController.dispose();
+    _searchController.dispose();
     lowerPriceController.dispose();
     topPriceController.dispose();
     super.dispose();
@@ -75,19 +92,28 @@ class _SearchPageState extends State<SearchPage> {
       body: SafeArea(
         child: Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 14.h),
+          EdgeInsetsDirectional.symmetric(horizontal: 14.w, vertical: 14.h),
           child: Column(
             children: [
               Row(
                 children: [
                   Expanded(
                     child: MyTextField(
-                      controller: searchController,
+                      controller: _searchController,
                       hintText: AppLocalizations.of(context)!.searchBar,
                       outoFouce: true,
                       textFieldColor: Colors.transparent,
                       hintSyleColor: blackObacityColor,
                       textFieldBorderColor: blackObacityColor,
+                      onChange: (value) {
+                      //   if(value.isEmpty){
+                      //     setState(() => _searchStream = null);
+                      //   }else{
+                      //     _startSearch(value) ;
+                      // }
+                        _searchTerm = value;
+                      }
+                      ,
                       prefixIcon: IconButton(
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
@@ -99,6 +125,8 @@ class _SearchPageState extends State<SearchPage> {
                         iconSize: 25.35.h,
                         onPressed: () {},
                       ),
+                      textInputAction: TextInputAction.search,
+                      onSubmitted: (_) {},
                     ),
                   ),
                   SizedBox(
@@ -128,35 +156,122 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ],
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsetsDirectional.symmetric(vertical: 15.h),
-                  child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/search.png',
-                        height: 160.h,
-                        width: 160.h,
-                      ),
-                      SizedBox(
-                        height: 40.h,
-                      ),
-                      Text(
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        AppLocalizations.of(context)!.paragraphSearch,
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 10.sp,
-                          color: darkBlue,
+
+              StreamBuilder(
+                stream: _searchStream,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.symmetric(
+                              vertical: 80.h),
+                          child: const CircularProgressIndicator(),
+                        ));
+                  } else
+                  if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                    return Expanded(
+                      // child: ListView.builder(
+                      //   shrinkWrap: true,
+                      //   itemCount: snapshot.data!.docs.length,
+                      //   itemBuilder: (context, index) {
+                      //    // var searchData = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                      //     DocumentSnapshot document = snapshot.data!.docs[index];
+                      //     Map<String, dynamic> data =
+                      //     document.data() as Map<String, dynamic>;
+                      //     return ListTile(
+                      //         title: Text(data['name']  ?? ''),
+                      //     subtitle: Text(data['description'] ?? ''),
+                      //     onTap: () {
+                      //   //  jump(context, to: BuyerProductViewPage(product: data[index]));
+                      //     }
+                      //     );
+                      //   },
+                      // ),
+                      child: ListView.separated(
+                          shrinkWrap: true,
+                          padding: EdgeInsetsDirectional.symmetric(vertical: 15.h),
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot document = snapshot.data!.docs[index];
+                            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                            return InkWell(
+                             // onTap: ()=> jump(context, to: BuyerProductViewPage(product: )),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 60.h,
+                                    height: 60.h,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadiusDirectional.circular(12.r),
+                                      border: Border.all(
+                                        color: Colors.grey.shade100,
+                                        width: 1.w
+                                      ),
+                                      color: Colors.grey.shade200
+                                    ),
+                                    child: appCacheImg(data['img[0].link']  ?? '', const SizedBox()),
+                                  ),
+                                  SizedBox(width: 12.w),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ///item name
+                                      Text(data['name']  ?? '', style:
+                                      TextStyle(
+                                        fontSize: 14.sp,
+                                        color: darkBlue
+                                      ),),
+                                      ///item type(product or vendor)
+                                      Text('منتج',
+                                        style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: blackObacityColor
+                                      ),),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) => SizedBox(height: 10.h),
+                          ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsetsDirectional.symmetric(vertical: 15
+                            .h),
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/search.png',
+                              height: 160.h,
+                              width: 160.h,
+                            ),
+                            SizedBox(
+                              height: 40.h,
+                            ),
+                            Text(
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              AppLocalizations.of(context)!.paragraphSearch,
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 10.sp,
+                                color: darkBlue,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                  }
+                },)
+
             ],
           ),
         ),
@@ -173,16 +288,23 @@ class _SearchPageState extends State<SearchPage> {
       builder: (context) {
         return Padding(
           padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 26.w, vertical: 10.h),
+          EdgeInsetsDirectional.symmetric(horizontal: 26.w, vertical: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               ///Black Divider
               Container(
                 height: 4,
                 margin: EdgeInsetsDirectional.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.4,
-                    vertical: MediaQuery.of(context).size.height * 0.015),
+                    horizontal: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.4,
+                    vertical: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.015),
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadiusDirectional.circular(2.r),
@@ -268,8 +390,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
               SizedBox(height: 4.h),
               MyDropdownSearch(
-                items: items,
-                onChange: (value) => selectedItem = value,
+                callBack: (value) => selectedItem = value,
               ),
               SizedBox(height: 26.h),
 

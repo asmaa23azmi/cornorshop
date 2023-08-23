@@ -1,3 +1,7 @@
+import 'package:cornorshop/Fierbase/controllers/product_fb_controller.dart';
+
+import '../../Helper/image_helper.dart';
+import '../../Models/fb/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,79 +15,16 @@ import '../../Widgets/My_Widgets/my_list_item.dart';
 import 'buyer_product_view.dart';
 
 class ViewVendorProfile extends StatefulWidget {
-  const ViewVendorProfile({super.key});
+  final UserModel user;
+
+  const ViewVendorProfile({required this.user, super.key});
 
   @override
   State<ViewVendorProfile> createState() => _ViewVendorProfileState();
 }
 
-class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHelper {
-  List<ProductModel> product = [
-    ProductModel(
-      id: '1',
-      name: 'كيكة الكريمة',
-      price: 25.0,
-      img: ['cake'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '2',
-      name: 'مسخن رول _ عدد 1 ',
-      price: 2.0,
-      img: ['food'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '3',
-      name: 'قميص شتوي ',
-      price: 70.0,
-      img: ['shirt'],
-      categoryType: 'ملابس',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '2',
-      name: 'مسخن رول _ عدد 1 ',
-      price: 2.0,
-      img: ['food'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '3',
-      name: 'قميص شتوي ',
-      price: 70.0,
-      img: ['shirt'],
-      categoryType: 'ملابس',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '2',
-      name: 'مسخن رول _ عدد 1 ',
-      price: 2.0,
-      img: ['food'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '3',
-      name: 'قميص شتوي ',
-      price: 70.0,
-      img: ['shirt'],
-      categoryType: 'ملابس',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-
-  ];
+class _ViewVendorProfileState extends State<ViewVendorProfile>
+    with NavigatorHelper, ImgHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,11 +45,10 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
           ),
         ),
         title: Text(
-          'اسم البائع/ المتجر',
+          widget.user.name ?? '',
           style: textAppBarStyle,
         ),
         actions: [
-
           InkWell(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
@@ -138,26 +78,28 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
                   children: [
                     ///Profile Img
                     Container(
-                      width: 80.w,
-                      height: 80.w,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.person,
-                        size: 60.h,
-                        color: Colors.grey.shade300,
-                      ),
-                    ),
+                        width: 80.w,
+                        height: 80.w,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          shape: BoxShape.circle,
+                        ),
+                        child: appCacheImg(
+                          '${widget.user.profileImg?.link}',
+                          Icon(
+                            Icons.person,
+                            size: 60.h,
+                            color: Colors.grey.shade300,
+                          ),
+                        )),
                     SizedBox(
                       height: 3.h,
                     ),
 
                     ///Vendor Name
                     Text(
-                      'اسم البائع/ المتجر',
+                      widget.user.name ?? '',
                       style: textStyle,
                     ),
                     SizedBox(
@@ -166,167 +108,208 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
 
                     ///Bio
                     Text(
-                      'وصف يقوم البائع بإضافته يحتوي على بعض معلوماته الشخصية الضرورية, ومعلومات حول المنتجات التي يقدمها',
+                      widget.user.description ?? '',
                       style: TextStyle(
                           fontSize: 14.0.sp,
                           fontWeight: FontWeight.normal,
-                          color: Color(0xFF000000).withOpacity(0.55)),
+                          color: const Color(0xFF000000).withOpacity(0.55)),
                     ),
                   ],
                 ),
               ),
               Column(
                 children: [
-                  GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
-                    shrinkWrap: true,
-                    itemCount: product.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      //This value is use to determine the layout in GridView(childAspectRatio).
-                      childAspectRatio: 110.w / 160.h,
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 6,
-                      mainAxisSpacing: 6,
-                    ),
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () => jump(context, to:const BuyerProductViewPage()),
-                        child: Container(
-                          padding: EdgeInsetsDirectional.symmetric(
-                              horizontal: 4.w, vertical: 4.h),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadiusDirectional.circular(4.r),
-                            border: Border.all(width: 1.w, color: greyColor),
+                  StreamBuilder(
+                    stream: ProductFbController().showUserProducts(widget.user),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.symmetric(
+                                  vertical: 80.h),
+                              child: const CircularProgressIndicator(),
+                            ));
+                      } else if (snapshot.hasData &&
+                          snapshot.data!.docs.isNotEmpty) {
+                        List<ProductModel> product =
+                            snapshot.data!.docs.map((e) => e.data()).toList();
+                        return GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding:
+                              EdgeInsetsDirectional.symmetric(horizontal: 14.w),
+                          shrinkWrap: true,
+                          itemCount: product.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            //This value is use to determine the layout in GridView(childAspectRatio).
+                            childAspectRatio: 110.w / 160.h,
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 6,
+                            mainAxisSpacing: 6,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ///Product Img
-                              Expanded(
-                                child: Container(
-                                  width: double.infinity,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                    borderRadius:
-                                    BorderRadiusDirectional.circular(4.r),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/${product[index].img![0]}.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 4.h),
-
-                              ///Product Category
-                              Container(
-                                height: 16.h,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () => jump(context,
+                                  to: BuyerProductViewPage(
+                                      product: product[index])),
+                              child: Container(
                                 padding: EdgeInsetsDirectional.symmetric(
-                                    horizontal: 3.w),
+                                    horizontal: 4.w, vertical: 4.h),
                                 decoration: BoxDecoration(
-                                  color: greenColor.withOpacity(0.3),
+                                  color: Colors.white,
                                   borderRadius:
-                                  BorderRadiusDirectional.circular(4.r),
+                                      BorderRadiusDirectional.circular(4.r),
+                                  border:
+                                      Border.all(width: 1.w, color: greyColor),
                                 ),
-                                child: Text(
-                                  '${product[index].categoryType}',
-                                  style: TextStyle(
-                                    fontSize: 6.5.sp,
-                                    color: greenColor,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ///Product Img
+                                    Expanded(
+                                      child: Container(
+                                          width: double.infinity,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadiusDirectional
+                                                    .circular(4.r),
+                                          ),
+                                          child: appCacheImg(
+                                              product[index].img![0].link,
+                                              const SizedBox())),
+                                    ),
+                                    SizedBox(height: 4.h),
+
+                                    ///Product Category
+                                    Container(
+                                      height: 16.h,
+                                      padding: EdgeInsetsDirectional.symmetric(
+                                          horizontal: 3.w),
+                                      decoration: BoxDecoration(
+                                        color: greenColor.withOpacity(0.3),
+                                        borderRadius:
+                                            BorderRadiusDirectional.circular(
+                                                4.r),
+                                      ),
+                                      child: Text(
+                                        '${product[index].categoryType}',
+                                        style: TextStyle(
+                                          fontSize: 6.5.sp,
+                                          color: greenColor,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 7.h),
+
+                                    ///Product Name
+                                    Text(
+                                      '${product[index].name}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 9.sp,
+                                        color: darkBlue,
+                                        height: 1.h,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    SizedBox(height: 6.h),
+
+                                    ///Vendor Name & Price
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 14.w,
+                                          height: 14.w,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.grey.shade200,
+                                          ),
+                                          child:appCacheImg('${widget.user.profileImg?.link}',
+                                              Icon(
+                                            Icons.person,
+                                            size: 12.h,
+                                            color: Colors.grey.shade300,
+                                          )),
+                                        ),
+                                        SizedBox(width: 2.w),
+                                        Text(
+                                          '${product[index].userModel?.name}',
+                                          style: TextStyle(
+                                            fontSize: 7.5.sp,
+                                            fontWeight: FontWeight.normal,
+                                            color: darkBlue,
+                                            height: 1.h,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          '${product[index].price} ₪',
+                                          style: TextStyle(
+                                            fontSize: 11.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: darkBlue,
+                                            height: 1.h,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 4.h),
+
+                                    ///Actions
+                                    Row(
+                                      children: [
+                                        MyButton(
+                                          text: AppLocalizations.of(context)!
+                                              .addToCart,
+                                          myFontSize: 5,
+                                          myHeight: 21,
+                                          myWidth: 60,
+                                          buttonColor: greenColor,
+                                          borderBouttonColor:
+                                              Colors.transparent,
+                                          onTap: () {},
+                                        ),
+                                        const Spacer(),
+                                        InkWell(
+                                          highlightColor: Colors.transparent,
+                                          splashColor: Colors.transparent,
+                                          child: Icon(
+                                            Icons.favorite_border_rounded,
+                                            color: darkBlue,
+                                            size: 21.h,
+                                          ),
+                                          onTap: () {},
+                                        ),
+                                        SizedBox(width: 6.w),
+                                      ],
+                                    ),
+                                    SizedBox(height: 4.h),
+                                  ],
                                 ),
                               ),
-                              SizedBox(height: 7.h),
-
-                              ///Product Name
-                              Text(
-                               '${ product[index].name}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 9.sp,
-                                  color: darkBlue,
-                                  height: 1.h,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              SizedBox(height: 6.h),
-
-                              ///Vendor Name & Price
-                              Row(
-                                children: [
-                                  Container(
-                                    width: 14.w,
-                                    height: 14.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey.shade200,
-                                    ),
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 12.h,
-                                      color: Colors.grey.shade300,
-                                    ),
-                                  ),
-                                  SizedBox(width: 2.w),
-                                  Text(
-                                    '${product[index].vendorName}',
-                                    style: TextStyle(
-                                      fontSize: 7.5.sp,
-                                      fontWeight: FontWeight.normal,
-                                      color: darkBlue,
-                                      height: 1.h,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    '${product[index].price} ₪',
-                                    style: TextStyle(
-                                      fontSize: 11.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: darkBlue,
-                                      height: 1.h,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 4.h),
-
-                              ///Actions
-                              Row(
-                                children: [
-                                  MyButton(
-                                    text: AppLocalizations.of(context)!.addToCart,
-                                    myFontSize: 5,
-                                    myHeight: 21,
-                                    myWidth: 60,
-                                    buttonColor: greenColor,
-                                    borderBouttonColor: Colors.transparent,
-                                    onTap: () {},
-                                  ),
-                                  const Spacer(),
-                                  InkWell(
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    child: Icon(
-                                      Icons.favorite_border_rounded,
-                                      color: darkBlue,
-                                      size: 21.h,
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                  SizedBox(width: 6.w),
-                                ],
-                              ),
-                              SizedBox(height: 4.h),
-                            ],
+                            );
+                          },
+                        );
+                      } else {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 150.h),
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .theresNoProductsYet,
+                              style: TextStyle(
+                                  fontSize: 14.0.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: blackObacityColor),
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
                     },
                   ),
                 ],
@@ -337,6 +320,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       ),
     );
   }
+
   Future<dynamic> _vendorPageOptionsBottomSheet(BuildContext context) {
     ///Bottom Sheet
     return showModalBottomSheet(
@@ -349,7 +333,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile> with NavigatorHel
       builder: (context) {
         return Padding(
           padding:
-          EdgeInsetsDirectional.symmetric(horizontal: 26.w, vertical: 10.h),
+              EdgeInsetsDirectional.symmetric(horizontal: 26.w, vertical: 10.h),
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.5,
             child: Column(

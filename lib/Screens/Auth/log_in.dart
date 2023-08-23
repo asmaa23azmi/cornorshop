@@ -1,5 +1,6 @@
 import 'package:cornorshop/Fierbase/controllers/user_fb_controller.dart';
 import 'package:cornorshop/Providers/style_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,14 +11,12 @@ import '../../Const/texts.dart';
 import '../../Fierbase/controllers/fb_auth_controller.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Helper/snack_bar_helper.dart';
-import '../../Widgets/My_Widgets/my_phone_text_field.dart';
 import '../../Widgets/My_Widgets/my_rich_text.dart';
 import '../../Widgets/My_Widgets/my_text_field.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Chache/cache_controller.dart';
 import '../../Screens/Auth/create_new_acount.dart';
 import '../../Screens/Auth/reset_password.dart';
-import '../../Screens/Bnb_Screens/main_page.dart';
 import '../../enums.dart';
 import '../../Providers/auth_provider.dart';
 
@@ -198,15 +197,16 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
   }
 
   AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
   StyleProvider get _style => Provider.of<StyleProvider>(context, listen: false);
 
   Future<void> _login() async {
     setState(() => loading = true);
     try {
-      var userCredential = await FbAuthController().login(
+      var userCredential = await FbAuthController().login(context,
           email: emailController.text, password: passwordController.text);
 
-      if (userCredential == null) throw Exception('Auth Failed / email already exist');
+      if (userCredential == null) throw Exception('Auth Failed');
 
       ///UserModel from FireStore
       var userModel =
@@ -227,8 +227,8 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
         // _style.index = 0;
         print(_auth.user?.email);
       }
-    } catch (e) {
-      showMySnackBar(context, text: e.toString());
+    } catch (error) {
+      print(error.toString());
     }
     setState(() => loading = false);
   }
@@ -239,13 +239,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterEmail, error: true);
       return false;
-    } else if (!RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(emailController.text)) {
-      showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterEmailFormat, error: true);
-      return false;
-    } else if (passwordController.text.isEmpty) {
+    }  else if (passwordController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterPassword, error: true);
       return false;

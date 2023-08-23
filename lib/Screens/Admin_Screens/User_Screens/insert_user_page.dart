@@ -1,6 +1,12 @@
 import 'dart:io';
-import 'package:cornorshop/Widgets/My_Widgets/my_dropdown_search.dart';
-import 'package:cornorshop/enums.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cornorshop/Fierbase/controllers/user_fb_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+import '../../../Fierbase/controllers/fb_auth_controller.dart';
+import '../../../Fierbase/controllers/fb_storage_controller.dart';
+import '../../../Helper/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +14,8 @@ import 'package:intl_phone_field/countries.dart';
 
 import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
+import '../../../Models/fb/img_model.dart';
+import '../../../Models/fb/user_model.dart';
 import '../../../Widgets/My_Widgets/my_button.dart';
 import '../../../Widgets/My_Widgets/my_phone_text_field.dart';
 import '../../../Widgets/My_Widgets/my_rich_text.dart';
@@ -16,14 +24,16 @@ import '../../../Helper/snack_bar_helper.dart';
 import '../../../Helper/img_picker_helper.dart';
 
 class InsertUserPage extends StatefulWidget {
-  const InsertUserPage({super.key});
+  final UserModel? user;
+
+  const InsertUserPage({this.user, super.key});
 
   @override
   State<InsertUserPage> createState() => _InsertUserPageState();
 }
 
 class _InsertUserPageState extends State<InsertUserPage>
-    with SnackBarHelper, ImgPickerHelper {
+    with SnackBarHelper, ImgPickerHelper, ImgHelper {
   late TextEditingController nameController;
   late TextEditingController phoneNumController;
   late TextEditingController emailController;
@@ -36,11 +46,13 @@ class _InsertUserPageState extends State<InsertUserPage>
 
   @override
   void initState() {
-    nameController = TextEditingController();
-    phoneNumController = TextEditingController();
-    emailController = TextEditingController();
-    addressController = TextEditingController();
-    passwordController = TextEditingController();
+    nameController = TextEditingController(text: widget.user?.name ?? '');
+    phoneNumController =
+        TextEditingController(text: widget.user?.phoneNum ?? '');
+    emailController = TextEditingController(text: widget.user?.email ?? '');
+    addressController = TextEditingController(text: widget.user?.address ?? '');
+    passwordController =
+        TextEditingController(text: widget.user?.password ?? '');
     super.initState();
   }
 
@@ -61,7 +73,9 @@ class _InsertUserPageState extends State<InsertUserPage>
         elevation: 0.4,
         backgroundColor: whiteColor,
         title: Text(
-          AppLocalizations.of(context)!.addUser,
+          widget.user == null
+              ? AppLocalizations.of(context)!.addUser
+              : AppLocalizations.of(context)!.editUser,
           style: textAppBarStyle,
         ),
         centerTitle: true,
@@ -95,15 +109,21 @@ class _InsertUserPageState extends State<InsertUserPage>
                       color: Colors.grey.shade200,
                       shape: BoxShape.circle,
                     ),
-                    child: profileImg == null
-                        ? Icon(
-                            Icons.person,
-                            size: 70.h,
-                            color: Colors.grey.shade300,
-                          )
-                        : Image.file(
+                    child: profileImg != null
+                        ? Image.file(
+                            ///pickImg
                             profileImg!,
                             fit: BoxFit.cover,
+                          )
+                        : appCacheImg(
+                            ///previous Img
+                            widget.user?.profileImg?.link ?? '',
+                            Icon(
+                              ///No Img
+                              Icons.person,
+                              size: 70.h,
+                              color: Colors.grey.shade300,
+                            ),
                           ),
                   ),
                   InkWell(
@@ -135,11 +155,13 @@ class _InsertUserPageState extends State<InsertUserPage>
               textFieldBorderColor: blackObacityColor,
             ),
             SizedBox(height: 12.h),
+
             ///UserType
             MyRichText(text: AppLocalizations.of(context)!.userType),
             SizedBox(height: 3.0.h),
-              //ToDo: create a userType
+            //ToDo: create a userType
             SizedBox(height: 12.h),
+
             ///Phone Num
             MyRichText(text: AppLocalizations.of(context)!.phoneNum),
             SizedBox(height: 3.0.h),
@@ -157,12 +179,20 @@ class _InsertUserPageState extends State<InsertUserPage>
             ///Email
             MyRichText(text: AppLocalizations.of(context)!.email),
             SizedBox(height: 3.0.h),
-            MyTextField(
-              controller: emailController,
-              hintText: AppLocalizations.of(context)!.enterEmail,
-              inputType: TextInputType.emailAddress,
-              textFieldBorderColor: blackObacityColor,
-            ),
+            widget.user == null
+                ? MyTextField(
+                    controller: emailController,
+                    hintText: AppLocalizations.of(context)!.enterEmail,
+                    inputType: TextInputType.emailAddress,
+                    textFieldBorderColor: blackObacityColor,
+                  )
+                : MyTextField(
+                    controller: emailController,
+                    hintText: AppLocalizations.of(context)!.enterEmail,
+                    inputType: TextInputType.emailAddress,
+                    textFieldBorderColor: blackObacityColor,
+                    isEnabled: false,
+                  ),
             SizedBox(height: 12.h),
 
             ///Address
@@ -246,12 +276,15 @@ class _InsertUserPageState extends State<InsertUserPage>
 
             ///Confirm Action
             MyButton(
-              text: AppLocalizations.of(context)!.addUser,
+              text: widget.user == null
+                  ? AppLocalizations.of(context)!.addUser
+                  : AppLocalizations.of(context)!.editUser,
               buttonColor: greenColor,
               onTap: () async {
                 await _performInsert();
                 setState(() {});
               },
+              loading: loading,
             ),
             SizedBox(height: 20.h),
 
@@ -271,6 +304,8 @@ class _InsertUserPageState extends State<InsertUserPage>
   }
 
   ///Functions
+  bool loading = false;
+  var status = false;
 
   Future<void> _performInsert() async {
     ///before create account
@@ -279,7 +314,85 @@ class _InsertUserPageState extends State<InsertUserPage>
     }
   }
 
-  Future<void> _insert() async {}
+  Future<void> _insert() async {
+    setState(() => loading = true);
+    try {
+      ///Storage
+      ImgModel? imgModel;
+      if (profileImg != null) {
+        if (widget.user?.profileImg != null) {
+          ///delete a previous img
+          await FbStorageController()
+              .deleteFile(widget.user?.profileImg?.path ?? '');
+        }
+        imgModel = await FbStorageController().uploadFileToStorage(profileImg,
+            folderName: 'usersProfileImg/${widget.user?.id}');
+      }
+
+      ///FireStore
+      widget.user == null
+          ? _createUser()
+          : status = await UserFbController().updateUser(UserModel(
+              id: widget.user?.id,
+              name: nameController.text,
+              phoneNum: phoneNumController.text,
+              email: emailController.text,
+              address: addressController.text,
+              profileImg:
+                  profileImg != null ? imgModel : widget.user?.profileImg,
+              password: widget.user?.password,
+              sex: widget.user?.sex,
+              userType: widget.user?.userType,
+              fcm: widget.user?.fcm,
+              description: null,
+              timestamp: Timestamp.now(),
+            ));
+
+      if (status) {
+        if (context.mounted) {
+          showMySnackBar(context,
+              text: widget.user == null
+                  ? AppLocalizations.of(context)!.successfulUserAdded
+                  : AppLocalizations.of(context)!.successfulUserEdited);
+          Navigator.pop(context);
+        }
+      }
+    } catch (e) {
+      showMySnackBar(context, text: e.toString());
+    }
+    setState(() => loading = false);
+  }
+
+  Future<void> _createUser() async {
+    try {
+      ///Auth
+      var userCredential = await FbAuthController().register(
+          context,email: emailController.text, password: passwordController.text);
+      if (userCredential == null) throw Exception('Auth Failed');
+
+      ///FCM token
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      if (fcmToken == null) throw Exception('FCM Failed');
+
+      ///FireStore
+      status = await UserFbController().createUser(UserModel(
+        id: userCredential.user!.uid,
+        name: nameController.text,
+        phoneNum: phoneNumController.text,
+        email: emailController.text,
+        address: addressController.text,
+        password: passwordController.text,
+        sex: radioValue,
+        //userType: selectedUserType.name,
+        profileImg: null,
+        description: null,
+        fcm: fcmToken,
+        timestamp: Timestamp.now(),
+      ));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   bool checkData() {
     ///to check text field

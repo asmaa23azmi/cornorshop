@@ -1,10 +1,8 @@
 import '../../Helper/image_helper.dart';
-
 import '../../Fierbase/controllers/categories_fb_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
@@ -45,10 +43,9 @@ class _CategoryPageState extends State<CategoryPage>
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const SizedBox();
-                  } else if (snapshot.hasData &&
-                      snapshot.data!.docs.isNotEmpty) {
+                  } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                     List<CategoryModel> categoryItems =
-                        snapshot.data!.docs.map((e) => e.data()!).toList();
+                        snapshot.data!.docs.map((e) => e.data()).toList();
                     return ListView.separated(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -59,7 +56,7 @@ class _CategoryPageState extends State<CategoryPage>
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () {
-                            jump(context, to: const CategoryItemScreen());
+                            jump(context, to:  CategoryItemScreen(category: categoryItems[index]));
                           },
                           child: Row(
                             children: [
@@ -74,7 +71,7 @@ class _CategoryPageState extends State<CategoryPage>
                                       border: Border.all(
                                           color: greenColor, width: 1.w)),
                                   child: appCacheImg(
-                                    categoryItems[index].img!.link!,
+                                    categoryItems[index].img?.link  ?? '',
                                     Container(
                                       width: 70.h,
                                       height: 70.h,
@@ -118,7 +115,18 @@ class _CategoryPageState extends State<CategoryPage>
                       },
                     );
                   } else {
-                    return const SizedBox();
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 240.h),
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.theresNoCategoriesYet,
+                          style: TextStyle(
+                              fontSize: 14.0.sp,
+                              fontWeight: FontWeight.normal,
+                              color: blackObacityColor),
+                        ),
+                      ),
+                    );
                   }
                 },
               )),

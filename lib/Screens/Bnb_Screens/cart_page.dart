@@ -24,18 +24,16 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
       name: 'كيكة الكريمة',
       price: 25.0,
       img: ['cake'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
+      categoryType: null,
+      quantity: 1, userModel: null,
     ),
     ProductModel(
       id: '2',
       name: 'مسخن رول _ عدد 1 ',
       price: 2.0,
       img: ['food'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
+
+      quantity: 1, userModel: null, categoryType: null,
     ),
   ];
 
@@ -130,7 +128,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                           width: 3.w,
                                         ),
                                         Text(
-                                          '${product[index].vendorName}',
+                                          '${product[index].userModel?.name}',
                                           style: TextStyle(
                                             fontSize: 10.sp,
                                             fontWeight: FontWeight.normal,

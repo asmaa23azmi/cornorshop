@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 mixin NavigatorHelper {
-  void jump(
+  Future<dynamic> jump(
     BuildContext context, {
     required Widget to,
     bool replace = false,
-  }) {
+  }) async {
     if (replace) {
-      Navigator.pushReplacement(
+      return await Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => to,
           ));
     } else {
-      Navigator.push(
+      return await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => to,

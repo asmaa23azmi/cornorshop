@@ -278,8 +278,10 @@ class _ManageUsersPageState extends State<ManageUsersPage>
                                 InkWell(
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
-                                  onTap: () =>
-                                      jump(context, to: const InsertUserPage()),
+                                  onTap: () => jump(context,
+                                      to: InsertUserPage(
+                                        user: users[index],
+                                      )),
                                   child: const Icon(
                                     Icons.edit,
                                     color: greyColor,
@@ -334,8 +336,11 @@ class _ManageUsersPageState extends State<ManageUsersPage>
 
                                                 ///Delete Product Action
                                                 MyButton(
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     Navigator.pop(context);
+                                                    await UserFbController()
+                                                        .deleteUser(
+                                                            users[index]);
                                                   },
                                                   text: AppLocalizations.of(
                                                           context)!

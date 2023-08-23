@@ -46,17 +46,17 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection>
                           color: darkBlue,
                           fontSize: 14.sp),
                     ),
-                    InkWell(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () {
-                        jump(context, to: const CategoryPage());
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.showAll,
-                        style: textStyle,
-                      ),
-                    )
+                    // InkWell(
+                    //   splashColor: Colors.transparent,
+                    //   highlightColor: Colors.transparent,
+                    //   onTap: () {
+                    //     jump(context, to: const CategoryPage());
+                    //   },
+                    //   child: Text(
+                    //     AppLocalizations.of(context)!.showAll,
+                    //     style: textStyle,
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -76,7 +76,7 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection>
                           highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
                           onTap: () {
-                            jump(context, to: const CategoryItemScreen());
+                            jump(context, to:  CategoryItemScreen(category: categoryItems[index]));
                           },
                           child: Container(
                             width: 70.h,
@@ -87,7 +87,7 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection>
                               color: Colors.grey.shade200,
                             ),
                             child: appCacheImg(
-                              categoryItems[index].img!.link!,
+                              categoryItems[index].img?.link ?? '',
                               Container(
                                 width: 70.h,
                                 height: 100.h,

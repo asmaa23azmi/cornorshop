@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cornorshop/Models/fb/img_model.dart';
+import '../../../Helper/image_helper.dart';
+import '../../../Models/fb/img_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class InsertCategoryPage extends StatefulWidget {
 }
 
 class _InsertCategoryPageState extends State<InsertCategoryPage>
-    with SnackBarHelper, ImgPickerHelper, ConverterHelper {
+    with SnackBarHelper, ImgPickerHelper, ConverterHelper , ImgHelper{
   late TextEditingController titleController;
 
   @override
@@ -110,27 +111,19 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200, shape: BoxShape.circle),
-                child: !categoryImgLoading ? categoryImg != null
+                child: !categoryImgLoading
+                    ? categoryImg != null
+                ///pickImg
                     ? Image.file(categoryImg!, fit: BoxFit.cover)
-                    : Icon(
-                        Icons.file_upload,
-                        color: greyColor,
-                        size: 43.h,
-                      ) :const Center(child: CircularProgressIndicator(),),
-                // child: categoryImg == null
-                //     ? Icon(
-                //         Icons.file_upload,
-                //         color: greyColor,
-                //         size: 34.w,
-                //       )
-                //     : categoryImgLoading
-                //         ? Image.file(
-                //             categoryImg!,
-                //             fit: BoxFit.cover,
-                //           )
-                //         : const Center(
-                //             child: CircularProgressIndicator(),
-                //           ),
+                    : appCacheImg(
+                  ///previous Img
+                    widget.categoryModel?.img?.link ?? '',
+                    Icon(
+                      ///No Img
+                      Icons.person,
+                      size: 43.h,
+                      color: Colors.grey.shade300,
+                    ),):const Center(child: CircularProgressIndicator(),),
               ),
             ),
             SizedBox(height: 3.h),
@@ -210,7 +203,7 @@ class _InsertCategoryPageState extends State<InsertCategoryPage>
           ))
         : await CategoriesFbController().updateCategory(CategoryModel(
             id: widget.categoryModel!.id,
-            img: null,
+            img: categoryImg != null ? imgModel : widget.categoryModel?.img,
             title: titleController.text,
             timestamp: Timestamp.now(),
           ));

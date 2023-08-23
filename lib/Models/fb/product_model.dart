@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cornorshop/Models/fb/category_model.dart';
 import 'package:cornorshop/Models/fb/img_model.dart';
+import 'package:cornorshop/Models/fb/user_model.dart';
 
 class ProductModel {
   String? id;
@@ -9,7 +11,7 @@ class ProductModel {
   late int quantity;
   String? categoryType;
   List<dynamic>? img;
-  String? vendorName;
+  UserModel? userModel;
   Timestamp? timestamp;
 
   ProductModel({
@@ -19,37 +21,34 @@ class ProductModel {
     required this.price,
     this.quantity = 1,
     required this.img,
-    required this.categoryType,
-    required this.vendorName,
+    this.categoryType,
+    required this.userModel,
     this.timestamp,
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    id = json['productId'];
-    name = json['productName'];
-    description = json['productDescription'];
-    price = json['productPrice'];
-    quantity = json['productQuantity'];
-    categoryType = json['productCategoryType'];
-    img = (json['productImg'])
-        .map((e) => ImgModel.fromJson(e))
-        .toList();
-    vendorName = json['vendorName'];
+    id = json['id'];
+    name = json['name'];
+    description = json['description'];
+    price = json['price'];
+    quantity = json['quantity'];
+    categoryType = json['categoryType'];
+    img = (json['img']).map((e) => ImgModel.fromJson(e)).toList();
     timestamp = json['timestamp'];
+    userModel = json['userModel'] != null ? UserModel.fromJson(json['userModel']) : null;
   }
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['productId'] = id;
-    json['productName'] = name;
-    json['productDescription'] = description;
-    json['productPrice'] = price;
-    json['productQuantity'] = quantity;
-    json['productCategoryType'] = categoryType;
-    json['productImg'] = img!.map((e) => e.toJson()).toList();
-    json['vendorName'] = vendorName;
+    json['id'] = id;
+    json['name'] = name;
+    json['description'] = description;
+    json['price'] = price;
+    json['quantity'] = quantity;
+    json['categoryType'] = categoryType;
+    json['img'] = img!.map((e) => e.toJson()).toList();
     json['timestamp'] = timestamp;
-
+    json['userModel'] = userModel != null ? userModel!.toJson() : null;
     return json;
   }
 }

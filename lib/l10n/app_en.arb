@@ -183,6 +183,21 @@
       "successfulProductAdded": "Product added successfully",
        "theresNoProductsYet": "There are no products yet",
        "successfulProductEdited": "Product modified successfully",
-       "theresNoUsersYet": "There are no users yet"
+       "theresNoUsersYet": "There are no users yet",
+       "successfulUserAdded":"User added successfully",
+       "successfulUserEdited":"User information modified successfully",
+       "invalidEmail": "Invalid email address.",
+       "wrongPassword": "Password entered incorrect" ,
+       "userNotFound":"Sorry, the user you entered has not been found",
+       "userDisabled":"Sorry, the account you entered has been disabled" ,
+       "errorMsg":"An error occurred while processing your request, please try again later.",
+       "emailUsed": "Email address is already in use.",
+       "weakPassword":"Weak password. Please choose a stronger one.",
+       "noProductInCategory": "Sorry, there are no products in this category but may be coming soon.",
+       "users": "Users",
+       "categories": "Categories",
+       "products":"Products",
+       "orders": "Orders"
+
 
 }

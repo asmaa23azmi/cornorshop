@@ -27,63 +27,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with NavigatorHelper {
 
 
-  List<ProductModel> product = [
-    ProductModel(
-      id: '1',
-      name: 'كيكة الكريمة',
-      price: 25.0,
-      img: ['cake'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '2',
-      name: 'مسخن رول _ عدد 1 ',
-      price: 2.0,
-      img: ['food'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '3',
-      name: 'قميص شتوي ',
-      price: 70.0,
-      img: ['shirt'],
-      categoryType: 'ملابس',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '1',
-      name: 'كيكة الكريمة',
-      price: 25.0,
-      img: ['cake'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '2',
-      name: 'مسخن رول _ عدد 1 ',
-      price: 2.0,
-      img: ['food'],
-      categoryType: 'طعام وحلويات منزلية',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-    ProductModel(
-      id: '3',
-      name: 'قميص شتوي ',
-      price: 70.0,
-      img: ['shirt'],
-      categoryType: 'ملابس',
-      vendorName: 'اسم المتجر',
-      quantity: 1,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,7 +69,7 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
                   ),
                 ),
                 SizedBox(
-                  width: 16.w,
+                  width: 16.w
                 ),
                 InkWell(
                   highlightColor: Colors.transparent,
@@ -153,25 +96,25 @@ class _HomePageState extends State<HomePage> with NavigatorHelper {
           padding:
               EdgeInsetsDirectional.symmetric(horizontal: 0.w, vertical: 10.h),
           physics: const BouncingScrollPhysics(),
-          child: Column(
+          child: const Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ///Ads
-             const SliderSection(),
+             SliderSection(),
 
               ///Category Section
-              const CategoryHomeSection(),
+              CategoryHomeSection(),
 
               ///Stores Section
-              const StoreHomeSection(),
+              StoreHomeSection(),
 
               ///Recommend Products
-              RecommendProductHomeSection(product: product),
+              RecommendProductHomeSection(),
 
 
               ///Products List
-              const ProductListHomeSection(),
+              ProductListHomeSection(),
             ],
           ),
         ),

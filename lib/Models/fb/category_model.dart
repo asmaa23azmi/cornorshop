@@ -16,18 +16,18 @@ class CategoryModel {
 
   ///from json to model
   CategoryModel.fromJson(Map<String, dynamic> json) {
-    id = json['categoryId'];
-    img = json['categoryImg'] != null ?ImgModel.fromJson(json['categoryImg']) : null;
-    title = json['categoryTitle'];
+    id = json['id'];
+    img = json['img'] != null ?ImgModel.fromJson(json['img']) : null;
+    title = json['title'];
     timestamp = json['timestamp'];
   }
 
   ///from model to json
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['categoryId'] = id;
-    json['categoryImg'] =img != null ?  img!.toJson() : null;
-    json['categoryTitle'] = title;
+    json['id'] = id;
+    json['img'] =img != null ?  img!.toJson() : null;
+    json['title'] = title;
     json['timestamp'] = timestamp;
     return json;
   }
