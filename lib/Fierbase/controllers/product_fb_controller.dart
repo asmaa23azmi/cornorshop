@@ -84,17 +84,7 @@ class ProductFbController {
         .orderBy('timestamp', descending: true)
         .snapshots();
   }
-
-  Future<List<ProductModel>?> searchProducts(String searchTerm) async{
-    final QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('products')
-        .where('name', isGreaterThanOrEqualTo: searchTerm)
-        .get();
-
-    return snapshot.docs.map((doc) {
-      return ProductModel(id: doc.id, name: doc['name'], price: null, img: doc['img'], userModel: null);
-    }).toList();
-  }
+  
 
   Future<bool> updateProduct(ProductModel product) async {
     await _firestore
