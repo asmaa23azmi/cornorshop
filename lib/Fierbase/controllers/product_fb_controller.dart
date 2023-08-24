@@ -86,17 +86,14 @@ class ProductFbController {
   }
 
   Future<List<ProductModel>?> searchProducts(String searchTerm) async{
-    var data = await _firestore
-        .collection(_collection)
-        .where('name', isEqualTo: searchTerm)
+    final QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('products')
+        .where('name', isGreaterThanOrEqualTo: searchTerm)
         .get();
 
-    List<ProductModel> products =
-    data.docs.map((e) => ProductModel.fromJson(e.data())).toList();
-
-    if (products.isNotEmpty) return products;
-
-    return null;
+    return snapshot.docs.map((doc) {
+      return ProductModel(id: doc.id, name: doc['name'], price: null, img: doc['img'], userModel: null);
+    }).toList();
   }
 
   Future<bool> updateProduct(ProductModel product) async {
