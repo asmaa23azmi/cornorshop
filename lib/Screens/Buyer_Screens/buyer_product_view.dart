@@ -1,5 +1,7 @@
 import 'package:cornorshop/Fierbase/controllers/cart_fb_controller.dart';
+import 'package:cornorshop/Fierbase/controllers/favorite_fb_controller.dart';
 import 'package:cornorshop/Models/fb/cart_model.dart';
+import 'package:cornorshop/Models/fb/favorit_model.dart';
 import 'package:cornorshop/enums.dart';
 import 'package:uuid/uuid.dart';
 
@@ -151,7 +153,7 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
-                                      onTap: () {},
+                                      onTap: () async => _addToFavorite,
                                       child: Container(
                                         height: 38.h,
                                         width: 38.h,
@@ -292,7 +294,7 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
   }
 
   AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
-
+  ///Add To Cart
   Future<void> get _addToCart async {
     !_auth.loggedIn
         ? showMySnackBar(context,
@@ -302,7 +304,6 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
             : showMySnackBar(context,
                 text: AppLocalizations.of(context)!.pleaseLoginAsBuyer, error: true);
   }
-
   Future<void> get _confirm async{
     var status = await CartFbController().addToCart(
         CartModel(
@@ -316,4 +317,27 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
       }
     }
   }
+  ///Add To Favorite
+  Future<void> get _addToFavorite async {
+    !_auth.loggedIn
+        ? showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginToAddFav, error: true)
+        : _auth.user?.userType == UserType.buyer.name
+        ? await _confirmFavorite
+        : showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginAsBuyerFav, error: true);
+  }
+  Future<void> get _confirmFavorite async{
+    var status = await FavoriteFbController().addToFavorite(
+        FavoriteModel(id: const Uuid().v4(),
+            product: widget.product,
+            buyerId: _auth.user?.id));
+
+    if (status) {
+      if (context.mounted) {
+        showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
+      }
+    }
+  }
+
 }

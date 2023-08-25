@@ -86,53 +86,6 @@ class ProductFbController {
         .snapshots();
   }
 
-  Future<void> addToFavorites(ProductModel product) async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final User? user = _auth.currentUser;
-
-    if (user != null) {
-      final CollectionReference favoritesCollection =
-          _firestore.collection('users').doc(user.uid).collection('favorites');
-
-      await favoritesCollection.add({
-        'id': product.id,
-        'name': product.name,
-        'img': product.img?[0].link,
-        'categoryType': product.categoryType,
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-    }
-  }
-
-  Stream<List<ProductModel>> getFavoriteProductsStream() {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final User? user = _auth.currentUser;
-
-    if (user != null) {
-      final CollectionReference favoritesCollection = FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .collection('favorites');
-
-      return favoritesCollection
-          .orderBy('timestamp', descending: true)
-          .snapshots()
-          .map((querySnapshot) {
-        return querySnapshot.docs.map((doc) {
-          return ProductModel(
-            id: doc['id'],
-            name: doc['name'],
-            price: doc['price'],
-            userModel: doc['userModel'],
-            img: doc['img[0].link'],
-          );
-        }).toList();
-      });
-    } else {
-      return Stream.value([]);
-    }
-  }
-
   Future<bool> updateProduct(ProductModel product) async {
     await _firestore
         .collection(_collection)

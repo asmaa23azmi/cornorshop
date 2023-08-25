@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../Models/fb/product_model.dart';
 
-class CartModel{
+class FavoriteModel{
   String? id;
   String? buyerId;
   ProductModel? product;
   Timestamp? timestamp;
 
-  CartModel({
+  FavoriteModel({
    required this.id,
    required this.product,
     required this.buyerId,
     this.timestamp,
   });
 
-  CartModel.fromJson(Map<String, dynamic> json){
+  FavoriteModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     product = json['product'] != null ? ProductModel.fromJson(json['product']) : null;
     buyerId = json['buyerId'];

@@ -198,7 +198,7 @@
        "categories": "Categories",
        "products":"Products",
        "orders": "Orders",
-       "noFavoriteYet": "There aren't any products in your favorites yet, add some products that you like.",
+       "noFavoriteYet": "There are no products currently, you can go back to the home and browse some products and add them to the favorite.",
        "checkOut":"Proceed to checkout",
        "yes" :"Yes",
        "no": "No",
@@ -206,7 +206,10 @@
        "logInToShowCart": "There are no products currently, please log in to see the marketing basket items.",
        "noProductInCart": "There are no products currently, you can go back to the home and browse some products and add them to the basket",
        "pleaseLoginToAdd": "Please log in to be able to add products to the marketing basket.",
-       "pleaseLoginAsBuyer": "Please log in as a buyer to be able to add products to the marketing basket."
+       "pleaseLoginAsBuyer": "Please log in as a buyer to be able to add products to the marketing basket.",
+       "pleaseLoginToAddFav":"Please log in to be able to add products to the favorite.",
+       "pleaseLoginAsBuyerFav":"Please log in as a buyer to be able to add products to the favorite.",
+       "logInToShowFavorite": "There are no products currently, please log in to see the favorite items."
 
 
 }
