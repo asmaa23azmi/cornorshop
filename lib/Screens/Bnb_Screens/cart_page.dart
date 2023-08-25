@@ -57,7 +57,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                         stream:
                             CartFbController().readFromCart(_auth.user!.id!),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return Center(
                                 child: Padding(
                               padding: EdgeInsetsDirectional.symmetric(
@@ -81,8 +82,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                         return Stack(
                                           children: [
                                             Container(
-                                              padding:
-                                                  EdgeInsetsDirectional.symmetric(
+                                              padding: EdgeInsetsDirectional
+                                                  .symmetric(
                                                       horizontal: 6.w,
                                                       vertical: 6.h),
                                               decoration: BoxDecoration(
@@ -90,7 +91,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                     BorderRadiusDirectional
                                                         .circular(14.r),
                                                 border: Border.all(
-                                                    color: greyColor, width: 1.w),
+                                                    color: greyColor,
+                                                    width: 1.w),
                                               ),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
@@ -99,9 +101,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                   Container(
                                                     width: 90.w,
                                                     height: 90.w,
-                                                    clipBehavior: Clip.antiAlias,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
                                                     decoration: BoxDecoration(
-                                                      color: Colors.grey.shade200,
+                                                      color:
+                                                          Colors.grey.shade200,
                                                       borderRadius:
                                                           BorderRadiusDirectional
                                                               .circular(14.r),
@@ -119,7 +123,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                   SizedBox(width: 6.w),
                                                   Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       ///Product Nmae
                                                       Text(
@@ -143,7 +148,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                             style: TextStyle(
                                                               fontSize: 12.sp,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                               color: darkBlue,
                                                             ),
                                                           ),
@@ -180,53 +186,15 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
 
                                                             ///Determine Quantity
                                                             Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              mainAxisSize: MainAxisSize.min,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
                                                               children: [
                                                                 InkWell(
-                                                                  onTap: () =>
-                                                                    setState(() => cartModel[index].product!.quantity++),
-                                                                  highlightColor: Colors.transparent,
-                                                                  splashColor: Colors.transparent,
-                                                                  child:
-                                                                      Container(
-                                                                    height: 32.h,
-                                                                    width: 32.h,
-                                                                    padding: EdgeInsetsDirectional.symmetric(horizontal: 4.w),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      border: Border.all(
-                                                                          color: greyColor,
-                                                                          width: 0.3.w),
-                                                                      borderRadius:
-                                                                          BorderRadiusDirectional.circular(4.r),
-                                                                    ),
-                                                                    child: Center(
-                                                                      child: Icon(Icons.add,
-                                                                        color: darkBlue,
-                                                                        size: 22.h,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    width: 8.w),
-                                                                Text(cartModel[index].product!.quantity.toString(),
-                                                                  style:
-                                                                      textStyle,
-                                                                ),
-                                                                SizedBox(width: 8.w),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                  setState(() {
-                                                                   if (cartModel[index].product!.quantity > 1) {
-                                                                     cartModel[index].product?.quantity--;
-                                                                    } else {
-                                                                     null;
-                                                                           }
-                                                                      },
-                                                                    );
-                                                                  },
+                                                                  onTap: () => setState(() => cartModel[index].product?.quantity++),
                                                                   highlightColor: Colors.transparent,
                                                                   splashColor: Colors.transparent,
                                                                   child: Container(
@@ -240,9 +208,51 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                                       borderRadius: BorderRadiusDirectional.circular(4.r),
                                                                     ),
                                                                     child: Center(
+                                                                      child: Icon(Icons.add,
+                                                                        color:
+                                                                        darkBlue,
+                                                                        size: 22.h,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(width: 8.w),
+                                                                Text(
+                                                                  cartModel[index].product!.quantity.toString(),
+                                                                  style: textStyle,
+                                                                ),
+                                                                SizedBox(
+                                                                    width: 8.w),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    setState(() {
+                                                                        if (cartModel[index].product!.quantity > 1) {
+                                                                          cartModel[index].product?.quantity--;
+
+                                                                        } else {
+                                                                          null;
+                                                                        }
+                                                                      },
+                                                                    );
+                                                                  },
+                                                                  highlightColor: Colors.transparent,
+                                                                  splashColor: Colors.transparent,
+                                                                  child: Container(
+                                                                    height: 32.h,
+                                                                    width: 32.h,
+                                                                    padding: EdgeInsetsDirectional.symmetric(horizontal: 4.w),
+                                                                    decoration: BoxDecoration(
+                                                                      border: Border.all(
+                                                                          color: greyColor,
+                                                                          width: 0.3.w),
+                                                                      borderRadius:
+                                                                          BorderRadiusDirectional.circular(4.r),
+                                                                    ),
+                                                                    child:
+                                                                        Center(
                                                                       child: Icon(
                                                                         Icons.remove,
-                                                                        color:blackObacityColor,
+                                                                        color: blackObacityColor,
                                                                         size: 22.h,
                                                                       ),
                                                                     ),
@@ -271,7 +281,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                                     CartFbController()
                                                         .deleteFromCart(
                                                             cartModel[index]),
-                                                child:  Icon(
+                                                child: Icon(
                                                   Icons.delete_rounded,
                                                   color: blackObacityColor,
                                                   // size: 26.h,
@@ -286,13 +296,13 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                     ),
                                   ),
                                   SizedBox(height: 25.h),
+
                                   ///check out
                                   Container(
                                     //height: 44.h,
                                     width: double.infinity,
-                                    padding:
-                                        EdgeInsetsDirectional.symmetric(
-                                            horizontal: 10.w),
+                                    padding: EdgeInsetsDirectional.symmetric(
+                                        horizontal: 10.w),
                                     decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadiusDirectional.circular(
@@ -325,8 +335,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               AppLocalizations.of(context)!
@@ -350,21 +359,20 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                                   ),
                                   SizedBox(height: 12.h),
                                   MyButton(
-                                    text: AppLocalizations.of(context)!
-                                        .checkOut,
+                                    text:
+                                        AppLocalizations.of(context)!.checkOut,
                                     onTap: () {
                                       jump(context,
                                           to: const BillDetailScreen());
                                     },
                                     buttonColor: greenColor,
                                   ),
-
                                 ],
                               ),
                             );
                           } else {
                             return Padding(
-                              padding: EdgeInsets.symmetric(vertical: 150.h),
+                              padding: EdgeInsets.symmetric(vertical: 220.h),
                               child: Center(
                                 child: Text(
                                   AppLocalizations.of(context)!.noProductInCart,
@@ -379,14 +387,17 @@ class _ShoppingCartPageState extends State<ShoppingCartPage>
                           }
                         },
                       )
-                    : Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.logInToShowCart,
-                          style: TextStyle(
-                              fontSize: 14.0.sp,
-                              fontWeight: FontWeight.normal,
-                              color: blackObacityColor),
-                          textAlign: TextAlign.center,
+                    : Padding(
+                        padding: EdgeInsets.symmetric(vertical: 220.h),
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context)!.logInToShowCart,
+                            style: TextStyle(
+                                fontSize: 14.0.sp,
+                                fontWeight: FontWeight.normal,
+                                color: blackObacityColor),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
               ],

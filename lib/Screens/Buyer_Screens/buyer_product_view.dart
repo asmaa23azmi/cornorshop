@@ -298,12 +298,22 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
         ? showMySnackBar(context,
             text: AppLocalizations.of(context)!.pleaseLoginToAdd, error: true)
         : _auth.user?.userType == UserType.buyer.name
-            ? await CartFbController().addToCart(
-                CartModel(
-                    id: const Uuid().v4(),
-                    product: widget.product,
-                  buyerId: _auth.user?.id))
+            ? await _confirm
             : showMySnackBar(context,
                 text: AppLocalizations.of(context)!.pleaseLoginAsBuyer, error: true);
+  }
+
+  Future<void> get _confirm async{
+    var status = await CartFbController().addToCart(
+        CartModel(
+            id: const Uuid().v4(),
+            product: widget.product,
+            buyerId: _auth.user?.id));
+
+    if (status) {
+      if (context.mounted) {
+        showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
+      }
+    }
   }
 }

@@ -217,12 +217,23 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
         ? showMySnackBar(context,
             text: AppLocalizations.of(context)!.pleaseLoginToAdd, error: true)
         : _auth.user?.userType == UserType.buyer.name
-            ? await CartFbController().addToCart(CartModel(
-                id: const Uuid().v4(),
-                product: product,
-                buyerId: _auth.user?.id))
+            ? await _confirm(product)
             : showMySnackBar(context,
                 text: AppLocalizations.of(context)!.pleaseLoginAsBuyer,
                 error: true);
+  }
+
+  Future<void>  _confirm(ProductModel product) async{
+    var status = await CartFbController().addToCart(
+        CartModel(
+            id: const Uuid().v4(),
+            product: product,
+            buyerId: _auth.user?.id));
+
+    if (status) {
+      if (context.mounted) {
+        showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
+      }
+    }
   }
 }

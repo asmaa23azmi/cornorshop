@@ -299,7 +299,6 @@ class _InsertProductPageState extends State<InsertProductPage>
   Future<void> _confirm() async {
     String uuid = const Uuid().v4();
     setState(() => loading = true);
-
     List<ImgModel> images = [];
     for (var img in productImg) {
       ImgModel? imgModel = await FbStorageController()

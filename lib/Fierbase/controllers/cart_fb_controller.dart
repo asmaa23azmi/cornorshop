@@ -6,11 +6,13 @@ class CartFbController{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static const String _collection = "carts";
 
-  Future<void> addToCart(CartModel cartModel) async {
+  Future<bool> addToCart(CartModel cartModel) async {
     await _firestore
         .collection(_collection)
         .doc(cartModel.id)
-        .set(cartModel.toJson());
+        .set(cartModel.toJson()).then((value) => true)
+        .catchError((exception) => false);
+    return true;
   }
 
   Stream<QuerySnapshot<CartModel>> readFromCart(String buyerId) async* {

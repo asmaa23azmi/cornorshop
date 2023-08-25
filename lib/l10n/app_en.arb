@@ -204,7 +204,7 @@
        "no": "No",
        "closeApp": "Are you sure you want to exit?",
        "logInToShowCart": "There are no products currently, please log in to see the marketing basket items.",
-       "noProductInCart": "There are no products currently, please add some items to the marketing basket",
+       "noProductInCart": "There are no products currently, you can go back to the home and browse some products and add them to the basket",
        "pleaseLoginToAdd": "Please log in to be able to add products to the marketing basket.",
        "pleaseLoginAsBuyer": "Please log in as a buyer to be able to add products to the marketing basket."
 
