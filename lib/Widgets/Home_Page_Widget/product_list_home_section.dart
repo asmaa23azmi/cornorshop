@@ -1,24 +1,32 @@
-import '../../Fierbase/controllers/product_fb_controller.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../Fierbase/controllers/cart_fb_controller.dart';
+import '../../Fierbase/controllers/product_fb_controller.dart';
 import '../../Const/colors.dart';
 import '../../Helper/image_helper.dart';
+import '../../Helper/snack_bar_helper.dart';
+import '../../Models/fb/cart_model.dart';
 import '../../Models/fb/product_model.dart';
+import '../../Providers/auth_provider.dart';
+import '../../enums.dart';
 import '../My_Widgets/my_button.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Screens/Buyer_Screens/buyer_product_view.dart';
 
 
 class ProductListHomeSection extends StatefulWidget {
-  const ProductListHomeSection({super.key});
+  const ProductListHomeSection({
+    super.key});
 
   @override
   State<ProductListHomeSection> createState() => _ProductListHomeSectionState();
 }
 
 class _ProductListHomeSectionState extends State<ProductListHomeSection>
-    with NavigatorHelper, ImgHelper {
+    with NavigatorHelper, ImgHelper, SnackBarHelper {
 
 
   @override
@@ -44,8 +52,6 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
               return const SizedBox();
             } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
               List<ProductModel> product = snapshot.data!.docs.map((e) => e.data()).toList();
-              //Map<String, dynamic> product = _getRandomProduct();
-
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
@@ -180,7 +186,7 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
                                 myWidth: 100,
                                 buttonColor: greenColor,
                                 borderBouttonColor: Colors.transparent,
-                                onTap: () {},
+                                onTap: () async => await _addToCart(product[index]),
                               ),
                               const Spacer(),
                               InkWell(
@@ -209,6 +215,21 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
           },)
       ],
     );
+  }
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
+  Future<void>  _addToCart(ProductModel product) async {
+    !_auth.loggedIn
+        ? showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginToAdd, error: true)
+        : _auth.user?.userType == UserType.buyer.name
+        ? await CartFbController().addToCart(
+        CartModel(
+            id: const Uuid().v4(),
+            product: product,
+            buyerId: _auth.user?.id))
+        : showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginAsBuyer, error: true);
   }
 }
 

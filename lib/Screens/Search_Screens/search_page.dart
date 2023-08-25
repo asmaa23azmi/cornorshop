@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../Helper/image_helper.dart';
 import '../../Fierbase/controllers/product_fb_controller.dart';
 import '../../Models/fb/product_model.dart';
@@ -22,7 +21,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper {
-  late TextEditingController _searchController;
+  late TextEditingController searchController;
   late TextEditingController lowerPriceController;
   late TextEditingController topPriceController;
 
@@ -32,7 +31,7 @@ class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper
 
   @override
   void initState() {
-    _searchController = TextEditingController();
+    searchController = TextEditingController();
     lowerPriceController = TextEditingController();
     topPriceController = TextEditingController();
     super.initState();
@@ -40,7 +39,7 @@ class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper
 
   @override
   void dispose() {
-    _searchController.dispose();
+    searchController.dispose();
     lowerPriceController.dispose();
     topPriceController.dispose();
     super.dispose();
@@ -83,13 +82,15 @@ class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper
                 children: [
                   Expanded(
                     child: MyTextField(
-                      controller: _searchController,
+                      controller: searchController,
                       hintText: AppLocalizations.of(context)!.searchBar,
                       outoFouce: true,
                       textFieldColor: Colors.transparent,
                       hintSyleColor: blackObacityColor,
                       textFieldBorderColor: blackObacityColor,
                       onChange: (value) {
+                        setState(() {
+                        });
                       }
                       ,
                       prefixIcon: IconButton(
@@ -107,9 +108,7 @@ class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper
                       onSubmitted: (_) {},
                     ),
                   ),
-                  SizedBox(
-                    width: 4.w,
-                  ),
+                  SizedBox(width: 4.w),
                   InkWell(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
@@ -136,7 +135,7 @@ class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper
               ),
 
             StreamBuilder(
-              stream: ProductFbController().search(_searchController.text),
+              stream: ProductFbController().search(searchController.text),
               builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Center(
@@ -154,10 +153,10 @@ class _SearchPageState extends State<SearchPage> with NavigatorHelper, ImgHelper
                     shrinkWrap: true,
                     padding: EdgeInsetsDirectional.symmetric(vertical: 15.h),
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 5,
+                    itemCount: product.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        // onTap: ()=> jump(context, to: BuyerProductViewPage(product: )),
+                        onTap: ()=> jump(context, to: BuyerProductViewPage(product:product[index] )),
                         child: Row(
                           children: [
                             Container(

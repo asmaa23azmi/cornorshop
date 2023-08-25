@@ -1,3 +1,10 @@
+import '../../Helper/snack_bar_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../Fierbase/controllers/cart_fb_controller.dart';
+import '../../Models/fb/cart_model.dart';
+import '../../Providers/auth_provider.dart';
 import '../../Screens/Buyer_Screens/buyer_product_view.dart';
 import '../../Fierbase/controllers/product_fb_controller.dart';
 import '../../Helper/navigator_helper.dart';
@@ -8,6 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Const/colors.dart';
 import '../../Helper/image_helper.dart';
 import '../../Models/fb/product_model.dart';
+import '../../enums.dart';
 import '../My_Widgets/my_button.dart';
 
 class RecommendProductHomeSection extends StatefulWidget {
@@ -22,7 +30,7 @@ class RecommendProductHomeSection extends StatefulWidget {
 }
 
 class _RecommendProductHomeSectionState
-    extends State<RecommendProductHomeSection> with ImgHelper, NavigatorHelper {
+    extends State<RecommendProductHomeSection> with ImgHelper, NavigatorHelper, SnackBarHelper {
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +182,7 @@ class _RecommendProductHomeSectionState
                                     myWidth: 62,
                                     buttonColor: greenColor,
                                     borderBouttonColor: Colors.transparent,
-                                    onTap: () {},
+                                    onTap: () async => await _addToCart(product[index]),
                                   ),
                                   SizedBox(width: 10.w),
                                   InkWell(
@@ -205,5 +213,20 @@ class _RecommendProductHomeSectionState
         SizedBox(height: 15.h),
       ],
     );
+  }
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
+  Future<void>  _addToCart(ProductModel product) async {
+    !_auth.loggedIn
+        ? showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginToAdd, error: true)
+        : _auth.user?.userType == UserType.buyer.name
+        ? await CartFbController().addToCart(
+        CartModel(
+            id: const Uuid().v4(),
+            product: product,
+            buyerId: _auth.user?.id))
+        : showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginAsBuyer, error: true);
   }
 }

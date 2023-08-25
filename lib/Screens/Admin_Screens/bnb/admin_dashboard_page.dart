@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cornorshop/Fierbase/controllers/categories_fb_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../Providers/auth_provider.dart';
@@ -19,7 +18,6 @@ class AdminDashboardPage extends StatefulWidget {
 }
 
 class _AdminDashboardPageState extends State<AdminDashboardPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<int> getUserCount() async {
@@ -269,8 +267,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                               FutureBuilder<int>(
                                 future: getProductCount(),
                                 builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
                                     return SizedBox(
                                         height: 20.h,
                                         width: 20.h,

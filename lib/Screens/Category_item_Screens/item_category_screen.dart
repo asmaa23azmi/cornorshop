@@ -1,18 +1,22 @@
-import 'package:cornorshop/Screens/Buyer_Screens/buyer_product_view.dart';
-
+import '../../Helper/snack_bar_helper.dart';
+import '../../Screens/Buyer_Screens/buyer_product_view.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+import '../../Fierbase/controllers/cart_fb_controller.dart';
 import '../../Helper/navigator_helper.dart';
-
 import '../../Fierbase/controllers/product_fb_controller.dart';
 import '../../Helper/image_helper.dart';
+import '../../Models/fb/cart_model.dart';
 import '../../Models/fb/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../Const/colors.dart';
 import '../../Const/texts.dart';
 import '../../Models/fb/product_model.dart';
+import '../../Providers/auth_provider.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
+import '../../enums.dart';
 
 class CategoryItemScreen extends StatefulWidget {
   final CategoryModel? category;
@@ -24,7 +28,7 @@ class CategoryItemScreen extends StatefulWidget {
 }
 
 class _CategoryItemScreenState extends State<CategoryItemScreen>
-    with ImgHelper , NavigatorHelper{
+    with ImgHelper, NavigatorHelper, SnackBarHelper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +60,8 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
             padding: EdgeInsetsDirectional.symmetric(
                 horizontal: 14.w, vertical: 14.h),
             child: StreamBuilder(
-              stream: ProductFbController().showCategoryProducts(widget.category?.title ?? ''),
+              stream: ProductFbController()
+                  .showCategoryProducts(widget.category?.title ?? ''),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -70,13 +75,15 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
                     itemCount: product.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: ()=> jump(context, to: BuyerProductViewPage(product: product[index])),
+                        onTap: () => jump(context,
+                            to: BuyerProductViewPage(product: product[index])),
                         child: Container(
                           width: double.infinity.w,
                           //height: 100.h,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadiusDirectional.circular(14.r),
+                            borderRadius:
+                                BorderRadiusDirectional.circular(14.r),
                             border: Border.all(width: 1.w, color: greyColor),
                           ),
                           child: Row(
@@ -96,9 +103,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
                                 child: appCacheImg(product[index].img?[0].link,
                                     const SizedBox()),
                               ),
-                              SizedBox(
-                                width: 12.w,
-                              ),
+                              SizedBox(width: 12.w),
 
                               ///Product Details
                               Padding(
@@ -145,9 +150,7 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 14.h,
-                                    ),
+                                    SizedBox(height: 14.h),
 
                                     ///Action
                                     Row(
@@ -159,12 +162,12 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
                                           myHeight: 25,
                                           myWidth: 93,
                                           buttonColor: greenColor,
-                                          borderBouttonColor: Colors.transparent,
-                                          onTap: () {},
+                                          borderBouttonColor:
+                                              Colors.transparent,
+                                          onTap: () async =>
+                                              _addToCart(product[index]),
                                         ),
-                                        SizedBox(
-                                          width: 16.w,
-                                        ),
+                                        SizedBox(width: 16.w),
                                         InkWell(
                                           highlightColor: Colors.transparent,
                                           splashColor: Colors.transparent,
@@ -190,10 +193,9 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
                     ),
                   );
                 } else {
-                  return  Center(
+                  return Center(
                     child: Text(
-                      AppLocalizations.of(context)!
-                          .noProductInCategory,
+                      AppLocalizations.of(context)!.noProductInCategory,
                       style: TextStyle(
                           fontSize: 14.0.sp,
                           fontWeight: FontWeight.normal,
@@ -206,5 +208,21 @@ class _CategoryItemScreenState extends State<CategoryItemScreen>
             )),
       ),
     );
+  }
+
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
+  Future<void> _addToCart(ProductModel product) async {
+    !_auth.loggedIn
+        ? showMySnackBar(context,
+            text: AppLocalizations.of(context)!.pleaseLoginToAdd, error: true)
+        : _auth.user?.userType == UserType.buyer.name
+            ? await CartFbController().addToCart(CartModel(
+                id: const Uuid().v4(),
+                product: product,
+                buyerId: _auth.user?.id))
+            : showMySnackBar(context,
+                text: AppLocalizations.of(context)!.pleaseLoginAsBuyer,
+                error: true);
   }
 }

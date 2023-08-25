@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cornorshop/Models/fb/user_model.dart';
 import 'package:provider/provider.dart';
 import '../../../Helper/converter_helper.dart';
-import '../../../Models/fb/category_model.dart';
 import '../../../Models/fb/img_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

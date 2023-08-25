@@ -1,6 +1,12 @@
-import 'package:cornorshop/Fierbase/controllers/product_fb_controller.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../Fierbase/controllers/cart_fb_controller.dart';
+import '../../Fierbase/controllers/product_fb_controller.dart';
 
 import '../../Helper/image_helper.dart';
+import '../../Helper/snack_bar_helper.dart';
+import '../../Models/fb/cart_model.dart';
 import '../../Models/fb/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +16,10 @@ import '../../Const/texts.dart';
 import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
 import '../../Models/fb/product_model.dart';
+import '../../Providers/auth_provider.dart';
 import '../../Widgets/My_Widgets/my_button.dart';
 import '../../Widgets/My_Widgets/my_list_item.dart';
+import '../../enums.dart';
 import 'buyer_product_view.dart';
 
 class ViewVendorProfile extends StatefulWidget {
@@ -24,7 +32,7 @@ class ViewVendorProfile extends StatefulWidget {
 }
 
 class _ViewVendorProfileState extends State<ViewVendorProfile>
-    with NavigatorHelper, ImgHelper {
+    with NavigatorHelper, ImgHelper , SnackBarHelper{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -272,7 +280,7 @@ class _ViewVendorProfileState extends State<ViewVendorProfile>
                                           buttonColor: greenColor,
                                           borderBouttonColor:
                                               Colors.transparent,
-                                          onTap: () {},
+                                          onTap: () async => _addToCart(product[index]),
                                         ),
                                         const Spacer(),
                                         InkWell(
@@ -321,6 +329,23 @@ class _ViewVendorProfileState extends State<ViewVendorProfile>
     );
   }
 
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
+  Future<void>  _addToCart(ProductModel product) async {
+    !_auth.loggedIn
+        ? showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginToAdd, error: true)
+        : _auth.user?.userType == UserType.buyer.name
+        ? await CartFbController().addToCart(
+        CartModel(
+            id: const Uuid().v4(),
+            product: product,
+            buyerId: _auth.user?.id))
+        : showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginAsBuyer, error: true);
+  }
+  
+  
   Future<dynamic> _vendorPageOptionsBottomSheet(BuildContext context) {
     ///Bottom Sheet
     return showModalBottomSheet(
