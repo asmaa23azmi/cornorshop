@@ -222,6 +222,7 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
       await _auth.login;
       await CacheController()
           .setter(CacheKeys.userId, userCredential.user!.uid);
+      await CacheController().setter(CacheKeys.userType, _auth.user!.userType);
       if (context.mounted) {
         //TODO: snackBar
         // _style.index = 0;
@@ -230,7 +231,9 @@ class _LogInState extends State<LogIn> with SnackBarHelper, NavigatorHelper {
     } catch (error) {
       print(error.toString());
     }
-    setState(() => loading = false);
+   if(mounted){
+     setState(() => loading = false);
+   }
   }
 
   bool _checkData() {

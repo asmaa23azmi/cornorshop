@@ -28,6 +28,21 @@ class CartFbController{
         .snapshots();
   }
 
+  Future<bool> show(String productId, String buyerId) async {
+    var data = await _firestore
+        .collection(_collection)
+        .where('product.id', isEqualTo:  productId)
+        .where('buyerId', isEqualTo:  buyerId)
+        .get();
+
+    List<CartModel> products =
+    data.docs.map((e) => CartModel.fromJson(e.data())).toList();
+
+    if (products.isNotEmpty) return true;
+
+    return false;
+  }
+
   Future<void> deleteFromCart(CartModel cart) async{
     await _firestore.collection(_collection).doc(cart.id).delete();
   }

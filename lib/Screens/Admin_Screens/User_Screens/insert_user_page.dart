@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cornorshop/Fierbase/controllers/user_fb_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cornorshop/enums.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:provider/provider.dart';
 
+import '../../../Chache/cache_controller.dart';
 import '../../../Fierbase/controllers/fb_auth_controller.dart';
 import '../../../Fierbase/controllers/fb_storage_controller.dart';
 import '../../../Helper/image_helper.dart';
@@ -16,6 +19,7 @@ import '../../../Const/colors.dart';
 import '../../../Const/texts.dart';
 import '../../../Models/fb/img_model.dart';
 import '../../../Models/fb/user_model.dart';
+import '../../../Providers/auth_provider.dart';
 import '../../../Widgets/My_Widgets/my_button.dart';
 import '../../../Widgets/My_Widgets/my_phone_text_field.dart';
 import '../../../Widgets/My_Widgets/my_rich_text.dart';
@@ -43,6 +47,7 @@ class _InsertUserPageState extends State<InsertUserPage>
       appCountries.firstWhere((element) => element.dialCode == '970');
   String? radioValue;
   File? profileImg;
+  String? selectedItem;
 
   @override
   void initState() {
@@ -160,6 +165,43 @@ class _InsertUserPageState extends State<InsertUserPage>
             MyRichText(text: AppLocalizations.of(context)!.userType),
             SizedBox(height: 3.0.h),
             //ToDo: create a userType
+            DropdownSearch<String>(
+            popupProps: PopupProps.modalBottomSheet(
+            modalBottomSheetProps: ModalBottomSheetProps(
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusDirectional.only(
+            topStart: Radius.circular(20.r),
+            topEnd: Radius.circular(20.r),
+            ),
+            ),
+            constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.45,
+            ),
+            ),
+            showSelectedItems: true,
+            ),
+            items: _userType,
+            dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+            constraints: BoxConstraints(maxHeight: 44.h),
+            contentPadding:
+            EdgeInsetsDirectional.symmetric(horizontal: 10.w),
+            enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(14.0.r),
+            borderSide: BorderSide(
+            color: blackObacityColor,
+            ),
+            ),
+            hintText: AppLocalizations.of(context)!.chooseOne,
+            hintStyle: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.normal,
+            color: blackObacityColor,
+            ),
+            ),
+            ),
+            onChanged: (value) => selectedItem = value,
+            ),
             SizedBox(height: 12.h),
 
             ///Phone Num
@@ -383,7 +425,7 @@ class _InsertUserPageState extends State<InsertUserPage>
         address: addressController.text,
         password: passwordController.text,
         sex: radioValue,
-        //userType: selectedUserType.name,
+        userType: selectedItem,
         profileImg: null,
         description: null,
         fcm: fcmToken,
@@ -400,7 +442,15 @@ class _InsertUserPageState extends State<InsertUserPage>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterFullName, error: true);
       return false;
-    } else if (phoneNumController.text.isEmpty) {
+    } else if (selectedItem == null) {
+      showMySnackBar(context,
+          text: AppLocalizations.of(context)!.enterProductCategory);
+    return false;
+    } else if (emailController.text.isEmpty) {
+    showMySnackBar(context,
+    text: AppLocalizations.of(context)!.enterEmail, error: true);
+    return false;
+    }else if (phoneNumController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterPhoneNum, error: true);
       return false;
@@ -408,27 +458,33 @@ class _InsertUserPageState extends State<InsertUserPage>
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterEmail, error: true);
       return false;
-    } else if (!RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(emailController.text)) {
-      showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterEmailFormat, error: true);
-      return false;
-    } else if (passwordController.text.isEmpty) {
+    } else  if (passwordController.text.isEmpty) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterPassword, error: true);
       return false;
-    } else if (!RegExp(
-            r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$")
-        .hasMatch(passwordController.text)) {
-      showMySnackBar(context,
-          text: AppLocalizations.of(context)!.enterPassFormat, error: true);
-      return false;
-    } else if (radioValue == null) {
+    } else  if (radioValue == null) {
       showMySnackBar(context,
           text: AppLocalizations.of(context)!.enterGender, error: true);
       return false;
     }
     return true;
   }
+
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
+  List<String> get _userType{
+  List<String> list = [];
+  if(_auth.user?.userType == UserType.superAdmin.name){
+    list = UserType.values.where((element) => element.name != UserType.superAdmin.name).map((userType) => userType.name).toList();
+    // list.add(UserType.admin.name);
+    // list.add(UserType.vendor.name);
+    // list.add(UserType.buyer.name);
+  }
+
+  if(_auth.user?.userType == UserType.admin.name) {
+     list = UserType.values.where((element) => element.name != UserType.superAdmin.name && element.name != UserType.admin.name).map((userType) => userType.name).toList();
+  }
+
+  return list;
+}
 }

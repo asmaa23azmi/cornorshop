@@ -64,6 +64,32 @@ class UserFbController {
         .snapshots();
   }
 
+  Stream<QuerySnapshot<UserModel>> showAdmins() async* {
+    yield* _firestore
+        .collection(_collection)
+        .where('userType', isEqualTo: UserType.admin.name)
+        .orderBy('timestamp', descending: true)
+        .withConverter<UserModel>(
+      fromFirestore: (snapshot, options) =>
+          UserModel.fromJson(snapshot.data()!),
+      toFirestore: (value, options) => value.toJson(),
+    )
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<UserModel>> showUsers() async* {
+    yield* _firestore
+        .collection(_collection)
+        .where('userType',  whereIn: [UserType.vendor.name, UserType.buyer.name])
+        .orderBy('timestamp', descending: true)
+        .withConverter<UserModel>(
+      fromFirestore: (snapshot, options) =>
+          UserModel.fromJson(snapshot.data()!),
+      toFirestore: (value, options) => value.toJson(),
+    )
+        .snapshots();
+  }
+
   Stream<QuerySnapshot<UserModel>> search(String keyword) async* {
     yield* _firestore
         .collection(_collection)

@@ -324,27 +324,27 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                                           color: Colors.grey)),
                                 ],
                               ),
-                              FutureBuilder<int>(
-                                future: getCategoryCount(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return SizedBox(
-                                        height: 20.h,
-                                        width: 20.h,
-                                        child:  CircularProgressIndicator(strokeWidth: .8.w));
-                                  } else if (snapshot.hasError) {
-                                    return const Text('Error loading order count.');
-                                  } else {
-                                    int categoryCount = snapshot.data ?? 0;
-                                    return Text('$categoryCount',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 40.sp,
-                                            color: greenColor));
-                                  }
-                                },
-                              ),
+                              // FutureBuilder<int>(
+                              //   future: getCategoryCount(),
+                              //   builder: (context, snapshot) {
+                              //     if (snapshot.connectionState ==
+                              //         ConnectionState.waiting) {
+                              //       return SizedBox(
+                              //           height: 20.h,
+                              //           width: 20.h,
+                              //           child:  CircularProgressIndicator(strokeWidth: .8.w));
+                              //     } else if (snapshot.hasError) {
+                              //       return const Text('Error loading order count.');
+                              //     } else {
+                              //       int categoryCount = snapshot.data ?? 0;
+                              //       return Text('$categoryCount',
+                              //           style: TextStyle(
+                              //               fontWeight: FontWeight.bold,
+                              //               fontSize: 40.sp,
+                              //               color: greenColor));
+                              //     }
+                              //   },
+                              // ),
                             ],
                           ),
                         )

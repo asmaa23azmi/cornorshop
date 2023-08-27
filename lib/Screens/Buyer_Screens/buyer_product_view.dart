@@ -1,8 +1,8 @@
-import 'package:cornorshop/Fierbase/controllers/cart_fb_controller.dart';
-import 'package:cornorshop/Fierbase/controllers/favorite_fb_controller.dart';
-import 'package:cornorshop/Models/fb/cart_model.dart';
-import 'package:cornorshop/Models/fb/favorit_model.dart';
-import 'package:cornorshop/enums.dart';
+import '../../../Fierbase/controllers/cart_fb_controller.dart';
+import '../../../Fierbase/controllers/favorite_fb_controller.dart';
+import '../../../Models/fb/cart_model.dart';
+import '../../../Models/fb/favorit_model.dart';
+import '../../../enums.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../Fierbase/controllers/product_fb_controller.dart';
@@ -32,6 +32,13 @@ class BuyerProductViewPage extends StatefulWidget {
 class _BuyerProductViewPageState extends State<BuyerProductViewPage>
     with NavigatorHelper, ImgHelper, SnackBarHelper {
   int selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkFavoriteStatus;
+    _checkCartStatus;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +160,10 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
-                                      onTap: () async => _addToFavorite,
+                                      onTap: () async {
+                                        await _addToFavorite();
+                                        await _checkFavoriteStatus;
+                                      },
                                       child: Container(
                                         height: 38.h,
                                         width: 38.h,
@@ -162,7 +172,9 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                                             shape: BoxShape.circle),
                                         child: Center(
                                           child: Icon(
-                                            Icons.favorite_border_rounded,
+                                            result
+                                                ? Icons.favorite_rounded
+                                                : Icons.favorite_border_rounded,
                                             color: greenColor,
                                             size: 28.h,
                                           ),
@@ -293,7 +305,12 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
     );
   }
 
+  bool result = false;
+  // bool favStatus = false;
+  bool isCart = false;
+
   AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+
   ///Add To Cart
   Future<void> get _addToCart async {
     !_auth.loggedIn
@@ -302,42 +319,75 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
         : _auth.user?.userType == UserType.buyer.name
             ? await _confirm
             : showMySnackBar(context,
-                text: AppLocalizations.of(context)!.pleaseLoginAsBuyer, error: true);
+                text: AppLocalizations.of(context)!.pleaseLoginAsBuyer,
+                error: true);
   }
-  Future<void> get _confirm async{
-    var status = await CartFbController().addToCart(
-        CartModel(
-            id: const Uuid().v4(),
-            product: widget.product,
-            buyerId: _auth.user?.id));
+
+  Future<void> get _confirm async {
+    var status = false;
+    if (isCart) {
+      widget.product.quantity++;
+      print(isCart);
+    } else {
+      status = await CartFbController().addToCart(CartModel(
+          id: const Uuid().v4(),
+          product: widget.product,
+          buyerId: _auth.user?.id));
+    }
 
     if (status) {
       if (context.mounted) {
-        showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
+        showMySnackBar(context,
+            text: AppLocalizations.of(context)!.successfulProductAdded);
       }
     }
   }
+
+  Future<void> get _checkCartStatus async {
+    bool isCarted =
+        await CartFbController().show(widget.product.id!, _auth.user?.id ?? '');
+    print("Is Carted: $isCarted");
+    setState(() => isCart = isCarted);
+  }
+
   ///Add To Favorite
-  Future<void> get _addToFavorite async {
+  Future<void> _addToFavorite() async {
     !_auth.loggedIn
         ? showMySnackBar(context,
-        text: AppLocalizations.of(context)!.pleaseLoginToAddFav, error: true)
+            text: AppLocalizations.of(context)!.pleaseLoginToAddFav,
+            error: true)
         : _auth.user?.userType == UserType.buyer.name
-        ? await _confirmFavorite
-        : showMySnackBar(context,
-        text: AppLocalizations.of(context)!.pleaseLoginAsBuyerFav, error: true);
+            ? await _confirmFavorite
+            : showMySnackBar(context,
+                text: AppLocalizations.of(context)!.pleaseLoginAsBuyerFav,
+                error: true);
   }
-  Future<void> get _confirmFavorite async{
-    var status = await FavoriteFbController().addToFavorite(
-        FavoriteModel(id: const Uuid().v4(),
-            product: widget.product,
-            buyerId: _auth.user?.id));
+
+  Future<void> get _confirmFavorite async {
+    var status = false;
+    if (!result) {
+      status = await FavoriteFbController().addToFavorite(FavoriteModel(
+          id: const Uuid().v4(),
+          product: widget.product,
+          buyerId: _auth.user?.id));
+    }else{
+      await FavoriteFbController().removeFromFav(widget.product);
+      setState(() => result = false);
+    }
 
     if (status) {
       if (context.mounted) {
-        showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
+        showMySnackBar(context,
+            text: AppLocalizations.of(context)!.successfulProductAdded);
       }
     }
+  }
+
+  Future<void> get _checkFavoriteStatus async {
+    bool isFavorite = await FavoriteFbController()
+        .show(widget.product.id!, _auth.user?.id ?? '');
+    print("Is Favorite: $isFavorite");
+    setState(() => result = isFavorite);
   }
 
 }

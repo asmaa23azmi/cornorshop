@@ -215,7 +215,7 @@ class _FavoritePageState extends State<FavoritePage> with ImgHelper , NavigatorH
                                           color: Colors.red,
                                           size: 22.h,
                                         ),
-                                        onTap: () {},
+                                        onTap: () async => FavoriteFbController().removeFromFavorite(favoriteProducts[index]),
                                       ),
                                     ],
                                   ),
@@ -264,6 +264,9 @@ class _FavoritePageState extends State<FavoritePage> with ImgHelper , NavigatorH
   }
 
   ///Add To Cart
+
+  bool isCart = false;
+
   Future<void>  _addToCart(ProductModel product) async {
     !_auth.loggedIn
         ? showMySnackBar(context,
@@ -274,16 +277,28 @@ class _FavoritePageState extends State<FavoritePage> with ImgHelper , NavigatorH
   }
 
   Future<void>  _confirm(ProductModel product) async{
-    var status = await CartFbController().addToCart(
-        CartModel(
-            id: const Uuid().v4(),
-            product: product,
-            buyerId: _auth.user?.id));
+    var status = false;
+    if (isCart) {
+      product.quantity++;
+      print(isCart);
+    } else {
+      status = await CartFbController().addToCart(CartModel(
+          id: const Uuid().v4(),
+          product: product,
+          buyerId: _auth.user?.id));
+    }
 
     if (status) {
       if (context.mounted) {
         showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
       }
     }
+  }
+
+  Future<void>  _checkCartStatus(ProductModel product) async {
+    bool isCarted =
+    await CartFbController().show(product.id!, _auth.user?.id ?? '');
+    print("Is Carted: $isCarted");
+    setState(() => isCart = isCarted);
   }
 }

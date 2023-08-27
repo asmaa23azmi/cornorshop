@@ -216,6 +216,8 @@ class _RecommendProductHomeSectionState
   }
   AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
+  bool isCart = false;
+
   Future<void>  _addToCart(ProductModel product) async {
     !_auth.loggedIn
         ? showMySnackBar(context,
@@ -227,16 +229,30 @@ class _RecommendProductHomeSectionState
   }
 
   Future<void>  _confirm(ProductModel product) async{
-    var status = await CartFbController().addToCart(
-        CartModel(
-            id: const Uuid().v4(),
-            product: product,
-            buyerId: _auth.user?.id));
+ if(mounted){
+   var status = false;
+   if (isCart) {
+     product.quantity++;
+     print(isCart);
+   } else {
+     status = await CartFbController().addToCart(CartModel(
+         id: const Uuid().v4(),
+         product: product,
+         buyerId: _auth.user?.id));
+   }
 
-    if (status) {
-      if (context.mounted) {
-        showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
-      }
-    }
+   if (status) {
+     if (context.mounted) {
+       showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
+     }
+   }
+ }
+  }
+
+  Future<void>  _checkCartStatus(ProductModel product) async {
+    bool isCarted =
+    await CartFbController().show(product.id!, _auth.user?.id ?? '');
+    print("Is Carted: $isCarted");
+    setState(() => isCart = isCarted);
   }
 }

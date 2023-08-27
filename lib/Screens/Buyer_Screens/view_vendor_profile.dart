@@ -331,6 +331,8 @@ class _ViewVendorProfileState extends State<ViewVendorProfile>
 
   AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
+  bool isCart = false;
+
   Future<void>  _addToCart(ProductModel product) async {
     !_auth.loggedIn
         ? showMySnackBar(context,
@@ -342,11 +344,16 @@ class _ViewVendorProfileState extends State<ViewVendorProfile>
   }
 
   Future<void>  _confirm(ProductModel product) async{
-    var status = await CartFbController().addToCart(
-        CartModel(
-            id: const Uuid().v4(),
-            product: product,
-            buyerId: _auth.user?.id));
+    var status = false;
+    if (isCart) {
+      product.quantity++;
+      print(isCart);
+    } else {
+      status = await CartFbController().addToCart(CartModel(
+          id: const Uuid().v4(),
+          product: product,
+          buyerId: _auth.user?.id));
+    }
 
     if (status) {
       if (context.mounted) {

@@ -25,8 +25,8 @@ class _ProfilePageState extends State<ProfilePage> with NavigatorHelper {
               ? const VendorProfilePage()
               : auth.user?.userType == UserType.buyer.name
                   ? const BuyerProfilePage()
-                  : auth.user?.userType == UserType.superAdmin.name
-                      ? const MainAdminPage()
+                  : auth.user?.userType == UserType.superAdmin.name || auth.user?.userType == UserType.admin.name
+          ? const MainAdminPage()
                       : const SizedBox(),
     );
   }

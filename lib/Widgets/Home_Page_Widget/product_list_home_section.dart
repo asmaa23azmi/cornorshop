@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../Fierbase/controllers/cart_fb_controller.dart';
+import '../../Fierbase/controllers/favorite_fb_controller.dart';
 import '../../Fierbase/controllers/product_fb_controller.dart';
 import '../../Const/colors.dart';
 import '../../Helper/image_helper.dart';
 import '../../Helper/snack_bar_helper.dart';
 import '../../Models/fb/cart_model.dart';
+import '../../Models/fb/favorit_model.dart';
 import '../../Models/fb/product_model.dart';
 import '../../Providers/auth_provider.dart';
 import '../../enums.dart';
@@ -51,7 +53,8 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const SizedBox();
             } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-              List<ProductModel> product = snapshot.data!.docs.map((e) => e.data()).toList();
+              List<ProductModel> product = snapshot.data!.docs.map((e) =>
+                  e.data()).toList();
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
@@ -67,7 +70,8 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () =>
-                        jump(context, to:  BuyerProductViewPage(product: product[index])),
+                        jump(context,
+                            to: BuyerProductViewPage(product: product[index])),
                     child: Container(
                       padding: EdgeInsetsDirectional.symmetric(
                           horizontal: 4.w, vertical: 4.h),
@@ -94,7 +98,8 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
                                 BorderRadiusDirectional.circular(4.r),
                               ),
                               child: appCacheImg(
-                                  product[index].img?[0].link, const SizedBox()),
+                                  product[index].img?[0].link,
+                                  const SizedBox()),
                             ),
                           ),
                           SizedBox(height: 7.h),
@@ -138,18 +143,20 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
                           Row(
                             children: [
                               Container(
-                                width: 16.w,
-                                height: 16.w,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey.shade200,
-                                ),
-                                child: appCacheImg('${product[index].userModel?.profileImg?.link}', Icon(
-                                  Icons.person,
-                                  size: 12.h,
-                                  color: Colors.grey.shade300,
-                                ))
+                                  width: 16.w,
+                                  height: 16.w,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey.shade200,
+                                  ),
+                                  child: appCacheImg(
+                                      '${product[index].userModel?.profileImg
+                                          ?.link}', Icon(
+                                    Icons.person,
+                                    size: 12.h,
+                                    color: Colors.grey.shade300,
+                                  ))
                               ),
                               SizedBox(width: 4.w),
                               Text(
@@ -179,6 +186,7 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
                           ///Actions
                           Row(
                             children: [
+                              ///add to cart
                               MyButton(
                                 text: AppLocalizations.of(context)!.addToCart,
                                 myFontSize: 8,
@@ -186,18 +194,27 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
                                 myWidth: 100,
                                 buttonColor: greenColor,
                                 borderBouttonColor: Colors.transparent,
-                                onTap: () async => await _addToCart(product[index]),
+                                onTap: () async =>
+                                await _addToCart(product[index]),
                               ),
                               const Spacer(),
+                              ///add to fav
                               InkWell(
                                 highlightColor: Colors.transparent,
                                 splashColor: Colors.transparent,
                                 child: Icon(
-                                  Icons.favorite_border_rounded,
+                                  result ?  Icons.favorite_rounded : Icons.favorite_border_rounded,
                                   color: darkBlue,
                                   size: 24.h,
                                 ),
-                                onTap: () {},
+                                onTap: () async{
+                                      if(result){
+                                      _removeFromFav(product[index]);
+                                      }else{
+                                      await _addToFavorite(product[index]);
+                                      }
+                                   await _checkFavoriteStatus(product[index]);
+                                      },
                               ),
                               SizedBox(width: 24.w,)
                             ],
@@ -216,29 +233,87 @@ class _ProductListHomeSectionState extends State<ProductListHomeSection>
       ],
     );
   }
-  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
-  Future<void>  _addToCart(ProductModel product) async {
+  AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
+  bool result = false;
+  bool isCart = false;
+
+  ///add to cart
+  Future<void> _addToCart(ProductModel product) async {
     !_auth.loggedIn
         ? showMySnackBar(context,
         text: AppLocalizations.of(context)!.pleaseLoginToAdd, error: true)
         : _auth.user?.userType == UserType.buyer.name
         ? await _confirm(product)
-        : showMySnackBar(context, text: AppLocalizations.of(context)!.pleaseLoginAsBuyer, error: true);
+        : showMySnackBar(
+        context, text: AppLocalizations.of(context)!.pleaseLoginAsBuyer,
+        error: true);
   }
 
-  Future<void>  _confirm(ProductModel product) async{
-    var status = await CartFbController().addToCart(
-        CartModel(
-            id: const Uuid().v4(),
-            product: product,
-            buyerId: _auth.user?.id));
+  Future<void> _confirm(ProductModel product) async {
+    var status = false;
+    if (isCart) {
+      product.quantity++;
+      print(isCart);
+    } else {
+      status = await CartFbController().addToCart(CartModel(
+          id: const Uuid().v4(),
+          product: product,
+          buyerId: _auth.user?.id));
+    }
 
     if (status) {
       if (context.mounted) {
-        showMySnackBar(context, text: AppLocalizations.of(context)!.successfulProductAdded);
+        showMySnackBar(context,
+            text: AppLocalizations.of(context)!.successfulProductAdded);
       }
     }
   }
-}
 
+  Future<void>  _checkCartStatus(ProductModel product) async {
+
+    bool isCarted =
+    await CartFbController().show(product.id!, _auth.user?.id ?? '');
+    print("Is Carted: $isCarted");
+    setState(() => isCart = isCarted);
+  }
+
+  ///add to fav
+  Future<void> _addToFavorite(ProductModel product) async {
+    !_auth.loggedIn
+        ? showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginToAddFav, error: true)
+        : _auth.user?.userType == UserType.buyer.name
+        ? await _confirmFavorite(product)
+        : showMySnackBar(context,
+        text: AppLocalizations.of(context)!.pleaseLoginAsBuyerFav, error: true);
+  }
+
+  Future<void> _confirmFavorite(ProductModel product) async {
+    var status = await FavoriteFbController().addToFavorite(FavoriteModel(
+        id: const Uuid().v4(),
+        product: product,
+        buyerId: _auth.user?.id));
+
+    if (status) {
+      if (context.mounted) {
+        showMySnackBar(context,
+            text: AppLocalizations.of(context)!.successfulProductAdded);
+        // setState(() => favStatus  = status);
+        // print('favStatus: ${favStatus}');
+      }
+    }
+  }
+
+  ///remove from fav
+  Future<void> _removeFromFav(ProductModel product) async {
+    await FavoriteFbController().removeFromFav(product);
+  }
+
+  Future<void> _checkFavoriteStatus(ProductModel product) async {
+    bool isFavorite = await FavoriteFbController().show(
+        product.id!, _auth.user?.id ?? '');
+    print("Is Favorite: $isFavorite");
+    setState(() => result = isFavorite);
+  }
+}

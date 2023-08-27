@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> with NavigatorHelper {
               const FavoritePage(),
               const ProfilePage(),
             ][style.index],
-            bottomNavigationBar: auth.user?.userType == UserType.superAdmin.name
+            bottomNavigationBar: auth.user?.userType == UserType.superAdmin.name || auth.user?.userType == UserType.admin.name
                 ? const SizedBox.shrink()
                 : SizedBox(
                     // height: 60.h,
