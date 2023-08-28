@@ -1,6 +1,6 @@
-import 'package:cornorshop/Fierbase/controllers/product_fb_controller.dart';
-import 'package:cornorshop/Helper/image_helper.dart';
-import 'package:cornorshop/Models/fb/product_model.dart';
+import '../../../Fierbase/controllers/product_fb_controller.dart';
+import '../../../Helper/image_helper.dart';
+import '../../../Models/fb/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +12,7 @@ import '../../../Widgets/My_Widgets/my_list_item.dart';
 import '../../../Helper/navigator_helper.dart';
 import '../../../Screens/Vendor_Screens/product_screens/insert_product_page.dart';
 import '../../../Screens/Vendor_Screens/product_screens/Product_Promotion_Screens/product_promotion_target.dart';
+import '../../Buyer_Screens/product_comments_page.dart';
 
 class ProductViewPage extends StatefulWidget {
   final ProductModel productModel;
@@ -263,6 +264,17 @@ bool loading = false;
                           color: darkBlue,
                         ),
                       ),
+
+                      SizedBox(height: 10.h),
+
+                      ///display comment
+                      InkWell(
+                          onTap: ()=> jump(context, to:  ProductCommentPage(product: product)),
+                          child: Text(AppLocalizations.of(context)!.viewComments,
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 12.sp
+                            ),)),
                     ],
                   );
                 } else {

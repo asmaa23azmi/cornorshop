@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../../Screens/Buyer_Screens/product_comments_page.dart';
 import '../../../Fierbase/controllers/cart_fb_controller.dart';
 import '../../../Fierbase/controllers/favorite_fb_controller.dart';
 import '../../../Models/fb/cart_model.dart';
@@ -31,6 +34,7 @@ class BuyerProductViewPage extends StatefulWidget {
 
 class _BuyerProductViewPageState extends State<BuyerProductViewPage>
     with NavigatorHelper, ImgHelper, SnackBarHelper {
+
   int selectedIndex = 0;
 
   @override
@@ -39,6 +43,8 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
     _checkFavoriteStatus;
     _checkCartStatus;
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -284,6 +290,18 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
                                 color: darkBlue,
                               ),
                             ),
+                            SizedBox(height: 10.h),
+
+                            ///display comment
+                            InkWell(
+                              onTap: ()=> jump(context, to:  ProductCommentPage(product: product)),
+                                child: Text(AppLocalizations.of(context)!.viewComments,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 12.sp
+                                ),)),
+
+
                           ],
                         ),
                       ),
@@ -332,7 +350,8 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
       status = await CartFbController().addToCart(CartModel(
           id: const Uuid().v4(),
           product: widget.product,
-          buyerId: _auth.user?.id));
+          buyerId: _auth.user?.id,
+          timestamp: Timestamp.now()));
     }
 
     if (status) {
@@ -369,7 +388,8 @@ class _BuyerProductViewPageState extends State<BuyerProductViewPage>
       status = await FavoriteFbController().addToFavorite(FavoriteModel(
           id: const Uuid().v4(),
           product: widget.product,
-          buyerId: _auth.user?.id));
+          buyerId: _auth.user?.id,
+           timestamp: Timestamp.now()));
     }else{
       await FavoriteFbController().removeFromFav(widget.product);
       setState(() => result = false);
