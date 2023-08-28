@@ -1,3 +1,4 @@
+import '../../../Helper/hash_map_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,7 @@ class ManageUsersPage extends StatefulWidget {
 }
 
 class _ManageUsersPageState extends State<ManageUsersPage>
-    with NavigatorHelper, ImgHelper {
+    with NavigatorHelper, ImgHelper , HashMapHelper{
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -165,24 +166,6 @@ class _ManageUsersPageState extends State<ManageUsersPage>
                                 ],
                               ),
 
-                              ///user password
-                              Row(
-                                children: [
-                                  Text(
-                                    '${AppLocalizations.of(context)!.password} : ',
-                                    style: TextStyle(
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: darkBlue),
-                                  ),
-                                  Text(
-                                    '${users[index].password}',
-                                    style: TextStyle(
-                                        fontSize: 13.sp, color: darkBlue),
-                                  ),
-                                ],
-                              ),
-
                               ///user gender(sex)
                               Row(
                                 children: [
@@ -234,6 +217,26 @@ class _ManageUsersPageState extends State<ManageUsersPage>
                                     //'',
                                     style: TextStyle(
                                         fontSize: 13.sp, color: darkBlue),
+                                  ),
+                                ],
+                              ),
+
+                              ///user password
+                              Row(
+                                children: [
+                                  Text(
+                                    '${AppLocalizations.of(context)!.password} : ',
+                                    style: TextStyle(
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: darkBlue),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      hashPassword('${users[index].password}'),
+                                      style: TextStyle(
+                                          fontSize: 13.sp, color: darkBlue),
+                                    ),
                                   ),
                                 ],
                               ),

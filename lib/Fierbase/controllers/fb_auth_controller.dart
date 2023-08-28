@@ -36,9 +36,10 @@ class FbAuthController with SnackBarHelper{
           email: email, password: password);
       return data;
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'invalid-email') {
-        showMySnackBar(context, text: AppLocalizations.of(context)!.invalidEmail, error: true);
-      } else if (error.code == 'wrong-password') {
+      // if (error.code == 'invalid-email') {
+      //   showMySnackBar(context, text: AppLocalizations.of(context)!.invalidEmail, error: true);
+      // } else
+        if (error.code == 'wrong-password') {
         showMySnackBar(context, text: AppLocalizations.of(context)!.wrongPassword, error: true);
       } else if (error.code == 'user-not-found') {
         showMySnackBar(context, text: AppLocalizations.of(context)!.userNotFound, error: true);

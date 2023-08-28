@@ -107,7 +107,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                       children: [
                         Container(
                           padding: EdgeInsetsDirectional.symmetric(
-                              horizontal: 8.w, vertical: 15.h),
+                              horizontal: 8.w, vertical: 8.h),
                           width: 120.w,
                           height: 120.w,
                           decoration: BoxDecoration(
@@ -165,7 +165,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                         ),
                         Container(
                           padding: EdgeInsetsDirectional.symmetric(
-                              horizontal: 8.w, vertical: 15.h),
+                              horizontal: 8.w, vertical: 8.h),
                           width: 120.w,
                           height: 120.w,
                           decoration: BoxDecoration(
@@ -231,7 +231,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                       children: [
                         Container(
                           padding: EdgeInsetsDirectional.symmetric(
-                              horizontal: 8.w, vertical: 15.h),
+                              horizontal: 8.w, vertical: 8.h),
                           width: 120.w,
                           height: 120.w,
                           decoration: BoxDecoration(

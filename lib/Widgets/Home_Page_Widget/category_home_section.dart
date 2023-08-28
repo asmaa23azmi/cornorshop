@@ -1,4 +1,5 @@
-import '../../Const/texts.dart';
+import 'package:shimmer/shimmer.dart';
+
 import '../../Helper/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +8,6 @@ import '../../Helper/navigator_helper.dart';
 import '../../Const/colors.dart';
 import '../../Models/fb/category_model.dart';
 import '../../Fierbase/controllers/categories_fb_controller.dart';
-import '../../Screens/Bnb_Screens/category_page.dart';
 import '../../Screens/Category_item_Screens/item_category_screen.dart';
 
 class CategoryHomeSection extends StatefulWidget {
@@ -27,7 +27,7 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection>
       stream: CategoriesFbController().readCategory(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox();
+          return const CategoryLoadingShimmer();
         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
           List<CategoryModel> categoryItems =
               snapshot.data!.docs.map((e) => e.data()).toList();
@@ -119,6 +119,71 @@ class _CategoryHomeSectionState extends State<CategoryHomeSection>
           return const SizedBox();
         }
       },
+    );
+  }
+}
+
+class CategoryLoadingShimmer extends StatelessWidget {
+  const CategoryLoadingShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.black.withOpacity(0.04),
+      highlightColor: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 8.h,
+            width: 120.w,
+            padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadiusDirectional.circular(8.r),
+              color: Colors.grey,
+            ),
+          ),
+          SizedBox(height: 6.h),
+         SizedBox(
+           height: 100.h,
+           child: ListView.separated(
+             padding: EdgeInsetsDirectional.only(start: 14.w,end: 14.w),
+             physics: const BouncingScrollPhysics(),
+             shrinkWrap: true,
+             scrollDirection: Axis.horizontal,
+             itemCount: 4,
+               itemBuilder: (context, index) {
+                 return  Column(
+                   children: [
+                     Container(
+                       width: 70.h,
+                      // height: 100.h,
+                       padding: EdgeInsetsDirectional.symmetric(horizontal: 14.w),
+                       decoration: BoxDecoration(
+                         borderRadius: BorderRadiusDirectional.circular(10.r),
+                         color:Colors.grey,
+                       ),
+                     ),
+                     SizedBox(height: 4.h),
+                     Container(
+                       width: 30.w,
+                       height: 7.h,
+                       decoration: BoxDecoration(
+                           borderRadius:BorderRadiusDirectional.circular(8.r),
+                         color: Colors.grey,
+                       ),
+                     )
+                   ],
+                 );
+               },
+               separatorBuilder: (context, index) => SizedBox(width: 6.w) ,
+             ),
+         ),
+
+        ],
+      ),
     );
   }
 }

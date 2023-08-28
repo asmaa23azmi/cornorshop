@@ -1,3 +1,4 @@
+import '../../../Helper/hash_map_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Fierbase/controllers/user_fb_controller.dart';
@@ -22,7 +23,7 @@ class ManageAdminPage extends StatefulWidget {
   State<ManageAdminPage> createState() => _ManageAdminPageState();
 }
 
-class _ManageAdminPageState extends State<ManageAdminPage> with NavigatorHelper , ImgHelper{
+class _ManageAdminPageState extends State<ManageAdminPage> with NavigatorHelper , ImgHelper, HashMapHelper{
 
   AuthProvider get _auth => Provider.of<AuthProvider>(context, listen: false);
 
@@ -116,22 +117,7 @@ class _ManageAdminPageState extends State<ManageAdminPage> with NavigatorHelper 
                                 ),
                               ],
                             ),
-                            ///admin password
-                            Row(
-                              children: [
-                                Text(
-                                  '${AppLocalizations.of(context)!.password} : ',
-                                  style: TextStyle(
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: darkBlue),
-                                ),
-                                Text(
-                                  admin[index].password ?? '',
-                                  style: TextStyle(fontSize: 13.sp, color: darkBlue),
-                                ),
-                              ],
-                            ),
+                           
                             ///admin type
                             Row(
                               children: [
@@ -148,6 +134,26 @@ class _ManageAdminPageState extends State<ManageAdminPage> with NavigatorHelper 
                                 ),
                               ],
                             ),
+
+                            ///admin password
+                            Row(
+                              children: [
+                                Text(
+                                  '${AppLocalizations.of(context)!.password} : ',
+                                  style: TextStyle(
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: darkBlue),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                   hashPassword( '${admin[index].password}'),
+                                    style: TextStyle(fontSize: 13.sp, color: darkBlue),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            
                             ///admin img
                             Row(
                               children: [
